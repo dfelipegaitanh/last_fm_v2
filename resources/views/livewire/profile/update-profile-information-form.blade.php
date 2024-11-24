@@ -8,6 +8,8 @@ use Livewire\Volt\Component;
 
 new class extends Component
 {
+    public string $username = '';
+    public string $lastfmUser = '';
     public string $name = '';
     public string $email = '';
 
@@ -16,6 +18,8 @@ new class extends Component
      */
     public function mount(): void
     {
+        $this->username = Auth::user()->username;
+        $this->lastfmUser = Auth::user()->lastfmUser;
         $this->name = Auth::user()->name;
         $this->email = Auth::user()->email;
     }
@@ -27,12 +31,9 @@ new class extends Component
     {
         $user = Auth::user();
 
-        $validated = $this->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
-        ]);
+        $validatedData = $this->validate($this->validationRules($user->id));
 
-        $user->fill($validated);
+        $user->fill($validatedData);
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
@@ -41,6 +42,18 @@ new class extends Component
         $user->save();
 
         $this->dispatch('profile-updated', name: $user->name);
+    }
+
+    private function validationRules(int $userId): array
+    {
+        $uniqueRule = Rule::unique(User::class)->ignore($userId);
+
+        return [
+            'username' => ['required', $uniqueRule],
+            'lastfmUser' => ['required', $uniqueRule],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', $uniqueRule],
+        ];
     }
 
     /**
@@ -75,8 +88,23 @@ new class extends Component
 
     <form wire:submit="updateProfileInformation" class="mt-6 space-y-6">
         <div>
+            <x-input-label for="username" :value="__('User Name')"/>
+            <x-text-input wire:model="username" id="username" name="username" type="text" class="mt-1 block w-full"
+                          required autofocus autocomplete="username"/>
+            <x-input-error class="mt-2" :messages="$errors->get('username')"/>
+        </div>
+
+        <div>
+            <x-input-label for="name" :value="__('Lastfm User')"/>
+            <x-text-input wire:model="lastfmUser" id="lastfmUser" name="lastfmUser" type="text"
+                          class="mt-1 block w-full" required autocomplete="lastfmUser"/>
+            <x-input-error class="mt-2" :messages="$errors->get('lastfmUser')"/>
+        </div>
+
+        <div>
             <x-input-label for="name" :value="__('Name')" />
-            <x-text-input wire:model="name" id="name" name="name" type="text" class="mt-1 block w-full" required autofocus autocomplete="name" />
+            <x-text-input wire:model="name" id="name" name="name" type="text" class="mt-1 block w-full" required
+                          autocomplete="name"/>
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
