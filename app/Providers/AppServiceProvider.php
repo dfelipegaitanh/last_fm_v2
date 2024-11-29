@@ -24,6 +24,6 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(TelescopeServiceProvider::class);
         }
 
-//        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
+        //        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
     }
 }
