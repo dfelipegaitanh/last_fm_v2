@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\LastFm\GetUser;
+use App\Livewire\LastFm\GetUser\GetUser;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
