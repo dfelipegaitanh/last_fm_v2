@@ -3,18 +3,22 @@
 namespace App\Livewire\LastFm\GetUser;
 
 use App\Models\User;
+use App\Services\LastFmService;
 use Livewire\Component;
 
 class ButtonGetUserInfo extends Component
 {
     public User $user;
 
-    public string $lastfmUser;
+    public string $lastFmUsername;
+
+    public LastFmService $lastFmService;
+
 
     public function mount()
     {
         $this->user = auth()->user();
-        $this->lastfmUser = $this->user->lastfmUser;
+        $this->lastFmUsername = $this->user->lastfmUser;
 
     }
 
@@ -23,8 +27,10 @@ class ButtonGetUserInfo extends Component
         return view('livewire.last-fm.get-user.button-get-user-info');
     }
 
-    public function getUser(): void
+    public function getUser(LastFmService $last_fm_service): void
     {
-        dump($this->user);
+
+        $userInfo = $last_fm_service->userInfo($this->lastFmUsername);
+        dump($userInfo);
     }
 }
