@@ -2,6 +2,7 @@
 
 namespace App\Livewire\LastFm\GetUser;
 
+use App\Models\LastFmUser;
 use App\Models\User;
 use App\Services\LastFmService;
 use Livewire\Component;
@@ -13,7 +14,6 @@ class ButtonGetUserInfo extends Component
     public string $lastFmUsername;
 
     public LastFmService $lastFmService;
-
 
     public function mount()
     {
@@ -31,6 +31,13 @@ class ButtonGetUserInfo extends Component
     {
 
         $userInfo = $last_fm_service->userInfo($this->lastFmUsername);
-        dump($userInfo);
+        $this->user->can('saveLastFmUser', [User::class, $userInfo]);
+
+        $lastFmUser = LastFmUser::firstOrCreate([
+            'name' => $userInfo['name'],
+        ]);
+
+        dump($lastFmUser);
+
     }
 }

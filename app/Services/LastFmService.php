@@ -13,7 +13,7 @@ class LastFmService
         $this->lastfm = $lastfm;
     }
 
-    public function userInfo(string $userName)
+    public function userInfo(string $userName): array
     {
         return $this->lastfm->userInfo(username: $userName)->get();
 
