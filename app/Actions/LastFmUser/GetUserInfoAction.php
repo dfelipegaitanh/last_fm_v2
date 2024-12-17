@@ -8,24 +8,28 @@ use App\Services\LastFmService;
 
 class GetUserInfoAction
 {
+    protected LastFmService $lastFmService;
 
-    public function execute(User $user, string $lastFmUsername, LastFmService $lastFmService): LastFmUser
+    public function __construct(LastFmService $lastFmService)
     {
-        $userInfo = $lastFmService->userInfo($lastFmUsername);
+        $this->lastFmService = $lastFmService;
+    }
 
-        // Asegúrate de que el usuario tenga permiso
-        if ( ! $user->can('saveLastFmUser', [User::class, $userInfo])) {
-            throw new \Exception('No tienes permiso para realizar esta acción.');
-        }
+    /**
+     * @throws \Exception
+     */
+    public function execute(string $lastFmUsername): LastFmUser
+    {
+        $userInfo = $this->lastFmService->userInfo($lastFmUsername);
+        auth()->user()->can('saveLastFmUser', [User::class, $userInfo['name']]);
 
-        // Crea o actualiza el registro del usuario en LastFmUser
         return LastFmUser::firstOrCreate(
-            ['user_id' => $user->id],
+            ['user_id' => auth()->user()->id],
             [
-                'name'       => $userInfo['name'],
+                'name'    => $userInfo['name'],
                 'subscriber' => $userInfo['subscriber'],
-                'country'    => $userInfo['country'],
-                'url'        => $userInfo['url'],
+                'country' => $userInfo['country'],
+                'url'     => $userInfo['url'],
                 'registered' => $userInfo['registered'],
             ],
         );

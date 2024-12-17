@@ -6,9 +6,10 @@ use App\Models\User;
 
 class UserPolicy
 {
-    public function saveLastFmUser(User $user, array $data)
+    public function saveLastFmUser(User $user, string $lastFmUser)
     {
-        if ($user->lastfmUser === $data['name']) {
+
+        if($user->lastfmUser === $lastFmUser) {
             return true;
         }
         abort(403);

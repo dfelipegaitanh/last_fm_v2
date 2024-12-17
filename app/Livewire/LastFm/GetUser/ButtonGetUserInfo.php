@@ -5,6 +5,7 @@ namespace App\Livewire\LastFm\GetUser;
 use App\Actions\LastFmUser\GetUserInfoAction;
 use App\Models\User;
 use App\Services\LastFmService;
+use Exception;
 use Livewire\Component;
 
 class ButtonGetUserInfo extends Component
@@ -28,12 +29,12 @@ class ButtonGetUserInfo extends Component
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    public function getUser(GetUserInfoAction $action, LastFmService $lastFmService): void
+    public function getUser(GetUserInfoAction $action): void
     {
 
-        $lastFmUser = $action->execute($this->user, $this->lastFmUsername, $lastFmService);
+        $lastFmUser = $action->execute($this->lastFmUsername);
 
         // Opcional: haz algo con $lastFmUser
         dump($lastFmUser->toArray());
