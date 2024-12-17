@@ -31,13 +31,12 @@ class ButtonGetUserInfo extends Component
     /**
      * @throws Exception
      */
-    public function getUser(GetUserInfoAction $action): void
+    public function getUser(GetUserInfoAction $getUserInfoAction): void
     {
 
-        $lastFmUser = $action->execute($this->lastFmUsername);
+        $lastFmUser = $getUserInfoAction->execute($this->lastFmUsername);
 
-        // Opcional: haz algo con $lastFmUser
-        dump($lastFmUser->toArray());
+        $this->dispatch('user-info-updated', lastFmUser: $lastFmUser);
 
     }
 }
