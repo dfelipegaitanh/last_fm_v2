@@ -34,10 +34,16 @@ class ButtonGetUserInfo extends Component
         $this->user->can('saveLastFmUser', [User::class, $userInfo]);
 
         $lastFmUser = LastFmUser::firstOrCreate([
+            'user_id' => $this->user->id,
+        ], [
             'name' => $userInfo['name'],
+            'subscriber' => $userInfo['subscriber'],
+            'country' => $userInfo['country'],
+            'url' => $userInfo['url'],
+            'registered' => $userInfo['registered'],
         ]);
 
-        dump($lastFmUser);
+        dump($lastFmUser->toArray());
 
     }
 }

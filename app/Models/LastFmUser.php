@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class LastFmUser extends Model
 {
+    protected $fillable = [
+        'user_id',
+        'name',
+        'subscriber',
+        'country',
+        'url',
+        'registered',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
