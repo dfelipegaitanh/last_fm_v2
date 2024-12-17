@@ -2,7 +2,7 @@
 
 namespace App\Livewire\LastFm\GetUser;
 
-use App\Models\LastFmUser;
+use App\Actions\LastFmUser\GetUserInfoAction;
 use App\Models\User;
 use App\Services\LastFmService;
 use Livewire\Component;
@@ -27,22 +27,15 @@ class ButtonGetUserInfo extends Component
         return view('livewire.last-fm.get-user.button-get-user-info');
     }
 
-    public function getUser(LastFmService $last_fm_service): void
+    /**
+     * @throws \Exception
+     */
+    public function getUser(GetUserInfoAction $action, LastFmService $lastFmService): void
     {
 
-        $userInfo = $last_fm_service->userInfo($this->lastFmUsername);
-        $this->user->can('saveLastFmUser', [User::class, $userInfo]);
+        $lastFmUser = $action->execute($this->user, $this->lastFmUsername, $lastFmService);
 
-        $lastFmUser = LastFmUser::firstOrCreate([
-            'user_id' => $this->user->id,
-        ], [
-            'name' => $userInfo['name'],
-            'subscriber' => $userInfo['subscriber'],
-            'country' => $userInfo['country'],
-            'url' => $userInfo['url'],
-            'registered' => $userInfo['registered'],
-        ]);
-
+        // Opcional: haz algo con $lastFmUser
         dump($lastFmUser->toArray());
 
     }
