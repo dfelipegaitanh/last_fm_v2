@@ -4,6 +4,7 @@ namespace App\Livewire\LastFm\GetUser;
 
 use App\Actions\LastFmUser\GetUserInfoAction;
 use App\Models\User;
+use App\Services\DateService;
 use App\Services\LastFmService;
 use Exception;
 use Livewire\Component;
@@ -36,7 +37,7 @@ class ButtonGetUserInfo extends Component
 
         $lastFmUser = $getUserInfoAction->execute($this->lastFmUsername);
 
-        $this->dispatch('user-info-updated', lastFmUser: $lastFmUser);
+        $this->dispatch('userInfo:updateLastFmUser', lastFmUser: $lastFmUser);
 
     }
 }

@@ -3,7 +3,7 @@
     @if ($lastFmUser !== null)
         <p class="text-gray-600">Nombre del usuario: {{ $lastFmUser['name'] }}</p>
         <p class="text-gray-600">País: {{ $lastFmUser['country'] }}</p>
-        <p class="text-gray-600">Fecha de registro: {{ \Carbon\Carbon::createFromTimestamp($lastFmUser['registered']['unixtime'])->toDateTimeString() }}</p>
+        <p class="text-gray-600">Fecha de registro: {{ $lastFmUser['registered'] }}</p>
     @else
         <p class="text-gray-500">La información del usuario de LastFM aún no está disponible.</p>
     @endif
