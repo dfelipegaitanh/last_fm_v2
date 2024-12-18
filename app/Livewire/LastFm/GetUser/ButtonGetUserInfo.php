@@ -2,27 +2,11 @@
 
 namespace App\Livewire\LastFm\GetUser;
 
-use App\Actions\LastFmUser\GetUserInfoAction;
-use App\Models\User;
-use App\Services\DateService;
-use App\Services\LastFmService;
 use Exception;
 use Livewire\Component;
 
 class ButtonGetUserInfo extends Component
 {
-    public User $user;
-
-    public string $lastFmUsername;
-
-    public LastFmService $lastFmService;
-
-    public function mount()
-    {
-        $this->user = auth()->user();
-        $this->lastFmUsername = $this->user->lastfmUser;
-
-    }
 
     public function render()
     {
@@ -32,12 +16,10 @@ class ButtonGetUserInfo extends Component
     /**
      * @throws Exception
      */
-    public function getUser(GetUserInfoAction $getUserInfoAction): void
+    public function getUser(): void
     {
-
-        $lastFmUser = $getUserInfoAction->execute($this->lastFmUsername);
-
-        $this->dispatch('userInfo:updateLastFmUser', lastFmUser: $lastFmUser);
+        $this->dispatch('userInfo:clearInfo');
+        $this->dispatch('userInfo:updateLastFmUser');
 
     }
 }
