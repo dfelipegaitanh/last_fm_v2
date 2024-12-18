@@ -21,6 +21,11 @@ class LastFmUser extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function lastFmGlobalSongsStatistics(): BelongsTo
+    {
+        return $this->belongsTo(LastFmGlobalSongsStatistics::class);
+    }
+
     protected function casts(): array
     {
         return [
