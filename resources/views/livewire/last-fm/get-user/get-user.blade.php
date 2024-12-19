@@ -7,6 +7,7 @@
 
         <div class="w-3/4">
             <livewire:last-fm.get-user.user-info/>
+            <livewire:last-fm.statistics.global-statistics/>
         </div>
 
     </div>
