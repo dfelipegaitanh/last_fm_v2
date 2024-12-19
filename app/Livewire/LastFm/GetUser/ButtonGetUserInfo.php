@@ -3,14 +3,9 @@
 namespace App\Livewire\LastFm\GetUser;
 
 use App\Livewire\Component;
-use Livewire\Attributes\Lazy;
 
-;
-
-#[Lazy]
 class ButtonGetUserInfo extends Component
 {
-
     public function placeHolder()
     {
         return view('spinner.spiner-no-border');

@@ -6,10 +6,8 @@ use App\Actions\LastFmUser\GetUserInfoAction;
 use App\Livewire\Component;
 use App\Models\LastFmUser;
 use App\Services\DateService;
-use Livewire\Attributes\Lazy;
 use Livewire\Attributes\On;
 
-#[Lazy]
 class UserInfo extends Component
 {
     public $lastFmUser;
@@ -30,10 +28,7 @@ class UserInfo extends Component
         $this->reset('lastFmUser');
     }
 
-    public function mount()
-    {
-//        sleep(1);
-    }
+    public function mount() {}
 
     public function render()
     {
