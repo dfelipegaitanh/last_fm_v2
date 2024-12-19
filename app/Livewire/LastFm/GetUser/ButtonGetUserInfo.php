@@ -2,8 +2,10 @@
 
 namespace App\Livewire\LastFm\GetUser;
 
+use App\Livewire\Component;
 use Livewire\Attributes\Lazy;
-use Livewire\Component;
+
+;
 
 #[Lazy]
 class ButtonGetUserInfo extends Component

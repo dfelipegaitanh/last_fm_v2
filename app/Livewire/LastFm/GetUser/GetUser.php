@@ -2,7 +2,7 @@
 
 namespace App\Livewire\LastFm\GetUser;
 
-use Livewire\Component;
+use App\Livewire\Component;
 
 class GetUser extends Component
 {
