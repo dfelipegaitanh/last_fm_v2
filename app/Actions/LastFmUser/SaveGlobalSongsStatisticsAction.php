@@ -5,7 +5,7 @@ namespace App\Actions\LastFmUser;
 use App\Models\LastFmGlobalSongsStatistics;
 use App\Models\LastFmUser;
 
-class saveGlobalSongsStatisticsAction
+class SaveGlobalSongsStatisticsAction
 {
 
     public function execute(LastFmUser $lastFmUser, array $userInfo): void

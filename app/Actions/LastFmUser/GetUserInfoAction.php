@@ -9,11 +9,11 @@ use App\Services\LastFmService;
 class GetUserInfoAction
 {
     protected LastFmService $lastFmService;
-    protected saveGlobalSongsStatisticsAction $saveGlobalSongsStatisticsAction;
+    protected SaveGlobalSongsStatisticsAction $saveGlobalSongsStatisticsAction;
 
     public function __construct(
         LastFmService $lastFmService,
-        saveGlobalSongsStatisticsAction $saveGlobalSongsStatisticsAction
+        SaveGlobalSongsStatisticsAction $saveGlobalSongsStatisticsAction
     )
     {
         $this->lastFmService = $lastFmService;
