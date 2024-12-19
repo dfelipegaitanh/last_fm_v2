@@ -18,9 +18,14 @@ class UserInfo extends Component
     #[On('userInfo:updateLastFmUser')]
     public function updateLastFmUser(DateService $dateService, GetUserInfoAction $getUserInfoAction): void
     {
-        $this->reset('lastFmUser');
-
+        $this->clearLastFmUser();
         $this->lastFmUser = $this->getLastFmUser($getUserInfoAction, $dateService);
+    }
+
+    #[On('userInfo:clearLastFmUser')]
+    public function clearLastFmUser(): void
+    {
+        $this->reset('lastFmUser');
     }
 
     public function render()
