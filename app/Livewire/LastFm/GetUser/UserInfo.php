@@ -5,9 +5,11 @@ namespace App\Livewire\LastFm\GetUser;
 use App\Actions\LastFmUser\GetUserInfoAction;
 use App\Models\LastFmUser;
 use App\Services\DateService;
+use Livewire\Attributes\Lazy;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
+#[Lazy]
 class UserInfo extends Component
 {
     public $lastFmUser;
@@ -26,6 +28,16 @@ class UserInfo extends Component
     public function clearLastFmUser(): void
     {
         $this->reset('lastFmUser');
+    }
+
+    public function mount()
+    {
+//        sleep(1);
+    }
+
+    public function placeholder()
+    {
+        return view('spinner.spinner-border');
     }
 
     public function render()
