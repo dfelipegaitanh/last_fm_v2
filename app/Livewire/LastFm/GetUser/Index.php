@@ -4,11 +4,11 @@ namespace App\Livewire\LastFm\GetUser;
 
 use App\Livewire\Component;
 
-class GetUser extends Component
+class Index extends Component
 {
     public function render()
     {
 
-        return view('livewire.last-fm.get-user.get-user');
+        return view('livewire.last-fm.get-user.index');
     }
 }

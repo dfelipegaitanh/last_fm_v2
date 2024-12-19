@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\LastFm\GetUser\GetUser;
+use App\Livewire\LastFm\GetUser\Index;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -13,7 +13,7 @@ Route::middleware(['auth', 'verified'])
             ->name('last-fm.')
             ->group(function () {
 
-                Route::get('/get-user', GetUser::class)
+                Route::get('/get-user', Index::class)
                     ->name('get-user');
 
             });
