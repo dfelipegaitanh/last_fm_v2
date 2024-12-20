@@ -6,10 +6,13 @@ use App\Actions\LastFmUser\GetUserInfoAction;
 use App\Livewire\Component;
 use App\Models\LastFmUser;
 use App\Services\DateService;
+use Livewire\Attributes\Lazy;
 use Livewire\Attributes\On;
 
+#[Lazy]
 class UserInfo extends Component
 {
+
     public $lastFmUser;
 
     /**
@@ -20,15 +23,17 @@ class UserInfo extends Component
     {
         $this->clearLastFmUser();
         $this->lastFmUser = $this->getLastFmUser($getUserInfoAction, $dateService);
+        $this->dispatch('globalStatistics:getStatistics');
     }
 
     #[On('userInfo:clearLastFmUser')]
     public function clearLastFmUser(): void
     {
+        $this->dispatch('globalStatistics:clearStatistics');
         $this->reset('lastFmUser');
     }
 
-    public function mount() {}
+    public function mount() { }
 
     public function render()
     {
@@ -45,4 +50,5 @@ class UserInfo extends Component
 
         return $lastFmUser;
     }
+
 }
