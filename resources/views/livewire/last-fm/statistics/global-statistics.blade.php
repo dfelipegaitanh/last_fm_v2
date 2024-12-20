@@ -1,46 +1,44 @@
-<div
-    class=" bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 p-6 {{ empty($statistics) ? 'hidden' : '' }} ">
-    {{collect($statistics)->toJson()}}
+<div class="mt-4 {{ empty($lastFmUser) ? 'hidden' : '' }} ">
 
-    <div role="status"
-         class="max-w-md p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
-        <div wire:loading.remove>
-            <div class="flex items-center justify-between">
-                <div>
-                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                    <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                </div>
-                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-            </div>
-            <div class="flex items-center justify-between pt-4">
-                <div>
-                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                    <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                </div>
-                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-            </div>
-            <div class="flex items-center justify-between pt-4">
-                <div>
-                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                    <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                </div>
-                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-            </div>
-            <div class="flex items-center justify-between pt-4">
-                <div>
-                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                    <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                </div>
-                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-            </div>
-            <div class="flex items-center justify-between pt-4">
-                <div>
-                    <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                    <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                </div>
-                <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
-            </div>
-        </div>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Play Count
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Album Count
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Artist Count
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Created At
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($this->statistics as $statistic)
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ $statistic->playcount }}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{ $statistic->album_count }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ $statistic->artist_count }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ $statistic->created_at }}1
+                    </td>
+                </tr>
+            @endforeach
+
+
+            </tbody>
+        </table>
     </div>
 
 

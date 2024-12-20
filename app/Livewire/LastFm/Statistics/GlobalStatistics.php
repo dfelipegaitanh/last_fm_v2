@@ -4,33 +4,29 @@ namespace App\Livewire\LastFm\Statistics;
 
 use App\Livewire\Component;
 use App\Models\LastFmGlobalSongsStatistics;
-use Livewire\Attributes\On;
+use Livewire\Attributes\Computed;
 
 class GlobalStatistics extends Component
 {
+    public $lastFmUser = [];
 
-    public $statistics;
-
-    #[On('globalStatistics:clearStatistics')]
     public function clearStatistics(): void
     {
-        $this->reset('statistics');
+        $this->reset('statisticsLegacy');
     }
 
-    #[On('globalStatistics:getStatistics')]
-    public function getStatistics(): void
+    #[Computed]
+    public function statistics()
     {
-//        dump(1);
-        $this->statistics = LastFmGlobalSongsStatistics::latest()
-                                                       ->select(['playcount', 'album_count', 'artist_count', 'created_at'])
-                                                       ->limit(5)
-                                                       ->get();
+        return LastFmGlobalSongsStatistics::latest()
+            ->basicData()
+            ->whereLastFmUserId($this->lastFmUser['id'])
+            ->limit(5)
+            ->get();
     }
 
     public function render()
     {
         return view('livewire.last-fm.statistics.global-statistics');
     }
-
-
 }
