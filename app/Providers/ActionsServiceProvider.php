@@ -2,15 +2,16 @@
 
 namespace App\Providers;
 
+use App\Actions\LastFmUser\SaveGlobalSongsStatisticsAction;
 use Illuminate\Support\ServiceProvider;
 
 class ActionsServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-//        $this->app->singleton(SaveGlobalSongsStatisticsAction::class, function () {
-//            return new SaveGlobalSongsStatisticsAction;
-//        });
+        $this->app->singleton(SaveGlobalSongsStatisticsAction::class, function () {
+            return new SaveGlobalSongsStatisticsAction;
+        });
 //
 //        $this->app->singleton(GetUserInfoAction::class, function () {
 //            return new GetUserInfoAction;

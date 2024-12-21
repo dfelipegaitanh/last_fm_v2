@@ -3,21 +3,19 @@
 namespace App\Actions\LastFmUser;
 
 use App\Models\LastFmGlobalSongsStatistics;
-use App\Models\LastFmUser;
 
 class SaveGlobalSongsStatisticsAction
 {
 
-    public function execute(LastFmUser $lastFmUser, array $userInfo): void
+    public function execute(int $lastFmUserId, array $userInfo): void
     {
-        $userInfo['last_fm_user_id'] = $lastFmUser->id;
         LastFmGlobalSongsStatistics::firstOrCreate(
             [
-                'last_fm_user_id' => $userInfo['last_fm_user_id'],
-                'playcount'       => $userInfo['playcount'],
-                'artist_count'    => $userInfo['artist_count'],
-                'track_count'     => $userInfo['track_count'],
-                'album_count'     => $userInfo['album_count'],
+                'last_fm_user_id' => $lastFmUserId,
+                'playcount'       => $userInfo['playcount'] ?? 0,
+                'artist_count'    => $userInfo['artist_count'] ?? 0,
+                'track_count'     => $userInfo['track_count'] ?? 0,
+                'album_count'     => $userInfo['album_count'] ?? 0,
             ], $userInfo,
         );
     }
