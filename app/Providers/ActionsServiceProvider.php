@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
+use App\Actions\LastFmGlobalSongsStatistics\SaveGlobalSongsStatisticsAction;
 use App\Actions\LastFmUser\GetUserInfoAction;
-use App\Actions\LastFmUser\SaveGlobalSongsStatisticsAction;
 use App\Services\LastFmService;
 use Illuminate\Support\ServiceProvider;
 

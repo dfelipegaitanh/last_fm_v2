@@ -2,6 +2,7 @@
 
 namespace App\Actions\LastFmUser;
 
+use App\Actions\LastFmGlobalSongsStatistics\SaveGlobalSongsStatisticsAction;
 use App\Models\LastFmUser;
 use App\Models\User;
 use App\Services\LastFmService;

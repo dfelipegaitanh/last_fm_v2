@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\LastFmUser;
+namespace App\Actions\LastFmGlobalSongsStatistics;
 
 use App\Models\LastFmGlobalSongsStatistics;
 use App\Models\LastFmUser;
