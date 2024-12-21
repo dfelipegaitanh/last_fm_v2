@@ -5,7 +5,6 @@ namespace App\Livewire\LastFm\GetUser;
 use App\Actions\LastFmUser\GetUserInfoAction;
 use App\Livewire\Component;
 use App\Models\LastFmUser;
-use App\Services\DateService;
 use Livewire\Attributes\Lazy;
 use Livewire\Attributes\On;
 
@@ -42,12 +41,8 @@ class UserInfo extends Component
     {
         $getUserInfoAction = app(GetUserInfoAction::class);
 
-        $lastFmUser = $getUserInfoAction->execute(
+        return $getUserInfoAction->execute(
             auth()->user()->lastfmUser,
         );
-        
-        $lastFmUser['registered'] = DateService::timestampToDateTime($lastFmUser['registered']['unixtime']);
-
-        return $lastFmUser;
     }
 }

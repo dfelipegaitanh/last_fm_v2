@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\DateService;
 use App\Services\LastFmService;
 use Barryvanveen\Lastfm\Lastfm;
 use Illuminate\Support\ServiceProvider;
@@ -14,6 +15,10 @@ class ServicesServiceProvider extends ServiceProvider
             return new LastFmService(
                 app()->make(Lastfm::class),
             );
+        });
+
+        $this->app->singleton(DateService::class, function () {
+            return new DateService;
         });
     }
 

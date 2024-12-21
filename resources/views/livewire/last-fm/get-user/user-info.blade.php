@@ -6,9 +6,9 @@
     <div wire:loading.remove>
         <div class="mb-4">
             @if (!empty($lastFmUser))
-                <p class="text-gray-600">Nombre del usuario: {{ $lastFmUser['name'] }}</p>
-                <p class="text-gray-600">País: {{ $lastFmUser['country'] }}</p>
-                <p class="text-gray-600">Fecha de registro: {{ $lastFmUser['registered'] }}</p>
+                <p class="text-gray-600">Nombre del usuario: {{ $lastFmUser->name }}</p>
+                <p class="text-gray-600">País: {{ $lastFmUser->country }}</p>
+                <p class="text-gray-600">Fecha de registro: {{ $lastFmUser->registered }}</p>
                 <livewire:last-fm.statistics.global-statistics :lastFmUser="$lastFmUser"/>
             @else
                 <p class="text-gray-500">La información del usuario de LastFM aún no está disponible.</p>
