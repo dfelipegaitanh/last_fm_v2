@@ -12,10 +12,11 @@ class GetUserInfoAction
     protected SaveGlobalSongsStatisticsAction $saveGlobalSongsStatisticsAction;
 
     public function __construct(
+        LastFmService $lastFmService,
         SaveGlobalSongsStatisticsAction $saveGlobalSongsStatisticsAction
     )
     {
-        $this->lastFmService = app(LastFmService::class);
+        $this->lastFmService = $lastFmService;
         $this->saveGlobalSongsStatisticsAction = $saveGlobalSongsStatisticsAction;
     }
 
@@ -38,7 +39,7 @@ class GetUserInfoAction
             ],
         );
 
-        $this->saveGlobalSongsStatisticsAction->execute($lastFmUser, $userInfo);
+        $this->saveGlobalSongsStatisticsAction->execute($lastFmUser->id, $userInfo);
 
         return $lastFmUser;
     }
