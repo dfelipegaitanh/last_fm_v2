@@ -18,10 +18,10 @@ class UserInfo extends Component
      * @throws \Exception
      */
     #[On('userInfo:updateLastFmUser')]
-    public function updateLastFmUser(GetUserInfoAction $getUserInfoAction): void
+    public function updateLastFmUser(): void
     {
         $this->clearLastFmUser();
-        $this->lastFmUser = $this->getLastFmUser($getUserInfoAction);
+        $this->lastFmUser = $this->getLastFmUser();
     }
 
     #[On('userInfo:clearLastFmUser')]
@@ -38,9 +38,14 @@ class UserInfo extends Component
     /**
      * @throws \Exception
      */
-    public function getLastFmUser(GetUserInfoAction $getUserInfoAction): LastFmUser
+    public function getLastFmUser(): LastFmUser
     {
-        $lastFmUser = $getUserInfoAction->execute(auth()->user()->lastfmUser);
+        $getUserInfoAction = app(GetUserInfoAction::class);
+
+        $lastFmUser = $getUserInfoAction->execute(
+            auth()->user()->lastfmUser,
+        );
+        
         $lastFmUser['registered'] = DateService::timestampToDateTime($lastFmUser['registered']['unixtime']);
 
         return $lastFmUser;
