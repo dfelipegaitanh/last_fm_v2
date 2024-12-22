@@ -10,11 +10,6 @@ class GlobalStatistics extends Component
 {
     public $lastFmUser = [];
 
-    public function clearStatistics(): void
-    {
-        $this->reset('statisticsLegacy');
-    }
-
     #[Computed]
     public function statistics()
     {
