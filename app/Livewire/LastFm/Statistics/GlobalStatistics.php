@@ -2,22 +2,22 @@
 
 namespace App\Livewire\LastFm\Statistics;
 
+use App\Actions\LastFmGlobalSongsStatistics\GetGlobalSongsStatisticsAction;
 use App\Livewire\Component;
-use App\Models\LastFmGlobalSongsStatistics;
 use Livewire\Attributes\Computed;
 
 class GlobalStatistics extends Component
 {
     public $lastFmUser = [];
 
+    public $pagination = 5;
+
     #[Computed]
     public function statistics()
     {
-        return LastFmGlobalSongsStatistics::latest()
-            ->basicData()
-            ->whereLastFmUserId($this->lastFmUser['id'])
-            ->limit(5)
-            ->get();
+        return app(GetGlobalSongsStatisticsAction::class)
+            ->execute($this->lastFmUser['id'], $this->pagination);
+
     }
 
     public function render()

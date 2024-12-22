@@ -3,23 +3,16 @@
 namespace App\Actions\LastFmGlobalSongsStatistics;
 
 use App\Models\LastFmGlobalSongsStatistics;
-use App\Models\LastFmUser;
+use Illuminate\Support\Collection;
 
 class GetGlobalSongsStatisticsAction
 {
-
-    public function execute(LastFmUser $lastFmUser, array $userInfo): void
+    public function execute(int $lastFmUserId, int $pagination): Collection
     {
-        $userInfo['last_fm_user_id'] = $lastFmUser->id;
-        LastFmGlobalSongsStatistics::firstOrCreate(
-            [
-                'last_fm_user_id' => $userInfo['last_fm_user_id'],
-                'playcount'       => $userInfo['playcount'],
-                'artist_count'    => $userInfo['artist_count'],
-                'track_count'     => $userInfo['track_count'],
-                'album_count'     => $userInfo['album_count'],
-            ], $userInfo,
-        );
+        return LastFmGlobalSongsStatistics::latest()
+            ->basicData()
+            ->whereLastFmUserId($lastFmUserId)
+            ->limit($pagination)
+            ->get();
     }
-
 }

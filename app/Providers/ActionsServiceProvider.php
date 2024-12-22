@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Actions\LastFmGlobalSongsStatistics\GetGlobalSongsStatisticsAction;
 use App\Actions\LastFmGlobalSongsStatistics\SaveGlobalSongsStatisticsAction;
 use App\Actions\LastFmUser\GetUserInfoAction;
 use App\Services\LastFmService;
@@ -21,13 +22,11 @@ class ActionsServiceProvider extends ServiceProvider
                 app()->make(SaveGlobalSongsStatisticsAction::class),
             );
         });
-//
-//        $this->app->singleton(GetGlobalSongsStatisticsAction::class, function () {
-//            return new GetGlobalSongsStatisticsAction;
-//        });
+
+        $this->app->singleton(GetGlobalSongsStatisticsAction::class, function () {
+            return new GetGlobalSongsStatisticsAction;
+        });
     }
 
-    public function boot(): void
-    {
-    }
+    public function boot(): void {}
 }
