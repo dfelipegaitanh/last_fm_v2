@@ -1,6 +1,5 @@
 <?php
 
-use App\Livewire\Index\Index;
 use App\Livewire\LastFm\GetUser\Index as LastFmGetUserIndex;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +18,9 @@ Route::middleware(['auth', 'verified'])
 
             });
 
-        Route::get('dashboard', Index::class)
+        Route::get('dashboard', function () {
+            return redirect()->route('last-fm.get-user');
+        })
             ->name('dashboard');
 
         Route::view('profile', 'profile')
