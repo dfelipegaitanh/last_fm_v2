@@ -5,7 +5,9 @@ namespace App\Livewire\LastFm\Statistics;
 use App\Actions\LastFmGlobalSongsStatistics\GetGlobalSongsStatisticsAction;
 use App\Livewire\Component;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Lazy;
 
+#[Lazy]
 class GlobalStatistics extends Component
 {
     public $lastFmUser = [];
