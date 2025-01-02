@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\LastFm\GetSongs\Index as LastFmGetSongsIndex;
 use App\Livewire\LastFm\GetUser\Index as LastFmGetUserIndex;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,9 @@ Route::middleware(['auth', 'verified'])
 
                 Route::get('/get-user', LastFmGetUserIndex::class)
                     ->name('get-user');
+
+                Route::get('/get-songs', LastFmGetSongsIndex::class)
+                    ->name('get-songs');
 
             });
 
