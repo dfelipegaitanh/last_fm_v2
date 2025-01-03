@@ -1,5 +1,3 @@
-<div wire:loading.class="disabled-div"
-     class="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 p-6 ">
     <div wire:loading.class="disabled-div"
          class="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 p-6 relative">
 
@@ -50,10 +48,3 @@
 
         </div>
     </div>
-
-    <div class="flex justify-center items-center h-screen">
-        <div wire:loading>
-            <livewire:placeholder.spinner-body/>
-        </div>
-    </div>
-</div>

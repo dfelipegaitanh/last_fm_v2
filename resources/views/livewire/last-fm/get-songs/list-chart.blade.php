@@ -1,15 +1,12 @@
 <div class="w-4/5 bg-gray-50 p-8">
-    <!-- Encabezado -->
-    <h2 class="text-3xl font-semibold text-gray-800 mb-6">Songs Chart</h2>
 
-    <!-- Tabla de Resultados -->
-    <div class="w-full bg-white shadow-md rounded-lg overflow-hidden border-4 border-transparent hover:border-blue-500
-                        transition-all p-6">
+    <div wire:loading.remove
+         class="w-full bg-white shadow-md rounded-lg overflow-hidden border-4 border-transparent hover:border-blue-500 transition-all p-6">
         <h3 class="text-xl font-semibold text-gray-700 mb-4">
             {{ ucfirst($filter) }} Songs Chart
         </h3>
 
-        <div class="overflow-x-auto" wire:loading.remove>
+        <div class="overflow-x-auto">
             <table class="w-full table-auto transition-opacity duration-500 ease-in-out"
                    wire:loading.class="opacity-50">
                 <thead class="bg-gray-100 border-b-2 border-gray-300">
@@ -36,7 +33,7 @@
         </div>
     </div>
 
-    <div class="flex justify-center items-center h-screen">
+    <div class="flex justify-center items-center">
         <div wire:loading>
             <livewire:placeholder.spinner-body/>
         </div>
