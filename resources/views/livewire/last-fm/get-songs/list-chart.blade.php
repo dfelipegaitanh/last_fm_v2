@@ -1,9 +1,8 @@
-<div class="w-4/5 bg-gray-50 p-8">
+<div class="w-4/5 bg-gray-50 shadow-md p-8 rounded-xl border-x-2 border-gray-300 ml-2 ">
 
     <div class="flex flex-col items-center justify-center text-center transition-all duration-500 ease-in-out overflow-hidden
         {{ !empty($reportType) ? 'max-h-0 opacity-0' : 'max-h-screen opacity-100 py-2' }}">
         <livewire:last-fm.mesages.not-data-shown/>
-
     </div>
 
     @switch($buttons[$reportType] )
