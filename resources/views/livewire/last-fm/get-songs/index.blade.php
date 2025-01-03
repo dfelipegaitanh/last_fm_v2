@@ -1,65 +1,77 @@
 <div wire:loading.class="disabled-div"
-     class="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 p-6 min-h-[150px]">
+     class="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 p-6 ">
+    <div wire:loading.class="disabled-div"
+         class="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 p-6 relative">
 
-    <div class="inline-flex rounded-md shadow-sm">
-        <button wire:click="$set('filter', 'daily')"
-                class="px-4 py-2 text-sm font-medium text-white bg-indigo-500 border border-indigo-600 rounded-l-md hover:bg-indigo-400 focus:z-10 focus:ring-2 focus:ring-indigo-300">
-            Daily
-        </button>
+        <div class="flex">
+            <!-- Barra Lateral con Botones -->
+            <div class="w-1/5 bg-gray-100 p-6 flex flex-col space-y-4 border-r">
+                <x-fetch-song-button text="Daily"
+                                     filter="{{ $filter }}">
+                </x-fetch-song-button>
 
-        <button wire:click="$set('filter', 'weekly')"
-                class="px-4 py-2 text-sm font-medium text-white bg-indigo-500 border-t border-b border-indigo-600 hover:bg-indigo-400 focus:z-10 focus:ring-2 focus:ring-indigo-300">
-            Weekly
-        </button>
+                <x-fetch-song-button text="Weekly"
+                                     filter="{{ $filter }}">
+                </x-fetch-song-button>
 
-        <button wire:click="$set('filter', 'monthly')"
-                class="px-4 py-2 text-sm font-medium text-white bg-indigo-500 border-t border-b border-indigo-600 hover:bg-indigo-400 focus:z-10 focus:ring-2 focus:ring-indigo-300">
-            Monthly
-        </button>
+                <x-fetch-song-button text="Monthly"
+                                     filter="{{ $filter }}">
+                </x-fetch-song-button>
 
-        <button wire:click="$set('filter', 'yearly')"
-                class="px-4 py-2 text-sm font-medium text-white bg-indigo-500 border-t border-b border-indigo-600 hover:bg-indigo-400 focus:z-10 focus:ring-2 focus:ring-indigo-300">
-            Yearly
-        </button>
+                <x-fetch-song-button text="Yearly"
+                                     filter="{{ $filter }}">
+                </x-fetch-song-button>
 
-        <button wire:click="$set('filter', 'chart')"
-                class="px-4 py-2 text-sm font-medium text-white bg-blue-500 border border-blue-600 rounded-r-md hover:bg-blue-400 focus:z-10 focus:ring-2 focus:ring-blue-300">
-            Chart
-        </button>
+                <x-fetch-song-button text="Chart"
+                                     filter="{{ $filter }}">
+                </x-fetch-song-button>
+
+            </div>
+
+            <div class="w-4/5 bg-gray-50 p-8">
+                <!-- Encabezado -->
+                <h2 class="text-3xl font-semibold text-gray-800 mb-6">Songs Chart</h2>
+
+                <!-- Tabla de Resultados -->
+                <div class="w-full bg-white shadow-md rounded-lg overflow-hidden border-4 border-transparent hover:border-indigo-500
+                        transition-all p-6">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-4">
+                        {{ ucfirst($filter) }} Songs Chart
+                    </h3>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full table-auto transition-opacity duration-500 ease-in-out"
+                               wire:loading.class="opacity-50">
+                            <thead class="bg-gray-100 border-b-2 border-gray-300">
+                            <tr>
+                                <th class="py-3 px-4 text-left text-gray-600 font-medium">#</th>
+                                <th class="py-3 px-4 text-left text-gray-600 font-medium">Song</th>
+                                <th class="py-3 px-4 text-left text-gray-600 font-medium">Artist</th>
+                                <th class="py-3 px-4 text-left text-gray-600 font-medium">Album</th>
+                                <th class="py-3 px-4 text-left text-gray-600 font-medium">Date</th>
+                                <th class="py-3 px-4 text-left text-gray-600 font-medium">Plays</th>
+                            </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-4 px-4">1</td>
+                                <td class="py-4 px-4">Blinding Lights</td>
+                                <td class="py-4 px-4">The Weeknd</td>
+                                <td class="py-4 px-4">After Hours</td>
+                                <td class="py-4 px-4">2025-01-01</td>
+                                <td class="py-4 px-4">542</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="flex space-x-4 justify-center">
-        <button wire:click="$set('filter', 'daily')"
-                class="px-6 py-3 bg-indigo-500 text-white font-medium rounded-md hover:bg-indigo-400 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-opacity-50 transition">
-            Daily
-        </button>
-
-        <button wire:click="$set('filter', 'weekly')"
-                class="px-6 py-3 bg-indigo-500 text-white font-medium rounded-md hover:bg-indigo-400 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-opacity-50 transition">
-            Weekly
-        </button>
-
-        <button wire:click="$set('filter', 'monthly')"
-                class="px-6 py-3 bg-indigo-500 text-white font-medium rounded-md hover:bg-indigo-400 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-opacity-50 transition">
-            Monthly
-        </button>
-
-        <button wire:click="$set('filter', 'yearly')"
-                class="px-6 py-3 bg-indigo-500 text-white font-medium rounded-md hover:bg-indigo-400 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-opacity-50 transition">
-            Yearly
-        </button>
-
-        <button wire:click="$set('filter', 'chart')"
-                class="px-6 py-3 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50 transition">
-            Chart
-        </button>
-    </div>
-
 
     <div class="flex justify-center items-center h-screen">
         <div wire:loading>
             <livewire:placeholder.spinner-body/>
         </div>
     </div>
-
 </div>
