@@ -9,13 +9,11 @@ class Index extends Component
 {
 
     public $reportType = '';
-
-    public $report;
-
+    
     #[On('getSongs:getReportType')]
     public function getReportType($reportType)
     {
-        $this->report = $reportType;
+        $this->reportType = $reportType;
     }
 
     public function render()
