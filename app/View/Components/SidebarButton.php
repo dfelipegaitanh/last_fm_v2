@@ -6,9 +6,9 @@ use Illuminate\View\Component;
 
 class SidebarButton extends Component
 {
-    public $text;
-    public $route;
-    public $color;
+    public string $text;
+    public string $route;
+    public string $color;
 
     public function __construct($text, $route, $color = 'indigo' )
     {
@@ -19,6 +19,6 @@ class SidebarButton extends Component
 
     public function render()
     {
-        return view('components.sidebar-button');
+        return view('components.lastfm.sidebar-button');
     }
 }
