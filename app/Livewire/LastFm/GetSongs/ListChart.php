@@ -20,7 +20,7 @@ class ListChart extends Component
             'weekly' => ButtonStateEnum::INACTIVE,
             'monthly' => ButtonStateEnum::INACTIVE,
             'yearly' => ButtonStateEnum::INACTIVE,
-            'chart' => ButtonStateEnum::INACTIVE,
+            'chart' => ButtonStateEnum::ACTIVE,
         ];
     }
 

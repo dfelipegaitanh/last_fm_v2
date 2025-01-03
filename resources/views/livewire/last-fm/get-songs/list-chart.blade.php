@@ -10,7 +10,7 @@
             <livewire:last-fm.mesages.report-not-available :reportType="$reportType"/>
             @break
         @case(\App\ButtonStateEnum::ACTIVE)
-            {{ $reportType }}
+            @livewire('last-fm.get-songs.reports.' . Str::lower($reportType))
             @break
     @endswitch
 
