@@ -12,7 +12,7 @@ class GlobalStatistics extends Component
 {
     public $lastFmUser = [];
 
-    public $pagination = 5;
+    public $pagination = 10;
 
     #[Computed]
     public function statistics()
