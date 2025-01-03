@@ -9,7 +9,7 @@ use Livewire\Component;
 class Index extends Component
 {
 
-    public $filter = 'daily';
+    public $filter = '';
 
     
     public function fetchSongs($filter)
