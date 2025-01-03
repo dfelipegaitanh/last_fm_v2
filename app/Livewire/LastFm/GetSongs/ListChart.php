@@ -2,6 +2,7 @@
 
 namespace App\Livewire\LastFm\GetSongs;
 
+use App\ButtonStateEnum;
 use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Reactive;
 use Livewire\Component;
@@ -10,8 +11,21 @@ use Livewire\Component;
 class ListChart extends Component
 {
 
+    private array $buttons;
+
+    public function __construct()
+    {
+        $this->buttons = [
+            'daily'   => ButtonStateEnum::INACTIVE,
+            'weekly'  => ButtonStateEnum::INACTIVE,
+            'monthly' => ButtonStateEnum::INACTIVE,
+            'yearly'  => ButtonStateEnum::INACTIVE,
+            'chart'   => ButtonStateEnum::INACTIVE,
+        ];
+    }
+
     #[Reactive]
-    public $filter = '';
+    public $reportType = '';
 
     public function render()
     {
