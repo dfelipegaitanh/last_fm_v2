@@ -10,13 +10,13 @@ use App\Services\LastFmService;
 class GetUserInfoAction
 {
     protected LastFmService $lastFmService;
+
     protected SaveGlobalSongsStatisticsAction $saveGlobalSongsStatisticsAction;
 
     public function __construct(
         LastFmService $lastFmService,
         SaveGlobalSongsStatisticsAction $saveGlobalSongsStatisticsAction
-    )
-    {
+    ) {
         $this->lastFmService = $lastFmService;
         $this->saveGlobalSongsStatisticsAction = $saveGlobalSongsStatisticsAction;
     }
@@ -32,10 +32,10 @@ class GetUserInfoAction
         $lastFmUser = LastFmUser::firstOrCreate(
             ['user_id' => auth()->user()->id],
             [
-                'name'    => $userInfo['name'],
+                'name' => $userInfo['name'],
                 'subscriber' => $userInfo['subscriber'],
                 'country' => $userInfo['country'],
-                'url'     => $userInfo['url'],
+                'url' => $userInfo['url'],
                 'registered' => $userInfo['registered'],
             ],
         );

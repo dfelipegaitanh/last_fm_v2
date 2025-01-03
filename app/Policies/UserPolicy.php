@@ -9,7 +9,7 @@ class UserPolicy
     public function saveLastFmUser(User $user, string $lastFmUser)
     {
 
-        if($user->lastfmUser === $lastFmUser) {
+        if ($user->lastfmUser === $lastFmUser) {
             return true;
         }
         abort(403);

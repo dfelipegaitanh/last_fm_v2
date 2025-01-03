@@ -7,9 +7,8 @@ use Livewire\Component;
 
 class Index extends Component
 {
-
     public $reportType = '';
-    
+
     #[On('getSongs:getReportType')]
     public function getReportType($reportType)
     {

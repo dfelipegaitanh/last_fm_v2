@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class ReportNotAvailable extends Component
 {
-
     #[Reactive]
     public $reportType;
 

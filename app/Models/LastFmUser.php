@@ -38,8 +38,7 @@ class LastFmUser extends Model
     protected function registered(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => DateService::timestampToDateTime(json_decode($value)->unixtime),
+            get: fn ($value) => DateService::timestampToDateTime(json_decode($value)->unixtime),
         );
     }
-
 }
