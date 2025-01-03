@@ -8,35 +8,35 @@
             @endif
             <!-- Barra Lateral con Botones -->
             <div class="w-1/5 bg-gray-100 p-6 flex flex-col space-y-4 border-r">
-                <button wire:click="$set('reportType', 'daily')"
+                <button wire:click="$dispatch('getSongs:getReportType', { 'reportType' :'daily'})"
                         class="flex items-center px-6 py-3
                            {{ $reportType == 'daily' ? 'bg-red-600' : 'bg-blue-500' }}
                            text-white font-medium rounded-md hover:bg-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-300 transition">
                     Daily
                 </button>
 
-                <button wire:click="$set('reportType', 'weekly')"
+                <button wire:click="$dispatch('getSongs:getReportType', { 'reportType' :'weekly'})"
                         class="flex items-center px-6 py-3
                            {{ $reportType == 'weekly' ? 'bg-red-600' : 'bg-blue-500' }}
                            text-white font-medium rounded-md hover:bg-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-300 transition">
                     Weekly
                 </button>
 
-                <button wire:click="$set('reportType', 'monthly')"
+                <button wire:click="$dispatch('getSongs:getReportType', { 'reportType' :'monthly'})"
                         class="flex items-center px-6 py-3
                            {{ $reportType == 'monthly' ? 'bg-red-600' : 'bg-blue-500' }}
                            text-white font-medium rounded-md hover:bg-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-300 transition">
                     Monthly
                 </button>
 
-                <button wire:click="$set('reportType', 'yearly')"
+                <button wire:click="$dispatch('getSongs:getReportType', { 'reportType' :'yearly'})"
                         class="flex items-center px-6 py-3
                            {{ $reportType == 'yearly' ? 'bg-red-600' : 'bg-blue-500' }}
                            text-white font-medium rounded-md hover:bg-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-300 transition">
                     Yearly
                 </button>
 
-                <button wire:click="$set('reportType', 'chart')"
+                <button wire:click="$dispatch('getSongs:getReportType', { 'reportType' :'chart'})"
                         class="flex items-center px-6 py-3
                            {{ $reportType == 'chart' ? 'bg-red-600' : 'bg-blue-500' }}
                            text-white font-medium rounded-md hover:bg-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-300 transition">
