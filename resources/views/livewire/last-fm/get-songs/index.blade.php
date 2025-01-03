@@ -4,47 +4,47 @@
         <div class="flex">
 
             @if(false)
-                <livewire:last-fm.get-songs.buttons :filter="$filter"/>
+                <livewire:last-fm.get-songs.buttons :filter="$reportType"/>
             @endif
             <!-- Barra Lateral con Botones -->
             <div class="w-1/5 bg-gray-100 p-6 flex flex-col space-y-4 border-r">
-                <button wire:click="$set('filter', 'daily')"
+                <button wire:click="$set('reportType', 'daily')"
                         class="flex items-center px-6 py-3
-                           {{ $filter == 'daily' ? 'bg-red-600' : 'bg-blue-500' }}
+                           {{ $reportType == 'daily' ? 'bg-red-600' : 'bg-blue-500' }}
                            text-white font-medium rounded-md hover:bg-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-300 transition">
                     Daily
                 </button>
 
-                <button wire:click="$set('filter', 'weekly')"
+                <button wire:click="$set('reportType', 'weekly')"
                         class="flex items-center px-6 py-3
-                           {{ $filter == 'weekly' ? 'bg-red-600' : 'bg-blue-500' }}
+                           {{ $reportType == 'weekly' ? 'bg-red-600' : 'bg-blue-500' }}
                            text-white font-medium rounded-md hover:bg-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-300 transition">
                     Weekly
                 </button>
 
-                <button wire:click="$set('filter', 'monthly')"
+                <button wire:click="$set('reportType', 'monthly')"
                         class="flex items-center px-6 py-3
-                           {{ $filter == 'monthly' ? 'bg-red-600' : 'bg-blue-500' }}
+                           {{ $reportType == 'monthly' ? 'bg-red-600' : 'bg-blue-500' }}
                            text-white font-medium rounded-md hover:bg-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-300 transition">
                     Monthly
                 </button>
 
-                <button wire:click="$set('filter', 'yearly')"
+                <button wire:click="$set('reportType', 'yearly')"
                         class="flex items-center px-6 py-3
-                           {{ $filter == 'yearly' ? 'bg-red-600' : 'bg-blue-500' }}
+                           {{ $reportType == 'yearly' ? 'bg-red-600' : 'bg-blue-500' }}
                            text-white font-medium rounded-md hover:bg-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-300 transition">
                     Yearly
                 </button>
 
-                <button wire:click="$set('filter', 'chart')"
+                <button wire:click="$set('reportType', 'chart')"
                         class="flex items-center px-6 py-3
-                           {{ $filter == 'chart' ? 'bg-red-600' : 'bg-blue-500' }}
+                           {{ $reportType == 'chart' ? 'bg-red-600' : 'bg-blue-500' }}
                            text-white font-medium rounded-md hover:bg-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-300 transition">
                     Chart
                 </button>
             </div>
 
-            <livewire:last-fm.get-songs.list-chart :filter="$filter"/>
+            <livewire:last-fm.get-songs.list-chart :reportType="$reportType"/>
 
         </div>
     </div>

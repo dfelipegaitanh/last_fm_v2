@@ -1,7 +1,7 @@
 <div class="w-4/5 bg-gray-50 p-8">
 
     <div class="flex flex-col items-center justify-center text-center transition-all duration-500 ease-in-out overflow-hidden
-        {{ !empty($filter) ? 'max-h-0 opacity-0' : 'max-h-screen opacity-100 py-2' }}">
+        {{ !empty($reportType) ? 'max-h-0 opacity-0' : 'max-h-screen opacity-100 py-2' }}">
         <x-empty-state message="Not data shown.">
             M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75
             0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125
@@ -21,9 +21,9 @@
 
     <div wire:loading.remove
          class="w-full bg-white shadow-md rounded-lg overflow-hidden border-4 border-transparent hover:border-blue-500 transition-all p-6
-         {{ empty($filter) ? ' hidden' : '' }}">
+         {{ empty($reportType) ? ' hidden' : '' }}">
         <h3 class="text-xl font-semibold text-gray-700 mb-4">
-            {{ ucfirst($filter) }} Songs Chart
+            {{ ucfirst($reportType) }} Songs Chart
         </h3>
 
         <div class="overflow-x-auto">

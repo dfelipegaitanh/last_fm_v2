@@ -2,15 +2,15 @@
 
 namespace App\Livewire\LastFm\GetSongs;
 
+use Livewire\Attributes\On;
 use Livewire\Component;
 
-//#[Lazy]
 class Index extends Component
 {
 
-    public $filter = '';
+    public $reportType = '';
 
-
+    #[On('getSongs:table')]
     public function fetchSongs($filter)
     {
     }
