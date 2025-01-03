@@ -10,17 +10,17 @@ use Livewire\Component;
 #[Lazy]
 class ListChart extends Component
 {
-
-    private array $buttons;
+    public array $buttons;
 
     public function __construct()
     {
         $this->buttons = [
-            'daily'   => ButtonStateEnum::INACTIVE,
-            'weekly'  => ButtonStateEnum::INACTIVE,
+            '' => ButtonStateEnum::HOME,
+            'daily' => ButtonStateEnum::INACTIVE,
+            'weekly' => ButtonStateEnum::INACTIVE,
             'monthly' => ButtonStateEnum::INACTIVE,
-            'yearly'  => ButtonStateEnum::INACTIVE,
-            'chart'   => ButtonStateEnum::INACTIVE,
+            'yearly' => ButtonStateEnum::INACTIVE,
+            'chart' => ButtonStateEnum::INACTIVE,
         ];
     }
 

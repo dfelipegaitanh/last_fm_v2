@@ -19,13 +19,27 @@
 
     </div>
 
+    @switch($buttons[$reportType] )
+        @case(\App\ButtonStateEnum::INACTIVE)
+            <x-empty-state message="{{ Str::ucfirst($reportType) }} report is not available yet.">
+                M10 5 9 4V3m5 2 1-1V3m-3 6v11m0-11a5 5 0 0 1 5 5m-5-5a5 5 0 0 0-5 5m5-5a4.959 4.959 0 0 1 2.973 1H15V8a3
+                3 0 0 0-6 0v2h.027A4.959 4.959 0 0 1 12 9Zm-5 5H5m2 0v2a5 5 0 0 0 10 0v-2m2.025 0H17m-9.975 4H6a1 1 0 0
+                0-1 1v2m12-3h1.025a1 1 0 0 1 1 1v2M16 11h1a1 1 0 0 0 1-1V8m-9.975 3H7a1 1 0 0 1-1-1V8
+            </x-empty-state>
+            @break
+        @case(\App\ButtonStateEnum::ACTIVE)
+            {{ $reportType }}
+            @break
+    @endswitch
+
+
+    @if(false)
     <div wire:loading.remove
          class="w-full bg-white shadow-md rounded-lg overflow-hidden border-4 border-transparent hover:border-blue-500 transition-all p-6
          {{ empty($reportType) ? ' hidden' : '' }}">
         <h3 class="text-xl font-semibold text-gray-700 mb-4">
-            {{ ucfirst($reportType) }} Songs Chart
+            {{ ucfirst($reportType) }} Songs Chart {{ $buttons[$reportType] }}
         </h3>
-
         <div class="overflow-x-auto">
             <table class="w-full table-auto transition-opacity duration-500 ease-in-out"
                    wire:loading.class="opacity-50">
@@ -51,7 +65,9 @@
                 </tbody>
             </table>
         </div>
+
     </div>
+    @endif
 
     <div class="flex justify-center items-center">
         <div wire:loading>
