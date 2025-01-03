@@ -31,11 +31,11 @@
             <main class="container mx-auto p-10">
                 <div class="flex flex-row space-x-4">
 
-                    <div class="w-1/4 flex justify-center">
+                    <div class="w-1/6 flex justify-center">
                         <livewire:index.buttons/>
                     </div>
 
-                    <div class="w-3/4">
+                    <div class="w-5/6">
                         {{ $slot }}
                     </div>
 
