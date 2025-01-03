@@ -2,7 +2,10 @@
      class="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 p-6">
     <div class="flex flex-col items-center justify-center text-center transition-all duration-500 ease-in-out overflow-hidden
         {{ !empty($lastFmUser) ? 'max-h-0 opacity-0' : 'max-h-screen opacity-100 py-2' }}">
-        <x-empty-state message="LastFM user information is not available yet."/>
+        <x-empty-state message="LastFM user information is not available yet.">
+            M20 16v-4a8 8 0 1 0-16 0v4m16 0v2a2 2 0 0 1-2 2h-2v-6h2a2 2 0 0 1 2 2ZM4 16v2a2 2 0 0 0 2 2h2v-6H6a2 2 0 0
+            0-2 2Z
+        </x-empty-state>
         <button wire:click.debounce="$dispatch('userInfo:updateLastFmUser')"
                 wire:loading.attr="disabled"
                 class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 mt-2 rounded-md">
