@@ -36,7 +36,7 @@
                     Yearly
                 </button>
 
-                <button wire:click="$dispatch('getSongs:getReportType', { 'reportType' :'chart'})"
+                    <button wire:click="$dispatch('getSongs:getReportType', { 'reportType' :'chart'}); $dispatch('getSongsChart:resetComponent')"
                         class="flex items-center px-6 py-3
                            {{ $reportType == 'chart' ? 'bg-red-600' : 'bg-blue-500' }}
                            text-white font-medium rounded-md hover:bg-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-300 transition">

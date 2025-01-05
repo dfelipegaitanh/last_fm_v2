@@ -3,6 +3,7 @@
 namespace App\Livewire\LastFm\GetSongs\Reports;
 
 use Livewire\Attributes\Lazy;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 #[Lazy]
@@ -20,6 +21,13 @@ class Chart extends Component
     {
         $this->showFetchDataButton = false;
     }
+
+    #[On('getSongsChart:resetComponent')]
+    public function resetComponent()
+    {
+        $this->showFetchDataButton = true;
+    }
+
     public function render()
     {
         return view('livewire.last-fm.get-songs.reports.chart');
