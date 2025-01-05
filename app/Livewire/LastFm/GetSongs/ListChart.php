@@ -2,7 +2,7 @@
 
 namespace App\Livewire\LastFm\GetSongs;
 
-use App\ButtonStateEnum;
+use App\Enums\ButtonStateEnum;
 use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Reactive;
 use Livewire\Component;

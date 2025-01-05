@@ -6,10 +6,10 @@
     </div>
 
     @switch($buttons[$reportType] )
-        @case(\App\ButtonStateEnum::INACTIVE)
+        @case(\App\Enums\ButtonStateEnum::INACTIVE)
             <livewire:last-fm.mesages.report-not-available :reportType="$reportType"/>
             @break
-        @case(\App\ButtonStateEnum::ACTIVE)
+        @case(\App\Enums\ButtonStateEnum::ACTIVE)
             @livewire('last-fm.get-songs.reports.' . Str::lower($reportType))
             @break
     @endswitch
