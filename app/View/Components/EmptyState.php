@@ -11,15 +11,15 @@ class EmptyState extends Component
 
     public array $paths;
 
-    public mixed $fill;
+    public string $fill;
 
     public int $strokeWidth;
 
-    public function __construct($message = null, $paths = [], $fill = 'none', $strokeWidth = 2)
+    public function __construct($message = null, $paths = [], $fill = null, $strokeWidth = 2)
     {
         $this->message = $message ?? 'information is not available yet.';
         $this->paths = $paths;
-        $this->fill = $fill;
+        $this->fill = $fill ?? 'none';
         $this->strokeWidth = $strokeWidth;
     }
 
