@@ -25,6 +25,6 @@ class EmptyState extends Component
 
     public function render(): View
     {
-        return view('components.empty-state');
+        return view('components.lastfm.empty-state');
     }
 }
