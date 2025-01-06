@@ -65,6 +65,7 @@ new class extends Component
                         </button>
                     </x-slot>
                 </x-dropdown>
+                <livewire:theme-toggle/>
             </div>
 
             <!-- Hamburger -->

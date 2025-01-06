@@ -10,7 +10,7 @@ export default {
     ],
 
     // darkMode: 'selector',
-    darkMode: 'media',
+    darkMode: 'class',
 
     theme: {
         extend: {
