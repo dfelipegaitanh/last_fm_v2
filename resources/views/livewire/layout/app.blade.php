@@ -29,16 +29,20 @@
 
             <!-- Page Content -->
         <main class="container mx-auto px-6 py-10 space-y-12">
-            <div class="grid grid-cols-1 md:grid-cols-6 gap-12">
+            <div class="flex flex-col md:flex-row gap-12">
                 <!-- Sidebar -->
                 <aside
-                    class="md:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-light-lg dark:shadow-dark-lg transition hover:shadow-xl dark:hover:shadow-dark-lg hover:shadow-light-lg">
-                    <livewire:index.buttons/>
+                    class="w-full md:w-1/4 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-light-lg
+                    dark:shadow-dark-lg transition hover:shadow-xl dark:hover:shadow-dark-lg">
+                    <div class="space-y-4">
+                        <livewire:index.buttons/>
+                    </div>
                 </aside>
 
                 <!-- Main Content -->
                 <section
-                    class="md:col-span-5 bg-white dark:bg-gray-800 p-10 rounded-xl shadow-light-lg dark:shadow-dark-lg transition hover:shadow-xl dark:hover:shadow-dark-lg hover:shadow-light-lg">
+                    class="flex-1 bg-white dark:bg-gray-800 p-10 rounded-xl shadow-light-lg
+                    dark:shadow-dark-lg transition hover:shadow-xl dark:hover:shadow-dark-lg">
                     {{ $slot }}
                 </section>
             </div>
