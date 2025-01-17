@@ -2,8 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-.disabled-div {
-    @apply pointer-events-none opacity-50 select-none;
+body {
+    @apply font-sans antialiased bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200;
+
+    .body__container {
+        @apply flex flex-col min-h-screen;
+    }
+}
+
+header {
+    @apply bg-white dark:bg-gray-800 shadow;
+
+    .header__container {
+        @apply container mx-auto py-6 px-4 sm:px-6 lg:px-8;
+    }
 }
 
 .home_container_base {
@@ -11,10 +23,6 @@
     hover:shadow-light-hover dark:hover:shadow-dark-hover;
 }
 
-header {
-    @apply bg-white dark:bg-gray-800 shadow;
-
-    .container {
-        @apply mx-auto py-6 px-4 sm:px-6 lg:px-8;
-    }
+.disabled-div {
+    @apply pointer-events-none opacity-50 select-none;
 }

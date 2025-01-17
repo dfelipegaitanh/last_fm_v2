@@ -1,5 +1,5 @@
 <header>
-    <div class="container">
+    <div class="header__container">
         {{ $slot }}
     </div>
 </header>

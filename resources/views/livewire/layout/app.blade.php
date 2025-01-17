@@ -14,13 +14,12 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
-    <div class="flex flex-col min-h-screen">
+    <x-body>
         <livewire:layout.navigation/>
 
             <!-- Page Heading -->
-        @if (isset($header)|| true)
-            <x-header> {{ $header ?? 'dd' }}</x-header>
+        @if (isset($header))
+            <x-header> {{ $header }}</x-header>
             @endif
 
             <!-- Page Content -->
@@ -38,7 +37,5 @@
             </div>
         </main>
 
-
-    </div>
-    </body>
+    </x-body>
 </html>
