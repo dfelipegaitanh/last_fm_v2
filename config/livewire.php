@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'layout' => 'layouts.app',
+    'layout' => 'livewire.layout.app',
 ];
