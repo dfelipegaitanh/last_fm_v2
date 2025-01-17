@@ -18,6 +18,26 @@ header {
     }
 }
 
+main {
+    @apply container mx-auto px-6 py-10 space-y-12;
+
+    aside {
+        @apply w-full md:w-1/4 p-6 home_container_base;
+
+        .aside__container {
+            @apply space-y-4;
+        }
+    }
+
+    section {
+        @apply flex-1 p-10 home_container_base;
+    }
+
+    .main__container {
+        @apply flex flex-col md:flex-row gap-12;
+    }
+}
+
 .home_container_base {
     @apply bg-white dark:bg-gray-800 rounded-xl shadow-light-lg dark:shadow-dark-lg transition duration-300
     hover:shadow-light-hover dark:hover:shadow-dark-hover;
