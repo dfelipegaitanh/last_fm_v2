@@ -2,14 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    --disabled-opacity: 0.6;
-    --disabled-pointer-events: none;
-    --disabled-user-select: none;
+.disabled-div {
+    @apply pointer-events-none opacity-50 select-none;
 }
 
-.disabled-div {
-    pointer-events: var(--disabled-pointer-events);
-    opacity: var(--disabled-opacity);
-    user-select: var(--disabled-user-select);
+.home_container_base {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-light-lg dark:shadow-dark-lg transition duration-300
+    hover:shadow-light-hover dark:hover:shadow-dark-hover;
 }

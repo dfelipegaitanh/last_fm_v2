@@ -20,8 +20,8 @@ export default {
             boxShadow: {
                 'light-lg': '0 10px 15px -3px rgba(0, 0, 0, 0.25), 0 4px 6px -2px rgba(0, 0, 0, 0.15)',
                 'dark-lg': '0 10px 15px -3px rgba(0, 0, 0, 0.8), 0 4px 6px -2px rgba(0, 0, 0, 0.7)',
-                'light-hover': '0 15px 25px -5px rgba(0, 0, 0, 0.4), 0 6px 10px -2px rgba(0, 0, 0, 0.3)',
-                'dark-hover': '0 15px 25px -5px rgba(0, 0, 0, 1), 0 6px 10px -2px rgba(0, 0, 0, 0.9)',
+                'light-hover': '0 20px 30px -5px rgba(0, 0, 0, 0.5), 0 8px 12px -3px rgba(0, 0, 0, 0.35)',
+                'dark-hover': '0 20px 30px -5px rgba(0, 0, 0, 1), 0 8px 12px -3px rgba(0, 0, 0, 0.95)',
             },
         },
     },

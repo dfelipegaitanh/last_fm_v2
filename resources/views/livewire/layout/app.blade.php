@@ -30,20 +30,13 @@
             <!-- Page Content -->
         <main class="container mx-auto px-6 py-10 space-y-12">
             <div class="flex flex-col md:flex-row gap-12">
-                <!-- Sidebar -->
-                <aside
-                        class="w-full md:w-1/4 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-light-lg
-                        dark:shadow-dark-lg transition duration-500 hover:shadow-light-hover dark:hover:shadow-dark-hover
-                        hover:border hover:border-gray-300 dark:hover:border-gray-600">
+                <aside class="w-full md:w-1/4 p-6 home_container_base">
                     <div class="space-y-4">
                         <livewire:index.buttons/>
                     </div>
                 </aside>
 
-                <section
-                        class="flex-1 bg-white dark:bg-gray-800 p-10 rounded-xl shadow-light-lg
-                        dark:shadow-dark-lg transition duration-500 hover:shadow-light-hover dark:hover:shadow-dark-hover
-                        hover:border hover:border-gray-300 dark:hover:border-gray-600">
+                <section class="flex-1 p-10 home_container_base">
                     {{ $slot }}
                 </section>
             </div>
