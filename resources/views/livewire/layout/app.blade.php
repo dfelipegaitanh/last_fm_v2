@@ -14,33 +14,37 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <livewire:layout.navigation />
+    <body class="font-sans antialiased bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+    <div class="flex flex-col min-h-screen">
+        <livewire:layout.navigation/>
 
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>
             @endif
 
             <!-- Page Content -->
-            <main class="container mx-auto p-10">
-                <div class="flex flex-row space-x-4">
+        <main class="container mx-auto px-6 py-10 space-y-12">
+            <div class="grid grid-cols-1 md:grid-cols-6 gap-12">
+                <!-- Sidebar -->
+                <aside
+                    class="md:col-span-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-light-lg dark:shadow-dark-lg transition hover:shadow-xl dark:hover:shadow-dark-lg hover:shadow-light-lg">
+                    <livewire:index.buttons/>
+                </aside>
 
-                    <div class="w-1/6 flex justify-center">
-                        <livewire:index.buttons/>
-                    </div>
+                <!-- Main Content -->
+                <section
+                    class="md:col-span-5 bg-white dark:bg-gray-800 p-10 rounded-xl shadow-light-lg dark:shadow-dark-lg transition hover:shadow-xl dark:hover:shadow-dark-lg hover:shadow-light-lg">
+                    {{ $slot }}
+                </section>
+            </div>
+        </main>
 
-                    <div class="w-5/6">
-                        {{ $slot }}
-                    </div>
 
-                </div>
-            </main>
-        </div>
+    </div>
     </body>
 </html>
