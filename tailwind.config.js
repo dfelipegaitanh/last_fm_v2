@@ -1,5 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
+import plugin from 'tailwindcss/plugin';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -26,5 +27,16 @@ export default {
         },
     },
 
-    plugins: [forms],
+    plugins: [
+        forms,
+        plugin(function ({addUtilities}) {
+            addUtilities({
+                '.transition-colors-base': {
+                    transitionProperty: 'color, background-color, border-color, text-decoration-color, fill, stroke',
+                    transitionTimingFunction: 'ease-in-out',
+                    transitionDuration: '50ms',
+                },
+            });
+        }),
+    ],
 };
