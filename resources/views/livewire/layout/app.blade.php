@@ -32,17 +32,18 @@
             <div class="flex flex-col md:flex-row gap-12">
                 <!-- Sidebar -->
                 <aside
-                    class="w-full md:w-1/4 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-light-lg
-                    dark:shadow-dark-lg transition hover:shadow-xl dark:hover:shadow-dark-lg">
+                        class="w-full md:w-1/4 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-light-lg
+                        dark:shadow-dark-lg transition duration-500 hover:shadow-light-hover dark:hover:shadow-dark-hover
+                        hover:border hover:border-gray-300 dark:hover:border-gray-600">
                     <div class="space-y-4">
                         <livewire:index.buttons/>
                     </div>
                 </aside>
 
-                <!-- Main Content -->
                 <section
-                    class="flex-1 bg-white dark:bg-gray-800 p-10 rounded-xl shadow-light-lg
-                    dark:shadow-dark-lg transition hover:shadow-xl dark:hover:shadow-dark-lg">
+                        class="flex-1 bg-white dark:bg-gray-800 p-10 rounded-xl shadow-light-lg
+                        dark:shadow-dark-lg transition duration-500 hover:shadow-light-hover dark:hover:shadow-dark-hover
+                        hover:border hover:border-gray-300 dark:hover:border-gray-600">
                     {{ $slot }}
                 </section>
             </div>
