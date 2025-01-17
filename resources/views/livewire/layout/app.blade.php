@@ -19,12 +19,8 @@
         <livewire:layout.navigation/>
 
             <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
+        @if (isset($header)|| true)
+            <x-header> {{ $header ?? 'dd' }}</x-header>
             @endif
 
             <!-- Page Content -->

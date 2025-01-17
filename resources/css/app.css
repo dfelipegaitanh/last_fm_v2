@@ -10,3 +10,11 @@
     @apply bg-white dark:bg-gray-800 rounded-xl shadow-light-lg dark:shadow-dark-lg transition duration-300
     hover:shadow-light-hover dark:hover:shadow-dark-hover;
 }
+
+header {
+    @apply bg-white dark:bg-gray-800 shadow;
+
+    .container {
+        @apply mx-auto py-6 px-4 sm:px-6 lg:px-8;
+    }
+}
