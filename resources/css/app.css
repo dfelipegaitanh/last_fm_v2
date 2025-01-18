@@ -75,6 +75,27 @@ nav {
         @apply flex items-center space-x-4;
     }
 
+    .nav__links-wrapper {
+        @apply hidden space-x-8;
+        @apply sm:-my-px sm:ms-10 sm:flex;
+
+        a.nav__link {
+            @apply inline-flex items-center px-1 pt-1 text-sm font-medium leading-5;
+            @apply hover:transform hover:translate-y-1 focus:outline-none;
+            @apply transition duration-150 ease-in-out;
+
+            &.nav__link--active {
+                @apply border-b-4 border-indigo-500 dark:border-indigo-700;
+                @apply text-gray-900 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400;
+            }
+
+            &.nav__link--inactive {
+                @apply text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-500;
+                @apply focus:text-gray-700 dark:focus:text-gray-300;
+            }
+        }
+    }
+
 }
 
 /* ---------------------------------------------------- */
