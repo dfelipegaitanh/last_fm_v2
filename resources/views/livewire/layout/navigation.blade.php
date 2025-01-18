@@ -15,7 +15,7 @@ new class extends Component {
     }
 }; ?>
 
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 shadow-lg">
+<nav x-data="{ open: false }">
     <x-navigation.primary-navigation-menu>
         <div class="flex">
             <x-navigation.logo/>

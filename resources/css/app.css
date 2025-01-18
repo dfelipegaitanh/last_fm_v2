@@ -57,6 +57,17 @@ main {
     }
 }
 
+nav {
+    @apply bg-white dark:bg-gray-800;
+    @apply border-b border-gray-100 dark:border-gray-700 shadow-lg;
+    @apply shadow transition-colors-base;
+
+    .nav__container {
+        @apply container mx-auto;
+        @apply py-6 px-4 sm:px-6 lg:px-8;
+    }
+}
+
 /* ---------------------------------------------------- */
 /* ESTILOS DE CONTENEDORES REUTILIZABLES               */
 /* ---------------------------------------------------- */
