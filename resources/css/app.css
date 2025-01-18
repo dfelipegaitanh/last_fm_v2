@@ -78,6 +78,47 @@ nav {
 }
 
 /* ---------------------------------------------------- */
+/* ESTILOS DE ICONOS                                    */
+/* ---------------------------------------------------- */
+
+svg {
+
+    @apply transition-colors-base;
+
+    /* ------------------------------ */
+    /* Variaciones de tamaño           */
+    /* ------------------------------ */
+
+    &.icon-sm {
+        @apply h-5 w-5;
+    }
+
+    &.icon-md {
+        @apply h-8 w-8;
+    }
+
+    &.icon-lg {
+        @apply h-12 w-12;
+    }
+
+    /* ------------------------------ */
+    /* Variaciones de color            */
+    /* ------------------------------ */
+
+    &.icon-primary {
+        @apply text-blue-500 dark:text-blue-300;
+    }
+
+    &.icon-secondary {
+        @apply text-gray-500 dark:text-gray-400;
+    }
+
+    &.icon-danger {
+        @apply text-red-500 dark:text-red-400;
+    }
+}
+
+/* ---------------------------------------------------- */
 /* ESTILOS DE CONTENEDORES REUTILIZABLES               */
 /* ---------------------------------------------------- */
 .home__container_base {
