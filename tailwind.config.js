@@ -34,7 +34,7 @@ export default {
                 '.transition-colors-base': {
                     transitionProperty: 'color, background-color, border-color, text-decoration-color, fill, stroke',
                     transitionTimingFunction: 'ease-in-out',
-                    transitionDuration: '500ms',
+                    transitionDuration: '800ms',
                 },
             });
         }),
