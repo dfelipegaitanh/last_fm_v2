@@ -63,9 +63,18 @@ nav {
     @apply shadow transition-colors-base;
 
     .nav__container {
-        @apply container mx-auto;
-        @apply py-6 px-4 sm:px-6 lg:px-8;
+        @apply max-w-7xl mx-auto;
+        @apply px-4 sm:px-6 lg:px-8;
     }
+
+    .nav__left {
+        @apply flex items-center space-x-8;
+    }
+
+    .nav__right {
+        @apply flex items-center space-x-4;
+    }
+
 }
 
 /* ---------------------------------------------------- */

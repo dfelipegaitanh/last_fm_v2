@@ -16,13 +16,17 @@ new class extends Component {
 }; ?>
 
 <nav x-data="{ open: false }">
-    <x-navigation.primary-navigation-menu>
-        <div class="flex">
-            <x-navigation.logo/>
-            <x-navigation.nav-links/>
+    <div class="nav__container">
+        <div class="flex justify-between h-16">
+            <div class="nav__left">
+                <x-navigation.logo/>
+                <x-navigation.nav-links/>
+            </div>
+            <div class="nav__right">
+                <x-navigation.user-settings-dropdown/>
+                <x-navigation.hamburger-menu/>
+                <x-navigation.responsive-menu/>
+            </div>
         </div>
-        <x-navigation.user-settings-dropdown/>
-        <x-navigation.hamburger-menu/>
-        <x-navigation.responsive-menu/>
-    </x-navigation.primary-navigation-menu>
+    </div>
 </nav>
