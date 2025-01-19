@@ -44,6 +44,11 @@ export default {
                     'svg-icon-primary': '#3b82f6', // blue-500
                     'svg-icon-secondary': '#3b82f6', // blue-500
                     'svg-icon-danger': '#ef4444', // red-500
+
+                    // Botón de configuración de usuario
+                    'user-settings-button-bg': '#ffffff', // Blanco para fondo en light mode
+                    'user-settings-button-text': '#6b7280', // Gray-500
+                    'user-settings-button-hover-text': '#374151', // Gray-700
                 },
                 // Colores para el modo oscuro
                 'dark': {
@@ -74,6 +79,11 @@ export default {
                     'svg-icon-primary': '#93c5fd', // blue-300
                     'svg-icon-secondary': '#60a5fa', // blue-400
                     'svg-icon-danger': '#f87171', // red-300
+
+                    // Botón de configuración de usuario
+                    'user-settings-button-bg': '#1f2937', // Gray-800 para fondo en dark mode
+                    'user-settings-button-text': '#9ca3af', // Gray-400
+                    'user-settings-button-hover-text': '#e5e7eb', // Gray-200
                 }
             },
             fontFamily: {
