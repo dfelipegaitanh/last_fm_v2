@@ -33,8 +33,8 @@
 /* ---------------------------------------------------- */
 body {
     @apply font-sans antialiased;
-    @apply bg-light--bg dark:bg-dark--bg;
-    @apply text-light--text dark:text-dark--text;
+    @apply bg-light-background dark:bg-dark-background;
+    @apply text-light-text dark:text-dark-text;
     @apply transition-colors-base;
 
     .body__container {
@@ -46,7 +46,7 @@ body {
 /* ESTILOS DE HEADER                                    */
 /* ---------------------------------------------------- */
 header {
-    @apply bg-light--header-bg dark:bg-dark--header-bg;
+    @apply bg-light-header-bg dark:bg-dark-header-bg;
     @apply shadow transition-colors-base;
 
     .header__container {
@@ -65,7 +65,7 @@ main {
     }
 
     aside {
-        @apply w-full md:w-1/4 p-6 home__container_base;
+        @apply w-full md:w-1/4 p-6 reusable-container;
 
         .aside__container {
             @apply space-y-4;
@@ -73,7 +73,7 @@ main {
     }
 
     section {
-        @apply flex-1 p-10 home__container_base;
+        @apply flex-1 p-10 reusable-container;
     }
 }
 
@@ -81,8 +81,8 @@ main {
 /* ESTILOS DE NAV                                       */
 /* ---------------------------------------------------- */
 nav {
-    @apply bg-light--nav-bg dark:bg-dark--nav-bg;
-    @apply border-b border-light--nav-border dark:border-dark--nav-border shadow-lg transition-colors-base;
+    @apply bg-light-nav-bg dark:bg-dark-nav-bg;
+    @apply border-b border-light-nav-border dark:border-dark-nav-border shadow-lg transition-colors-base;
 
     .nav__container {
         @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
@@ -104,15 +104,15 @@ nav {
             @apply hover:transform hover:translate-y-1 focus:outline-none transition duration-150 ease-in-out;
 
             &.nav__link--active {
-                @apply border-b-4 border-light--nav-link-active--border dark:border-dark--nav-link-active--border;
-                @apply text-light--nav-link-active--text dark:text-dark--nav-link-active--text;
-                @apply hover:text-light--nav-link-active--hover dark:hover:text-dark--nav-link-active--hover;
+                @apply border-b-4 border-light-nav-link-active-border dark:border-dark-nav-link-active-border;
+                @apply text-light-nav-link-active-text dark:text-dark-nav-link-active-text;
+                @apply hover:text-light-nav-link-active-hover dark:hover:text-dark-nav-link-active-hover;
             }
 
             &.nav__link--inactive {
-                @apply text-light--nav-link-inactive--text dark:text-dark--nav-link-inactive--text;
-                @apply hover:text-light--nav-link-inactive--hover dark:hover:text-dark--nav-link-inactive--hover;
-                @apply focus:text-light--nav-link-inactive--focus dark:focus:text-dark--nav-link-inactive--focus;
+                @apply text-light-nav-link-inactive-text dark:text-dark-nav-link-inactive-text;
+                @apply hover:text-light-nav-link-inactive-hover dark:hover:text-dark-nav-link-inactive-hover;
+                @apply focus:text-light-nav-link-inactive-focus dark:focus:text-dark-nav-link-inactive-focus;
             }
         }
     }
@@ -141,23 +141,23 @@ svg {
     /* Variaciones de color */
 
     &.icon-primary {
-        @apply text-light--svg-icon-primary dark:text-dark--svg-icon-primary;
+        @apply text-light-svg-icon-primary dark:text-dark-svg-icon-primary;
     }
 
     &.icon-secondary {
-        @apply text-light--svg-icon-secondary dark:text-dark--svg-icon-secondary;
+        @apply text-light-svg-icon-secondary dark:text-dark-svg-icon-secondary;
     }
 
     &.icon-danger {
-        @apply text-light--svg-icon-danger dark:text-dark--svg-icon-danger;
+        @apply text-light-svg-icon-danger dark:text-dark-svg-icon-danger;
     }
 }
 
 /* ---------------------------------------------------- */
 /* ESTILOS DE CONTENEDORES REUTILIZABLES               */
 /* ---------------------------------------------------- */
-.home__container_base {
-    @apply bg-light--reusable-bg dark:bg-dark--reusable-bg;
+.reusable-container {
+    @apply bg-light-reusable-bg dark:bg-dark-reusable-bg;
     @apply rounded-xl shadow-light-lg dark:shadow-dark-lg;
     @apply hover:shadow-light-hover dark:hover:shadow-dark-hover;
     @apply transition-colors-base;
