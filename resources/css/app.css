@@ -7,8 +7,8 @@
 /* ---------------------------------------------------- */
 body {
     @apply font-sans antialiased;
-    @apply bg-gray-100 dark:bg-gray-900;
-    @apply text-gray-800 dark:text-gray-200;
+    @apply bg-light--bg dark:bg-dark--bg;
+    @apply text-light--text dark:text-dark--text;
     @apply transition-colors-base;
 
     .body__container {
@@ -20,7 +20,7 @@ body {
 /* ESTILOS DE HEADER                                    */
 /* ---------------------------------------------------- */
 header {
-    @apply bg-white dark:bg-gray-800;
+    @apply bg-light--header-bg dark:bg-dark--header-bg;
     @apply shadow transition-colors-base;
 
     .header__container {
@@ -58,8 +58,8 @@ main {
 }
 
 nav {
-    @apply bg-white dark:bg-gray-800;
-    @apply border-b border-gray-100 dark:border-gray-700 shadow-lg;
+    @apply bg-light--nav-bg dark:bg-dark--nav-bg;
+    @apply border-b border-light--nav-border dark:border-dark--nav-border shadow-lg;
     @apply shadow transition-colors-base;
 
     .nav__container {
@@ -85,13 +85,15 @@ nav {
             @apply transition duration-150 ease-in-out;
 
             &.nav__link--active {
-                @apply border-b-4 border-indigo-500 dark:border-indigo-700;
-                @apply text-gray-900 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400;
+                @apply border-b-4 border-light--nav-link-active--border dark:border-dark--nav-link-active--border;
+                @apply text-light--nav-link-active--text dark:text-dark--nav-link-active--text;
+                @apply hover:text-light--nav-link-active--hover dark:hover:text-dark--nav-link-active--hover;
             }
 
             &.nav__link--inactive {
-                @apply text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-500;
-                @apply focus:text-gray-700 dark:focus:text-gray-300;
+                @apply text-light--nav-link-inactive--text dark:text-dark--nav-link-inactive--text ;
+                @apply hover:text-light--nav-link-inactive--hover dark:hover:text-dark--nav-link-inactive--hover;
+                @apply focus:text-light--nav-link-inactive--focus dark:focus:text-dark--nav-link-inactive--focus;
             }
         }
     }
@@ -127,15 +129,15 @@ svg {
     /* ------------------------------ */
 
     &.icon-primary {
-        @apply text-blue-500 dark:text-blue-300;
+        @apply text-light--svg-icon-primary dark:text-dark--svg-icon-primary;
     }
 
     &.icon-secondary {
-        @apply text-gray-500 dark:text-gray-400;
+        @apply text-light--svg-icon-secondary dark:text-dark--svg-icon-secondary;
     }
 
     &.icon-danger {
-        @apply text-red-500 dark:text-red-400;
+        @apply text-light--svg-icon-danger dark:text-dark--svg-icon-danger;
     }
 }
 
@@ -143,7 +145,7 @@ svg {
 /* ESTILOS DE CONTENEDORES REUTILIZABLES               */
 /* ---------------------------------------------------- */
 .home__container_base {
-    @apply bg-white dark:bg-gray-800;
+    @apply bg-light--reusable-bg dark:bg-dark--reusable-bg;
     @apply rounded-xl;
     @apply shadow-light-lg dark:shadow-dark-lg;
     @apply hover:shadow-light-hover dark:hover:shadow-dark-hover;
