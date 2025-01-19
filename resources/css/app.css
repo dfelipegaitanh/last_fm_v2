@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Variables globales para colores */
+/*:root {*/
+/*    --color-primary: theme('colors.light.primary');*/
+/*    --color-secondary: theme('colors.light.secondary');*/
+/*    --color-background: theme('colors.light.background');*/
+/*    --color-text: theme('colors.light.text');*/
+/*    --color-border: theme('colors.light.border');*/
+/*    --color-hover-primary: theme('colors.light.hover.primary');*/
+/*    --color-hover-secondary: theme('colors.light.hover.secondary');*/
+/*    --color-focus-primary: theme('colors.light.focus.primary');*/
+/*    --color-focus-secondary: theme('colors.light.focus.secondary');*/
+/*}*/
+
+/*!* Dark mode *!*/
+/*.dark {*/
+/*    --color-primary: theme('colors.dark.primary');*/
+/*    --color-secondary: theme('colors.dark.secondary');*/
+/*    --color-background: theme('colors.dark.background');*/
+/*    --color-text: theme('colors.dark.text');*/
+/*    --color-border: theme('colors.dark.border');*/
+/*    --color-hover-primary: theme('colors.dark.hover.primary');*/
+/*    --color-hover-secondary: theme('colors.dark.hover.secondary');*/
+/*    --color-focus-primary: theme('colors.dark.focus.primary');*/
+/*    --color-focus-secondary: theme('colors.dark.focus.secondary');*/
+/*}*/
+
 /* ---------------------------------------------------- */
 /* ESTILOS GLOBALES                                    */
 /* ---------------------------------------------------- */
@@ -24,8 +50,7 @@ header {
     @apply shadow transition-colors-base;
 
     .header__container {
-        @apply container mx-auto;
-        @apply py-6 px-4 sm:px-6 lg:px-8;
+        @apply container mx-auto py-6 px-4 sm:px-6 lg:px-8;
     }
 }
 
@@ -33,18 +58,14 @@ header {
 /* ESTILOS DE MAIN                                      */
 /* ---------------------------------------------------- */
 main {
-    @apply container mx-auto;
-    @apply px-6 py-10 space-y-12;
-    @apply transition-colors-base;
+    @apply container mx-auto px-6 py-10 space-y-12 transition-colors-base;
 
     .main__container {
-        @apply flex flex-col md:flex-row;
-        @apply gap-12;
+        @apply flex flex-col md:flex-row gap-12;
     }
 
     aside {
-        @apply w-full md:w-1/4 p-6;
-        @apply home__container_base;
+        @apply w-full md:w-1/4 p-6 home__container_base;
 
         .aside__container {
             @apply space-y-4;
@@ -52,19 +73,19 @@ main {
     }
 
     section {
-        @apply flex-1 p-10;
-        @apply home__container_base;
+        @apply flex-1 p-10 home__container_base;
     }
 }
 
+/* ---------------------------------------------------- */
+/* ESTILOS DE NAV                                       */
+/* ---------------------------------------------------- */
 nav {
     @apply bg-light--nav-bg dark:bg-dark--nav-bg;
-    @apply border-b border-light--nav-border dark:border-dark--nav-border shadow-lg;
-    @apply shadow transition-colors-base;
+    @apply border-b border-light--nav-border dark:border-dark--nav-border shadow-lg transition-colors-base;
 
     .nav__container {
-        @apply max-w-7xl mx-auto;
-        @apply px-4 sm:px-6 lg:px-8;
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
     }
 
     .nav__left {
@@ -76,13 +97,11 @@ nav {
     }
 
     .nav__links-wrapper {
-        @apply hidden space-x-8;
-        @apply sm:-my-px sm:ms-10 sm:flex;
+        @apply hidden space-x-8 sm:-my-px sm:ms-10 sm:flex;
 
         a.nav__link {
             @apply inline-flex items-center px-1 pt-1 text-sm font-medium leading-5;
-            @apply hover:transform hover:translate-y-1 focus:outline-none;
-            @apply transition duration-150 ease-in-out;
+            @apply hover:transform hover:translate-y-1 focus:outline-none transition duration-150 ease-in-out;
 
             &.nav__link--active {
                 @apply border-b-4 border-light--nav-link-active--border dark:border-dark--nav-link-active--border;
@@ -91,26 +110,21 @@ nav {
             }
 
             &.nav__link--inactive {
-                @apply text-light--nav-link-inactive--text dark:text-dark--nav-link-inactive--text ;
+                @apply text-light--nav-link-inactive--text dark:text-dark--nav-link-inactive--text;
                 @apply hover:text-light--nav-link-inactive--hover dark:hover:text-dark--nav-link-inactive--hover;
                 @apply focus:text-light--nav-link-inactive--focus dark:focus:text-dark--nav-link-inactive--focus;
             }
         }
     }
-
 }
 
 /* ---------------------------------------------------- */
 /* ESTILOS DE ICONOS                                    */
 /* ---------------------------------------------------- */
-
 svg {
-
     @apply transition-colors-base;
 
-    /* ------------------------------ */
-    /* Variaciones de tamaño           */
-    /* ------------------------------ */
+    /* Variaciones de tamaño */
 
     &.icon-sm {
         @apply h-5 w-5;
@@ -124,9 +138,7 @@ svg {
         @apply h-12 w-12;
     }
 
-    /* ------------------------------ */
-    /* Variaciones de color            */
-    /* ------------------------------ */
+    /* Variaciones de color */
 
     &.icon-primary {
         @apply text-light--svg-icon-primary dark:text-dark--svg-icon-primary;
@@ -146,8 +158,7 @@ svg {
 /* ---------------------------------------------------- */
 .home__container_base {
     @apply bg-light--reusable-bg dark:bg-dark--reusable-bg;
-    @apply rounded-xl;
-    @apply shadow-light-lg dark:shadow-dark-lg;
+    @apply rounded-xl shadow-light-lg dark:shadow-dark-lg;
     @apply hover:shadow-light-hover dark:hover:shadow-dark-hover;
     @apply transition-colors-base;
 }
@@ -156,6 +167,5 @@ svg {
 /* ESTILOS DE ELEMENTOS ESPECÍFICOS                    */
 /* ---------------------------------------------------- */
 .disabled-div {
-    @apply pointer-events-none opacity-50 select-none;
-    @apply transition-opacity duration-500;
+    @apply pointer-events-none opacity-50 select-none transition-opacity duration-500;
 }
