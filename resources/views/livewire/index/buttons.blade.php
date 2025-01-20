@@ -1,4 +1,4 @@
-<div class="overflow-hidden flex flex-col gap-4 justify-start mb-4 w-full max-w-md">
+<div class="flex flex-col gap-4 justify-start mb-4 w-full max-w-md">
 
     <x-lastfm.sidebar-svg-button
             text="Get User Info"
