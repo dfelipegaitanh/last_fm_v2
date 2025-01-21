@@ -2,195 +2,161 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Variables globales para colores */
-/*:root {*/
-/*    --color-primary: theme('colors.light.primary');*/
-/*    --color-secondary: theme('colors.light.secondary');*/
-/*    --color-background: theme('colors.light.background');*/
-/*    --color-text: theme('colors.light.text');*/
-/*    --color-border: theme('colors.light.border');*/
-/*    --color-hover-primary: theme('colors.light.hover.primary');*/
-/*    --color-hover-secondary: theme('colors.light.hover.secondary');*/
-/*    --color-focus-primary: theme('colors.light.focus.primary');*/
-/*    --color-focus-secondary: theme('colors.light.focus.secondary');*/
-/*}*/
-
-/*!* Dark mode *!*/
-/*.dark {*/
-/*    --color-primary: theme('colors.dark.primary');*/
-/*    --color-secondary: theme('colors.dark.secondary');*/
-/*    --color-background: theme('colors.dark.background');*/
-/*    --color-text: theme('colors.dark.text');*/
-/*    --color-border: theme('colors.dark.border');*/
-/*    --color-hover-primary: theme('colors.dark.hover.primary');*/
-/*    --color-hover-secondary: theme('colors.dark.hover.secondary');*/
-/*    --color-focus-primary: theme('colors.dark.focus.primary');*/
-/*    --color-focus-secondary: theme('colors.dark.focus.secondary');*/
-/*}*/
-
 /* ---------------------------------------------------- */
-/* ESTILOS GLOBALES                                    */
+/* ESTILOS GLOBALES EN LA CAPA BASE                    */
 /* ---------------------------------------------------- */
-body {
-    @apply font-sans antialiased;
-    @apply bg-light-background dark:bg-dark-background;
-    @apply text-light-text dark:text-dark-text;
-    @apply transition-colors-base;
+@layer base {
+    body {
+        @apply font-sans antialiased;
+        @apply bg-light-background dark:bg-dark-background;
+        @apply text-light-text dark:text-dark-text;
+        @apply transition-colors-base;
 
-    .body__container {
-        @apply flex flex-col min-h-screen;
-    }
-}
-
-/* ---------------------------------------------------- */
-/* ESTILOS DE HEADER                                    */
-/* ---------------------------------------------------- */
-header {
-    @apply bg-light-header-bg dark:bg-dark-header-bg;
-    @apply shadow transition-colors-base;
-
-    .header__container {
-        @apply container mx-auto py-6 px-4 sm:px-6 lg:px-8;
-    }
-}
-
-/* ---------------------------------------------------- */
-/* ESTILOS DE MAIN                                      */
-/* ---------------------------------------------------- */
-main {
-    @apply container mx-auto px-6 py-10 space-y-12 transition-colors-base;
-
-    .main__container {
-        @apply flex flex-col md:flex-row gap-12;
-    }
-
-    aside {
-        @apply w-full md:w-1/4 p-6 reusable-container;
-
-        .aside__container {
-            @apply space-y-4;
-        }
-    }
-
-    section {
-        @apply flex-1 p-10 reusable-container;
-    }
-}
-
-/* ---------------------------------------------------- */
-/* ESTILOS DE NAV                                       */
-/* ---------------------------------------------------- */
-nav {
-    @apply bg-light-nav-bg dark:bg-dark-nav-bg;
-    @apply border-b border-light-nav-border dark:border-dark-nav-border shadow-lg transition-colors-base;
-
-    .nav__container {
-        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-    }
-
-    .nav__left {
-        @apply flex items-center space-x-8;
-    }
-
-    .nav__right {
-        @apply flex items-center space-x-4;
-    }
-
-    .nav__links-wrapper {
-        @apply hidden space-x-8 sm:-my-px sm:ms-10 sm:flex;
-
-        a.nav__link {
-            @apply inline-flex items-center px-1 pt-1 text-sm font-medium leading-5;
-            @apply hover:transform hover:translate-y-1 focus:outline-none transition duration-150 ease-in-out;
-
-            &.nav__link--active {
-                @apply border-b-4 border-light-nav-link-active-border dark:border-dark-nav-link-active-border;
-                @apply text-light-nav-link-active-text dark:text-dark-nav-link-active-text;
-                @apply hover:text-light-nav-link-active-hover dark:hover:text-dark-nav-link-active-hover;
-            }
-
-            &.nav__link--inactive {
-                @apply text-light-nav-link-inactive-text dark:text-dark-nav-link-inactive-text;
-                @apply hover:text-light-nav-link-inactive-hover dark:hover:text-dark-nav-link-inactive-hover;
-                @apply focus:text-light-nav-link-inactive-focus dark:focus:text-dark-nav-link-inactive-focus;
-            }
+        .body__container {
+            @apply flex flex-col min-h-screen;
         }
     }
 }
 
 /* ---------------------------------------------------- */
-/* ESTILOS DE ICONOS                                    */
+/* COMPONENTES PERSONALIZADOS                          */
 /* ---------------------------------------------------- */
-svg {
-    @apply transition-colors-base;
+@layer components {
+    /* Header */
+    header {
+        @apply bg-light-header-bg dark:bg-dark-header-bg;
+        @apply shadow transition-colors-base;
 
-    /* Variaciones de tamaño */
-
-    &.icon-sm {
-        @apply h-5 w-5;
+        .header__container {
+            @apply container mx-auto py-6 px-4 sm:px-6 lg:px-8;
+        }
     }
 
-    &.icon-md {
-        @apply h-8 w-8;
+    /* Main Content */
+    main {
+        @apply container mx-auto px-6 py-10 space-y-12 transition-colors-base;
+
+        .main__container {
+            @apply flex flex-col md:flex-row gap-12;
+        }
+
+        aside {
+            @apply w-full md:w-1/4 p-6 reusable-container;
+
+            .aside__container {
+                @apply space-y-4;
+            }
+        }
+
+        section {
+            @apply flex-1 p-10 reusable-container;
+        }
     }
 
-    &.icon-lg {
-        @apply h-12 w-12;
+    /* Navigation */
+    nav {
+        @apply bg-light-nav-bg dark:bg-dark-nav-bg;
+        @apply border-b border-light-nav-border dark:border-dark-nav-border shadow-lg transition-colors-base;
+
+        .nav__container {
+            @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+        }
+
+        .nav__left {
+            @apply flex items-center space-x-8;
+        }
+
+        .nav__right {
+            @apply flex items-center space-x-4;
+        }
+
+        .nav__links-wrapper {
+            @apply hidden space-x-8 sm:-my-px sm:ms-10 sm:flex;
+
+            a.nav__link {
+                @apply inline-flex items-center px-1 pt-1 text-sm font-medium leading-5;
+                @apply hover:transform hover:translate-y-1 focus:outline-none transition duration-150 ease-in-out;
+
+                &.nav__link--active {
+                    @apply border-b-4 border-light-nav-link-active-border dark:border-dark-nav-link-active-border;
+                    @apply text-light-nav-link-active-text dark:text-dark-nav-link-active-text;
+                    @apply hover:text-light-nav-link-active-hover dark:hover:text-dark-nav-link-active-hover;
+                }
+
+                &.nav__link--inactive {
+                    @apply text-light-nav-link-inactive-text dark:text-dark-nav-link-inactive-text;
+                    @apply hover:text-light-nav-link-inactive-hover dark:hover:text-dark-nav-link-inactive-hover;
+                    @apply focus:text-light-nav-link-inactive-focus dark:focus:text-dark-nav-link-inactive-focus;
+                }
+            }
+        }
     }
 
-    /* Variaciones de color */
 
-    &.icon-primary {
-        @apply text-light-svg-icon-primary dark:text-dark-svg-icon-primary;
+    /* Button */
+    button.buttons, a.buttons {
+        @apply px-6 py-3 bg-indigo-500 text-white font-semibold rounded-lg shadow-lg
+        hover:bg-indigo-400 hover:shadow-xl focus:outline-none focus:ring-4
+        focus:ring-indigo-200 focus:ring-opacity-50 focus:border focus:border-indigo-300
+        active:bg-indigo-600 active:ring-indigo-300 transition-all duration-300 ease-in-out transform
+        hover:translate-y-1 hover:opacity-90 active:scale-95 inline-flex items-center justify-center gap-2;
+
+        @apply dark:bg-indigo-700 dark:text-white dark:shadow-md
+        dark:hover:bg-indigo-500 dark:hover:shadow-xl
+        dark:focus:ring-indigo-500 dark:focus:border-indigo-600 dark:active:bg-indigo-800;
     }
 
-    &.icon-secondary {
-        @apply text-light-svg-icon-secondary dark:text-dark-svg-icon-secondary;
-    }
 
-    &.icon-danger {
-        @apply text-light-svg-icon-danger dark:text-dark-svg-icon-danger;
+    /* SVG */
+    svg {
+        @apply transition-colors-base;
+
+        &.icon-sm {
+            @apply h-5 w-5;
+        }
+
+        &.icon-md {
+            @apply h-8 w-8;
+        }
+
+        &.icon-lg {
+            @apply h-12 w-12;
+        }
+
+        &.icon-primary {
+            @apply text-light-svg-icon-primary dark:text-dark-svg-icon-primary;
+        }
+
+        &.icon-secondary {
+            @apply text-light-svg-icon-secondary dark:text-dark-svg-icon-secondary;
+        }
+
+        &.icon-danger {
+            @apply text-light-svg-icon-danger dark:text-dark-svg-icon-danger;
+        }
     }
 }
 
 /* ---------------------------------------------------- */
-/* ESTILOS DE CONTENEDORES REUTILIZABLES               */
+/* UTILIDADES PERSONALIZADAS                           */
 /* ---------------------------------------------------- */
-.reusable-container {
-    @apply bg-light-reusable-bg dark:bg-dark-reusable-bg;
-    @apply rounded-xl shadow-light-lg dark:shadow-dark-lg;
-    @apply hover:shadow-light-hover dark:hover:shadow-dark-hover;
-    @apply transition-colors-base;
-}
+@layer utilities {
+    .reusable-container {
+        @apply bg-light-reusable-bg dark:bg-dark-reusable-bg;
+        @apply rounded-xl shadow-light-lg dark:shadow-dark-lg;
+        @apply hover:shadow-light-hover dark:hover:shadow-dark-hover;
+        @apply transition-colors-base;
+    }
 
-/* ---------------------------------------------------- */
-/* ESTILOS DE ELEMENTOS ESPECÍFICOS                    */
-/* ---------------------------------------------------- */
-.disabled-div {
-    @apply pointer-events-none opacity-50 select-none transition-opacity duration-500;
-}
+    .disabled-div {
+        @apply pointer-events-none opacity-50 select-none transition-opacity duration-500;
+    }
 
-/* ---------------------------------------------------- */
-/* ESTILOS DE BOTONES PERSONALIZADOS                   */
-/* ---------------------------------------------------- */
-.buttons {
-    /* Estilo base */
-    @apply px-6 py-3 bg-indigo-500 text-white font-semibold rounded-lg shadow-lg
-    hover:bg-indigo-400 hover:shadow-xl focus:outline-none focus:ring-4
-    focus:ring-indigo-200 focus:ring-opacity-50 focus:border focus:border-indigo-300
-    active:bg-indigo-600 active:ring-indigo-300 transition-all duration-300 ease-in-out transform
-    hover:translate-y-1 hover:opacity-90 active:scale-95 inline-flex items-center justify-center gap-2
-
-    dark:bg-indigo-700 dark:text-white dark:shadow-md
-    dark:hover:bg-indigo-500 dark:hover:shadow-xl
-    dark:focus:ring-indigo-500 dark:focus:border-indigo-600 dark:active:bg-indigo-800
-
-}
-
-.user-settings-button {
-    @apply inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md;
-    @apply bg-light-user-settings-button-bg dark:bg-dark-user-settings-button-bg;
-    @apply text-light-user-settings-button-text dark:text-dark-user-settings-button-text;
-    @apply hover:text-light-user-settings-button-hover-text dark:hover:text-dark-user-settings-button-hover-text;
-    @apply focus:outline-none transition ease-in-out duration-150;
+    .user-settings-button {
+        @apply inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md;
+        @apply bg-light-user-settings-button-bg dark:bg-dark-user-settings-button-bg;
+        @apply text-light-user-settings-button-text dark:text-dark-user-settings-button-text;
+        @apply hover:text-light-user-settings-button-hover-text dark:hover:text-dark-user-settings-button-hover-text;
+        @apply focus:outline-none transition ease-in-out duration-150;
+    }
 }
