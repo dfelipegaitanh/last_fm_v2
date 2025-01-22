@@ -95,7 +95,7 @@ export default {
 
                     'button-bg': '#4338ca', // indigo-700
                     'button-bg-active': '#3730a3', // indigo-800
-                    'button-bg-hover': '#4f46e5', // indigo-600
+                    'button-bg-hover': '#6366F1', // indigo-500
                     'button-ring-focus': '#6366f1', // indigo-500
                     'button-ring-active': '#4f46e5', // indigo-600
                     'button-text': '#e5e7eb', // gray-200
