@@ -97,16 +97,36 @@
 
     /* Button */
     button.buttons, a.buttons {
-        @apply px-6 py-3 bg-indigo-500 text-white font-semibold rounded-lg shadow-lg;
-        @apply hover:bg-indigo-400 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-indigo-200;
-        @apply focus:ring-opacity-50 focus:border focus:border-indigo-300;
-        @apply active:bg-indigo-600 active:ring-indigo-300;
-        @apply transition-all duration-300 ease-in-out transform;
-        @apply hover:translate-y-1 hover:opacity-90 active:scale-95 inline-flex items-center justify-center gap-2;
 
-        @apply dark:bg-indigo-700 dark:text-white dark:shadow-md;
-        @apply dark:hover:bg-indigo-500 dark:hover:shadow-xl;
-        @apply dark:focus:ring-indigo-500 dark:focus:border-indigo-600 dark:active:bg-indigo-800;
+        /* Size and Spacing */
+        @apply px-5 py-3;
+        @apply justify-center gap-2 inline-flex items-center;
+
+        /* Background and Text */
+        @apply bg-light-button-bg text-light-button-text font-medium rounded-md;
+        @apply dark:bg-dark-button-bg dark:text-dark-button-text;
+
+        /* Shadow */
+        @apply shadow-md hover:shadow-lg;
+        @apply dark:hover:shadow-lg;
+
+        /* Hover and Active States */
+        @apply hover:bg-light-button-bg-hover;
+        @apply dark:hover:bg-dark-button-bg-hover;
+        @apply active:bg-light-button-bg-active;
+        @apply dark:active:bg-dark-button-bg-active;
+
+        /* Ring Focus */
+        @apply focus:outline-none focus:ring-4 focus:ring-light-button-ring-focus focus:ring-opacity-50;
+        @apply dark:focus:ring-dark-button-ring-focus;
+        @apply active:ring-light-button-ring-active;
+        @apply dark:active:ring-dark-button-ring-active;
+
+        /* Transition and Transform */
+        @apply interactive-transform;
+
+        /* Alignment and Text Centering */
+        @apply text-center;
     }
 
 

@@ -2,8 +2,6 @@
    href="{{ route($route) }}"
    wire:loading.attr="disabled"
    class="buttons"
-
-
 >
 
     <x-icon class="w-5 h-5"
