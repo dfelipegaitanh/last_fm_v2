@@ -94,9 +94,18 @@
         }
     }
 
+    /* SVG */
+    svg {
+        @apply transition-colors-base;
 
-    /* Button */
-    button.buttons, a.buttons {
+    }
+}
+
+/* ---------------------------------------------------- */
+/* UTILIDADES PERSONALIZADAS                           */
+/* ---------------------------------------------------- */
+@layer utilities {
+    .buttons {
 
         /* Size and Spacing */
         @apply px-5 py-3;
@@ -129,18 +138,6 @@
         @apply text-center;
     }
 
-
-    /* SVG */
-    svg {
-        @apply transition-colors-base;
-
-    }
-}
-
-/* ---------------------------------------------------- */
-/* UTILIDADES PERSONALIZADAS                           */
-/* ---------------------------------------------------- */
-@layer utilities {
     .reusable-container {
         @apply bg-light-reusable-bg dark:bg-dark-reusable-bg;
         @apply rounded-xl shadow-light-lg dark:shadow-dark-lg;
