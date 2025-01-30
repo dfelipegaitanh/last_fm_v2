@@ -105,6 +105,16 @@
 /* UTILIDADES PERSONALIZADAS                           */
 /* ---------------------------------------------------- */
 @layer utilities {
+
+    .dropdown-link {
+        @apply block w-full px-4 py-2 text-start;
+        @apply text-sm leading-5;
+        @apply text-gray-700 dark:text-gray-300;
+        @apply hover:bg-gray-100 dark:hover:bg-gray-800;
+        @apply focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800;
+        @apply simple-transition;
+    }
+
     .buttons {
 
         /* Size and Spacing */

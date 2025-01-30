@@ -132,6 +132,11 @@ export default {
                         transform: 'scale(0.9)',
                     },
                 },
+                '.simple-transition': {
+                    transitionProperty: 'all',
+                    transitionTimingFunction: 'ease-in-out',
+                    transitionDuration: '200ms',
+                },
             });
         }),
     ],
