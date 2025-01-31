@@ -17,15 +17,15 @@ new class extends Component {
 
 <nav x-data="{ open: false }">
     <div class="nav__container">
-        <div class="flex justify-between h-16">
+        <div class="flex h-16 justify-between">
             <div class="nav__left">
-                <x-navigation.logo/>
-                <x-navigation.nav-links/>
+                <x-navigation.logo />
+                <x-navigation.nav-links />
             </div>
             <div class="nav__right">
-                <x-navigation.user-settings-dropdown/>
-                <x-navigation.hamburger-menu/>
-                <x-navigation.responsive-menu/>
+                <x-navigation.user-settings-dropdown />
+                <x-navigation.hamburger-menu />
+                <x-navigation.responsive-menu />
             </div>
         </div>
     </div>

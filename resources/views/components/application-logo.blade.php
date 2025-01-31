@@ -1,10 +1,21 @@
 @props([
-        'size' => '30',
-     ])
+    'size' => '30',
+])
 
-<svg class="w-[{{ $size }}px] h-[{{ $size }}px] text-gray-800 dark:text-white" aria-hidden="true"
-     xmlns="http://www.w3.org/2000/svg"
-     width="{{ $size }}" height="{{ $size }}" fill="none" viewBox="0 0 24 24">
-    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4"
-          d="M8 18c0 1.1046-.89543 2-2 2s-2-.8954-2-2 .89543-2 2-2 2 .8954 2 2Zm0 0V6.33333L18 4v11.6667M8 10.3333 18 8m0 8c0 1.1046-.8954 2-2 2s-2-.8954-2-2 .8954-2 2-2 2 .8954 2 2Z"/>
+<svg
+    class="h-[{{ $size }}px] w-[{{ $size }}px] text-gray-800 dark:text-white"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="{{ $size }}"
+    height="{{ $size }}"
+    fill="none"
+    viewBox="0 0 24 24"
+>
+    <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2.4"
+        d="M8 18c0 1.1046-.89543 2-2 2s-2-.8954-2-2 .89543-2 2-2 2 .8954 2 2Zm0 0V6.33333L18 4v11.6667M8 10.3333 18 8m0 8c0 1.1046-.8954 2-2 2s-2-.8954-2-2 .8954-2 2-2 2 .8954 2 2Z"
+    />
 </svg>

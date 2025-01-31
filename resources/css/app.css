@@ -13,7 +13,7 @@
         @apply transition-colors-base;
 
         .body__container {
-            @apply flex flex-col min-h-screen;
+            @apply flex min-h-screen flex-col;
         }
     }
 }
@@ -28,20 +28,20 @@
         @apply shadow transition-colors-base;
 
         .header__container {
-            @apply container mx-auto py-6 px-4 sm:px-6 lg:px-8;
+            @apply container mx-auto px-4 py-6 sm:px-6 lg:px-8;
         }
     }
 
     /* Main Content */
     main {
-        @apply container mx-auto px-6 py-10 space-y-12 transition-colors-base;
+        @apply container mx-auto space-y-12 px-6 py-10 transition-colors-base;
 
         .main__container {
-            @apply flex flex-col md:flex-row gap-12;
+            @apply flex flex-col gap-12 md:flex-row;
         }
 
         aside {
-            @apply w-full md:w-1/4 p-6 reusable-container;
+            @apply reusable-container w-full p-6 md:w-1/4;
 
             .aside__container {
                 @apply space-y-4;
@@ -49,7 +49,7 @@
         }
 
         section {
-            @apply flex-1 p-10 reusable-container;
+            @apply reusable-container flex-1 p-10;
         }
     }
 
@@ -60,7 +60,7 @@
         @apply shadow-lg transition-colors-base;
 
         .nav__container {
-            @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+            @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
         }
 
         .nav__left {
@@ -76,7 +76,7 @@
 
             a.nav__link {
                 @apply inline-flex items-center px-1 pt-1 text-sm font-medium leading-5;
-                @apply hover:transform hover:translate-y-1 focus:outline-none;
+                @apply hover:translate-y-1 hover:transform focus:outline-none;
                 @apply transition duration-150 ease-in-out;
 
                 &.nav__link--active {
@@ -97,7 +97,6 @@
     /* SVG */
     svg {
         @apply transition-colors-base;
-
     }
 }
 
@@ -105,24 +104,22 @@
 /* UTILIDADES PERSONALIZADAS                           */
 /* ---------------------------------------------------- */
 @layer utilities {
-
     .dropdown-link {
         @apply block w-full px-4 py-2 text-start;
         @apply text-sm leading-5;
         @apply text-gray-700 dark:text-gray-300;
         @apply hover:bg-gray-100 dark:hover:bg-gray-800;
-        @apply focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800;
+        @apply focus:bg-gray-100 focus:outline-none dark:focus:bg-gray-800;
         @apply simple-transition;
     }
 
     .buttons {
-
         /* Size and Spacing */
         @apply px-5 py-3;
-        @apply justify-center gap-2 inline-flex items-center;
+        @apply inline-flex items-center justify-center gap-2;
 
         /* Background and Text */
-        @apply bg-light-button-bg text-light-button-text font-medium rounded-md;
+        @apply rounded-md bg-light-button-bg font-medium text-light-button-text;
         @apply dark:bg-dark-button-bg dark:text-dark-button-text;
 
         /* Shadow */
@@ -149,23 +146,23 @@
     }
 
     .reusable-container {
-        @apply bg-light-reusable-bg dark:bg-dark-reusable-bg;
+        @apply border-gray-700 bg-light-reusable-bg dark:bg-dark-reusable-bg;
         @apply rounded-xl shadow-light-lg dark:shadow-dark-lg;
         @apply hover:shadow-light-hover dark:hover:shadow-dark-hover;
         @apply transition-colors-base;
     }
 
     .disabled-div {
-        @apply pointer-events-none opacity-50 select-none;
+        @apply pointer-events-none select-none opacity-50;
         @apply transition-opacity duration-500;
     }
 
     .user-settings-button {
-        @apply inline-flex items-center px-3 py-2 border border-transparent;
-        @apply text-sm leading-4 font-medium rounded-md;
+        @apply inline-flex items-center border border-transparent px-3 py-2;
+        @apply rounded-md text-sm font-medium leading-4;
         @apply bg-light-user-settings-button-bg dark:bg-dark-user-settings-button-bg;
         @apply text-light-user-settings-button-text dark:text-dark-user-settings-button-text;
         @apply hover:text-light-user-settings-button-hover-text dark:hover:text-dark-user-settings-button-hover-text;
-        @apply focus:outline-none transition ease-in-out duration-150;
+        @apply transition duration-150 ease-in-out focus:outline-none;
     }
 }

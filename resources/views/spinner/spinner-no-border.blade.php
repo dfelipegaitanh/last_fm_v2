@@ -1,5 +1,7 @@
-<div class="flex justify-center items-center p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-md"
-     role="status">
+<div
+    class="flex items-center justify-center rounded-md border border-gray-200 bg-white p-4 shadow-md dark:border-gray-700 dark:bg-gray-800"
+    role="status"
+>
     <span class="sr-only">Loading...</span>
-    <livewire:placeholder.spinner-body/>
+    <livewire:placeholder.spinner-body />
 </div>

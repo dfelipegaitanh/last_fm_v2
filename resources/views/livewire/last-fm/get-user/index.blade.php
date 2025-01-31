@@ -1,3 +1,3 @@
 <div>
-    <livewire:last-fm.get-user.user-info/>
+    <livewire:last-fm.get-user.user-info />
 </div>
