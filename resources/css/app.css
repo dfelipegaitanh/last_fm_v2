@@ -158,11 +158,9 @@
     }
 
     .user-settings-button {
-        @apply inline-flex items-center border border-transparent px-3 py-2;
-        @apply rounded-md text-sm font-medium leading-4;
-        @apply bg-light-user-settings-button-bg dark:bg-dark-user-settings-button-bg;
-        @apply text-light-user-settings-button-text dark:text-dark-user-settings-button-text;
-        @apply hover:text-light-user-settings-button-hover-text dark:hover:text-dark-user-settings-button-hover-text;
-        @apply transition duration-150 ease-in-out focus:outline-none;
+        @apply inline-flex items-center rounded-md border border-transparent px-3 py-2 text-sm font-medium leading-4 transition duration-150 ease-in-out;
+        @apply bg-light-user-settings-button-bg text-light-user-settings-button-text dark:bg-dark-user-settings-button-bg dark:text-dark-user-settings-button-text;
+        @apply hover:scale-105 hover:bg-gray-100 hover:text-light-user-settings-button-hover-text hover:shadow-md dark:hover:bg-gray-700 dark:hover:text-dark-user-settings-button-hover-text;
+        @apply focus:outline-none focus:ring-0 focus:ring-offset-0;
     }
 }

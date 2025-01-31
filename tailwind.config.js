@@ -1,6 +1,6 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
-import forms from '@tailwindcss/forms';
-import plugin from 'tailwindcss/plugin';
+import defaultTheme from "tailwindcss/defaultTheme";
+import forms from "@tailwindcss/forms";
+import plugin from "tailwindcss/plugin";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -15,11 +15,10 @@ export default {
     theme: {
         extend: {
             colors: {
-                // Colores para el modo claro
-                'light': {
+                light: {
                     // Fondo y texto
-                    'background': '#f3f4f6', // gray-100
-                    'text': '#1f2937', // gray-800
+                    background: '#f3f4f6', // gray-100
+                    text: '#1f2937', // gray-800
 
                     // Header
                     'header-bg': '#ffffff', // white
@@ -32,6 +31,7 @@ export default {
                     'nav-link-active-border': '#6366f1', // indigo-500
                     'nav-link-active-hover': '#6366f1', // indigo-500
                     'nav-link-active-text': '#111827', // gray-900
+
                     // Navegación - Inactive
                     'nav-link-inactive-focus': '#374151', // gray-700
                     'nav-link-inactive-hover': '#4b5563', // gray-600
@@ -50,19 +50,19 @@ export default {
                     'user-settings-button-text': '#6b7280', // Gray-500
                     'user-settings-button-hover-text': '#374151', // Gray-700
 
+                    // Botón general
                     'button-bg': '#6366f1', // indigo-500
                     'button-bg-active': '#4f46e5', // indigo-600
                     'button-bg-hover': '#818cf8', // indigo-400
                     'button-ring-focus': '#93c5fd', // indigo-300
                     'button-ring-active': '#818cf8', // indigo-400
                     'button-text': '#ffffff', // white
-
                 },
-                // Colores para el modo oscuro
-                'dark': {
+
+                dark: {
                     // Fondo y texto
-                    'background': '#111827', // gray-900
-                    'text': '#e5e7eb', // gray-200
+                    background: '#111827', // gray-900
+                    text: '#e5e7eb', // gray-200
 
                     // Header
                     'header-bg': '#1f2937', // gray-800
@@ -75,6 +75,7 @@ export default {
                     'nav-link-active-border': '#4338ca', // indigo-700
                     'nav-link-active-hover': '#818cf8', // indigo-300
                     'nav-link-active-text': '#e5e7eb', // gray-200
+
                     // Navegación - Inactive
                     'nav-link-inactive-focus': '#d1d5db', // gray-300
                     'nav-link-inactive-hover': '#6b7280', // gray-500
@@ -93,13 +94,14 @@ export default {
                     'user-settings-button-text': '#9ca3af', // Gray-400
                     'user-settings-button-hover-text': '#e5e7eb', // Gray-200
 
+                    // Botón general
                     'button-bg': '#4338ca', // indigo-700
                     'button-bg-active': '#3730a3', // indigo-800
                     'button-bg-hover': '#6366F1', // indigo-500
                     'button-ring-focus': '#6366f1', // indigo-500
                     'button-ring-active': '#4f46e5', // indigo-600
                     'button-text': '#e5e7eb', // gray-200
-                }
+                },
             },
 
             fontFamily: {
@@ -115,9 +117,9 @@ export default {
     },
 
     plugins: [
-        "prettier-plugin-tailwindcss",
+        'prettier-plugin-tailwindcss',
         forms,
-        plugin(function ({addUtilities}) {
+        plugin(function ({ addUtilities }) {
             addUtilities({
                 '.transition-colors-base': {
                     transitionProperty: 'color, background-color, border-color, text-decoration-color, fill, stroke',
