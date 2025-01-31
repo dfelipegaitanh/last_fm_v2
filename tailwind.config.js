@@ -115,6 +115,7 @@ export default {
     },
 
     plugins: [
+        "prettier-plugin-tailwindcss",
         forms,
         plugin(function ({addUtilities}) {
             addUtilities({
