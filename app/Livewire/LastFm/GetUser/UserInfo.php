@@ -41,7 +41,8 @@ class UserInfo extends Component
     {
         return app(GetUserInfoAction::class)
             ->execute(
-                auth()->user()->lastfmUser,
+                auth()->user()
+                    ->lastfmUser,
             );
     }
 }

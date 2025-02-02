@@ -13,7 +13,7 @@ class ActionsServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(SaveGlobalSongsStatisticsAction::class, function () {
-            return new SaveGlobalSongsStatisticsAction;
+            return new SaveGlobalSongsStatisticsAction();
         });
 
         $this->app->singleton(GetUserInfoAction::class, function () {
@@ -24,9 +24,11 @@ class ActionsServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(GetGlobalSongsStatisticsAction::class, function () {
-            return new GetGlobalSongsStatisticsAction;
+            return new GetGlobalSongsStatisticsAction();
         });
     }
 
-    public function boot(): void {}
+    public function boot(): void
+    {
+    }
 }
