@@ -3,7 +3,10 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "format": "npx prettier --write resources/",
+        "format_app": "npx prettier --write resources/css/app.css",
+        "check": "npx prettier --check resources/"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
