@@ -10,7 +10,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "laravel/framework": "^12.0",
+        "barryvanveen/lastfm": "^2.0",
+        "laravel/framework": "^11.0",
+        "laravel/telescope": "5.x-dev",
         "laravel/tinker": "^2.10.1"
     },
     "require-dev": {
@@ -61,7 +63,9 @@
             "dev-master": "12.x-dev"
         },
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "laravel/telescope"
+            ]
         }
     },
     "config": {
@@ -73,6 +77,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
