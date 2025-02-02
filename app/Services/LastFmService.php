@@ -13,9 +13,13 @@ class LastFmService
         $this->lastfm = $lastfm;
     }
 
-    public function userInfo(string $userName): array
+    public function userInfo(): array
     {
-        return $this->lastfm->userInfo(username: $userName)->get();
+        return $this->lastfm
+            ->userInfo(
+                auth()->user()
+                    ->lastfmUser
+            )->get();
 
     }
 }

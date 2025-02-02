@@ -4,7 +4,6 @@ namespace App\Actions\LastFmUser;
 
 use App\Actions\LastFmGlobalSongsStatistics\SaveGlobalSongsStatisticsAction;
 use App\Models\LastFmUser;
-use App\Models\User;
 use App\Services\LastFmService;
 
 class GetUserInfoAction
@@ -20,8 +19,9 @@ class GetUserInfoAction
      */
     public function __invoke(string $lastFmUsername): LastFmUser
     {
-        $userInfo = $this->lastFmService->userInfo($lastFmUsername);
-        auth()->user()->can('saveLastFmUser', [User::class, $userInfo['name']]);
+
+        $userInfo = $this->lastFmService
+            ->userInfo();
 
         $lastFmUser = LastFmUser::firstOrCreate(
             ['user_id' => auth()->user()->id],
@@ -34,7 +34,8 @@ class GetUserInfoAction
             ],
         );
 
-        $this->saveGlobalSongsStatisticsAction->execute($lastFmUser->id, $userInfo);
+        $this->saveGlobalSongsStatisticsAction
+            ->execute($lastFmUser->id, $userInfo);
 
         return $lastFmUser;
     }
