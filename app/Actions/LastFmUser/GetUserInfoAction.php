@@ -17,13 +17,13 @@ class GetUserInfoAction
     /**
      * @throws \Exception
      */
-    public function __invoke(string $lastFmUsername): LastFmUser
+    public function execute(): LastFmUser
     {
 
         $userInfo = $this->lastFmService
             ->userInfo();
 
-        $lastFmUser = LastFmUser::firstOrCreate(
+        LastFmUser::firstOrCreate(
             ['user_id' => auth()->user()->id],
             [
                 'name' => $userInfo['name'],
@@ -35,8 +35,11 @@ class GetUserInfoAction
         );
 
         $this->saveGlobalSongsStatisticsAction
-            ->execute($lastFmUser->id, $userInfo);
+            ->execute($userInfo);
 
-        return $lastFmUser;
+        //        $this->saveGlobalSongsStatisticsAction
+        //            ->execute($lastFmUser->id, $userInfo);
+
+        return auth()->user()->lastFmUser;
     }
 }

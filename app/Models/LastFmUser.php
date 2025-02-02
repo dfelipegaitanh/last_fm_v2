@@ -21,12 +21,16 @@ class LastFmUser extends Model
         'registered',
     ];
 
+    protected $casts = [
+        'registered' => 'json',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function lastFmGlobalSongsStatistics(): BelongsTo
+    public function statistics(): BelongsTo
     {
         return $this->belongsTo(LastFmGlobalSongsStatistics::class);
     }
