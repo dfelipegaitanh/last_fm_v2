@@ -39,10 +39,8 @@ class UserInfo extends Component
      */
     public function getLastFmUser(): LastFmUser
     {
-        return app(GetUserInfoAction::class)
-            ->execute(
-                auth()->user()
-                    ->lastfmUser,
-            );
+        return app(GetUserInfoAction::class)(
+            auth()->user()->lastfmUser,
+        );
     }
 }

@@ -18,7 +18,7 @@ class GetUserInfoAction
     /**
      * @throws \Exception
      */
-    public function execute(string $lastFmUsername): LastFmUser
+    public function __invoke(string $lastFmUsername): LastFmUser
     {
         $userInfo = $this->lastFmService->userInfo($lastFmUsername);
         auth()->user()->can('saveLastFmUser', [User::class, $userInfo['name']]);
