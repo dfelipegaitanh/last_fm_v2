@@ -1,3 +1,68 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ---------------------------------------------------- */
+/* UTILIDADES PERSONALIZADAS                           */
+/* ---------------------------------------------------- */
+@layer utilities {
+    .dropdown-link {
+        @apply block w-full px-4 py-2 text-start;
+        @apply text-sm leading-5;
+        @apply text-gray-700 dark:text-gray-300;
+        @apply hover:bg-gray-100 dark:hover:bg-gray-800;
+        @apply focus:bg-gray-100 focus:outline-none dark:focus:bg-gray-800;
+        @apply simple-transition;
+    }
+
+    .buttons {
+        /* Size and Spacing */
+        @apply px-5 py-3;
+        @apply inline-flex items-center justify-center gap-2;
+
+        /* Background and Text */
+        @apply rounded-md bg-light-button-bg font-medium text-light-button-text;
+        @apply dark:bg-dark-button-bg dark:text-dark-button-text;
+
+        /* Shadow */
+        @apply shadow-md hover:shadow-lg;
+        @apply dark:hover:shadow-lg;
+
+        /* Hover and Active States */
+        @apply hover:bg-light-button-bg-hover;
+        @apply dark:hover:bg-dark-button-bg-hover;
+        @apply active:bg-light-button-bg-active;
+        @apply dark:active:bg-dark-button-bg-active;
+
+        /* Ring Focus */
+        @apply focus:outline-none focus:ring-4 focus:ring-light-button-ring-focus focus:ring-opacity-50;
+        @apply dark:focus:ring-dark-button-ring-focus;
+        @apply active:ring-light-button-ring-active;
+        @apply dark:active:ring-dark-button-ring-active;
+
+        /* Transition and Transform */
+        @apply interactive-transform;
+
+        /* Alignment and Text Centering */
+        @apply text-center;
+    }
+
+    .reusable-container {
+        @apply border-gray-700 bg-light-reusable-bg dark:bg-dark-reusable-bg;
+        @apply rounded-xl shadow-light-lg dark:shadow-dark-lg;
+        @apply hover:shadow-light-hover dark:hover:shadow-dark-hover;
+        @apply transition-colors-base;
+    }
+
+    .disabled-div {
+        @apply pointer-events-none select-none opacity-50;
+        @apply transition-opacity duration-500;
+    }
+
+    .user-settings-button {
+        @apply inline-flex items-center rounded-md border border-transparent px-3 py-2 text-sm font-medium leading-4 transition duration-150 ease-in-out;
+        @apply bg-light-user-settings-button-bg text-light-user-settings-button-text dark:bg-dark-user-settings-button-bg dark:text-dark-user-settings-button-text;
+        @apply hover:scale-105 hover:bg-gray-100 hover:text-light-user-settings-button-hover-text hover:shadow-md dark:hover:bg-gray-700 dark:hover:text-dark-user-settings-button-hover-text;
+        @apply focus:outline-none focus:ring-0 focus:ring-offset-0;
+    }
+}
