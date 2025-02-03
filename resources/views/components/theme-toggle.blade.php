@@ -22,7 +22,7 @@
             document.documentElement.classList.remove('dark')
         }
     "
-    class="rounded bg-white px-4 py-2 text-sm transition duration-300 hover:scale-105 hover:bg-gray-100 hover:shadow-md hover:shadow-gray-300 focus:outline-none focus:ring-0 focus:ring-offset-0 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:shadow-gray-900"
+    class="cursor-pointer rounded bg-white px-4 py-2 text-sm transition hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus-visible:ring-gray-600"
 >
     <span class="sr-only">Toggle Dark/Light Mode</span>
     <span

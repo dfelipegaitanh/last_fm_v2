@@ -20,10 +20,11 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:ms-6 sm:flex sm:items-center">
+                <x-theme-toggle />
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
-                            class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-300"
+                            class="inline-flex cursor-pointer items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition hover:bg-gray-100 hover:text-gray-700 focus-visible:ring-2 focus-visible:ring-gray-300 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus-visible:ring-gray-600"
                         >
                             <div>{{ Auth::user()->name }}</div>
 
@@ -96,8 +97,11 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="space-y-1 pb-3 pt-2">
-            <x-responsive-nav-link :href="route('last-fm.user_info')" :active="request()->routeIs('last-fm.user_info')">
-                    {{ __('User Info') }}
+            <x-responsive-nav-link
+                :href="route('last-fm.user_info')"
+                :active="request()->routeIs('last-fm.user_info')"
+            >
+                {{ __('User Info') }}
             </x-responsive-nav-link>
         </div>
 
