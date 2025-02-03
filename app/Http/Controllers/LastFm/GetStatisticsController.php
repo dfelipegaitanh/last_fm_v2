@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\LastFm;
 
-class LastFmGetStatisticsController extends Controller
+use App\Http\Controllers\Controller;
+
+class GetStatisticsController extends Controller
 {
     public function __invoke()
     {
