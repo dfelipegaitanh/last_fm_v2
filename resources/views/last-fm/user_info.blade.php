@@ -1,15 +1,8 @@
 <x-app-layout>
     <div x-data="fetchTableData">
-        <h2 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-300">Contenedor con Botón</h2>
-
         <!-- Botón dinámico para mostrar/ocultar la tabla -->
-        <button
-            @click="toggleTable()"
-            :class="showTable ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'"
-            class="buttons flex items-center space-x-2 rounded-md px-4 py-2 text-white transition"
-        >
+        <button @click="toggleTable()" :class="showTable ? 'buttons--active' : 'buttons--default'" class="buttons">
             <span x-text="showTable ? 'Cerrar Tabla' : 'Mostrar Tabla'"></span>
-            <!-- Ícono SVG que solo aparece cuando el texto es "Cerrar Tabla" -->
             <template x-if="showTable">
                 <x-icon d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
             </template>

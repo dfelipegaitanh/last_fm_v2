@@ -21,30 +21,37 @@
         @apply inline-flex items-center justify-center gap-2;
 
         /* Background and Text */
-        @apply rounded-md bg-light-button-bg font-medium text-light-button-text;
-        @apply dark:bg-dark-button-bg dark:text-dark-button-text;
+        @apply rounded-md bg-blue-500 font-medium text-white;
+        @apply dark:bg-blue-700 dark:text-gray-200;
 
         /* Shadow */
         @apply shadow-md hover:shadow-lg;
         @apply dark:hover:shadow-lg;
 
         /* Hover and Active States */
-        @apply hover:bg-light-button-bg-hover;
-        @apply dark:hover:bg-dark-button-bg-hover;
-        @apply active:bg-light-button-bg-active;
-        @apply dark:active:bg-dark-button-bg-active;
+        @apply hover:bg-blue-600;
+        @apply dark:hover:bg-blue-800;
+        @apply active:bg-blue-700;
+        @apply dark:active:bg-blue-900;
 
         /* Ring Focus */
-        @apply focus:outline-none focus:ring-4 focus:ring-light-button-ring-focus focus:ring-opacity-50;
-        @apply dark:focus:ring-dark-button-ring-focus;
-        @apply active:ring-light-button-ring-active;
-        @apply dark:active:ring-dark-button-ring-active;
+        @apply focus:outline-none;
+        @apply focus:ring-blue-400 focus:ring-opacity-50;
+        @apply dark:focus:ring-blue-600;
 
         /* Transition and Transform */
         @apply interactive-transform;
 
         /* Alignment and Text Centering */
         @apply text-center;
+    }
+
+    .buttons--active {
+        @apply bg-red-500 hover:bg-red-600;
+    }
+
+    .buttons--default {
+        @apply bg-blue-500 hover:bg-blue-600;
     }
 
     .reusable-container {
