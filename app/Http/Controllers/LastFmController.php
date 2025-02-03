@@ -6,6 +6,6 @@ class LastFmController extends Controller
 {
     public function user_info()
     {
-
+        echo view('dashboard');
     }
 }
