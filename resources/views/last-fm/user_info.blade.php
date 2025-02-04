@@ -1,10 +1,14 @@
 <x-app-layout>
-    <div x-data="fetchTableData" class="relative">
-        <!-- Contenedor de botones (lado a lado) -->
+    <div x-data="fetchTableData()" class="relative">
+        <style>
+            [x-cloak] {
+                display: none !important;
+            }
+        </style>
+
         <div class="flex items-center">
-            <!-- Botón para mostrar/ocultar la tabla de estadísticas -->
             <button
-                @click="toggleStatistics()"
+                @click="toggleStatistics"
                 :disabled="loadingStatistics"
                 :class="showStatistics ? 'buttons--active' : 'buttons--default'"
                 class="buttons inline-flex items-center"
@@ -23,11 +27,9 @@
                 ></span>
             </button>
 
-            <!-- Botón para mostrar/ocultar la información del usuario
-                 Alineado a la derecha, con fondo azul, bordes redondeados y tamaño reducido -->
             <button
                 x-show="showStatistics && !showUserModal"
-                @click="toggleUserModal()"
+                @click="toggleUserModal"
                 :disabled="loadingUserInfo"
                 class="ml-auto inline-flex items-center rounded-full border-none bg-blue-400 p-1 transition-colors duration-200 hover:bg-blue-500 dark:bg-blue-700 dark:hover:bg-blue-800"
             >
@@ -56,12 +58,10 @@
             </button>
         </div>
 
-        <!-- Mensaje de error -->
         <div x-show="errorMessage" class="mt-4 text-red-500">
             <span x-text="errorMessage"></span>
         </div>
 
-        <!-- Tabla de estadísticas -->
         <div x-show="showStatistics" x-transition.opacity.duration.300ms x-cloak class="mt-4">
             <table class="w-full rounded-md bg-gray-50 text-left shadow-sm dark:bg-gray-700">
                 <thead>
@@ -72,7 +72,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <template x-for="(item, index) in tableData" :key="index">
+                    <template x-for="item in tableData" :key="item.id">
                         <tr>
                             <td class="px-4 py-2" x-text="item.id"></td>
                             <td class="px-4 py-2" x-text="item.nombre"></td>
@@ -83,7 +83,6 @@
             </table>
         </div>
 
-        <!-- Modal para la información del usuario -->
         <div
             x-show="showUserModal"
             x-transition.opacity
@@ -93,9 +92,7 @@
             <div class="relative w-11/12 rounded-lg bg-white p-6 shadow-lg md:w-1/2">
                 <div class="mb-4 flex items-center justify-between">
                     <h2 class="text-xl font-bold">Información del Usuario</h2>
-                    <button @click="toggleUserModal()" class="text-2xl text-gray-600 hover:text-gray-900">
-                        &times;
-                    </button>
+                    <button @click="toggleUserModal" class="text-2xl text-gray-600 hover:text-gray-900">&times;</button>
                 </div>
                 <div>
                     <template x-if="loadingUserInfo">
@@ -124,7 +121,6 @@
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('fetchTableData', () => {
-                // Configuración común para las peticiones fetch
                 const headers = {
                     'X-Requested-With': 'XMLHttpRequest',
                     'Content-Type': 'application/json',
@@ -132,7 +128,6 @@
                 };
 
                 return {
-                    // Estados
                     showStatistics: false,
                     showUserModal: false,
                     loadingStatistics: false,
@@ -141,72 +136,67 @@
                     userInfo: null,
                     tableData: [],
 
-                    // Función auxiliar para realizar llamadas a la API
-                    async apiCall(url) {
-                        const response = await fetch(url, {
-                            method: 'GET',
-                            headers,
+                    apiCall(url) {
+                        return fetch(url, { method: 'GET', headers }).then((response) => {
+                            if (!response.ok) {
+                                throw new Error(`Error al consultar ${url}`);
+                            }
+                            return response.json();
                         });
-                        if (!response.ok) {
-                            throw new Error(`Error al consultar ${url}`);
-                        }
-                        return await response.json();
                     },
 
-                    // Obtiene y muestra la tabla de estadísticas
-                    async fetchStatistics() {
+                    fetchStatistics() {
                         this.loadingStatistics = true;
                         this.errorMessage = '';
-                        try {
-                            this.tableData = await this.apiCall('{{ route('last-fm.user_get_statistics') }}');
-                            this.showStatistics = true;
-                        } catch (error) {
-                            this.errorMessage = 'No se pudieron cargar las estadísticas. Intenta nuevamente.';
-                            console.error('Error:', error);
-                        } finally {
-                            this.loadingStatistics = false;
-                        }
+
+                        this.apiCall('{{ route('last-fm.user_get_statistics') }}')
+                            .then((data) => {
+                                this.tableData = data;
+                                this.showStatistics = true;
+                            })
+                            .catch(() => {
+                                this.errorMessage = 'No se pudieron cargar las estadísticas. Intenta nuevamente.';
+                            })
+                            .finally(() => {
+                                this.loadingStatistics = false;
+                            });
                     },
 
-                    // Obtiene y muestra la información del usuario en el modal
-                    async fetchUserInfo() {
+                    fetchUserInfo() {
                         this.loadingUserInfo = true;
                         this.errorMessage = '';
-                        try {
-                            this.userInfo = await this.apiCall('{{ route('last-fm.user_get_info') }}');
-                            this.showUserModal = true;
-                        } catch (error) {
-                            this.errorMessage = 'No se pudo cargar la información del usuario. Intenta nuevamente.';
-                            console.error('Error:', error);
-                        } finally {
-                            this.loadingUserInfo = false;
-                        }
-                    },
 
-                    // Alterna la visualización de la tabla de estadísticas
-                    toggleStatistics() {
-                        if (this.showStatistics) {
-                            // Al cerrar la tabla se reinician los estados relacionados
-                            this.showStatistics = false;
-                            this.showUserModal = false;
-                            this.userInfo = null;
-                            this.tableData = [];
-                        } else {
-                            this.fetchStatistics();
-                        }
-                    },
-
-                    // Alterna la visualización del modal con la información del usuario
-                    toggleUserModal() {
-                        if (this.showUserModal) {
-                            this.showUserModal = false;
-                        } else {
-                            if (!this.userInfo) {
-                                this.fetchUserInfo();
-                            } else {
+                        this.apiCall('{{ route('last-fm.user_get_info') }}')
+                            .then((data) => {
+                                this.userInfo = data;
                                 this.showUserModal = true;
-                            }
+                            })
+                            .catch(() => {
+                                this.errorMessage = 'No se pudo cargar la información del usuario. Intenta nuevamente.';
+                            })
+                            .finally(() => {
+                                this.loadingUserInfo = false;
+                            });
+                    },
+
+                    toggleStatistics() {
+                        this.showStatistics ? this.resetStatistics() : this.fetchStatistics();
+                    },
+
+                    toggleUserModal() {
+                        this.showUserModal = !this.showUserModal;
+                        if (!this.showUserModal) {
+                            this.userInfo = null;
+                        } else if (!this.userInfo) {
+                            this.fetchUserInfo();
                         }
+                    },
+
+                    resetStatistics() {
+                        this.showStatistics = false;
+                        this.showUserModal = false;
+                        this.userInfo = null;
+                        this.tableData = [];
                     },
                 };
             });
