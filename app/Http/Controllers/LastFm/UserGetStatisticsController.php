@@ -8,6 +8,7 @@ class UserGetStatisticsController extends Controller
 {
     public function __invoke()
     {
+        sleep(2);
         $data = [
             ['id' => 1, 'nombre' => 'Juan Pérez', 'edad' => 28],
         ];

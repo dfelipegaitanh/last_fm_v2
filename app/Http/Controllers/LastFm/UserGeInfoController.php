@@ -6,6 +6,10 @@ class UserGeInfoController
 {
     public function __invoke()
     {
-        // TODO: Implement __invoke() method.
+        return response()->json([
+            'nombre' => '<NAME>',
+            'email' => 'email@gmail.com',
+            'pais' => 'Mexico',
+        ]);
     }
 }
