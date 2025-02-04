@@ -4,7 +4,7 @@ namespace App\Http\Controllers\LastFm;
 
 use App\Http\Controllers\Controller;
 
-class GetStatisticsController extends Controller
+class UserGetStatisticsController extends Controller
 {
     public function __invoke()
     {
