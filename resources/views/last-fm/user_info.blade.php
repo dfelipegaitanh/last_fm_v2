@@ -6,102 +6,65 @@
             }
         </style>
 
-        <div class="flex items-center">
+        <!-- Botones principales -->
+        <div class="flex items-center space-x-4">
+            <!-- Botón para cargar la información del usuario -->
             <button
-                @click="toggleStatistics"
-                :disabled="loadingStatistics"
-                :class="showStatistics ? 'buttons--active' : 'buttons--default'"
-                class="buttons inline-flex items-center"
-            >
-                <template x-if="loadingStatistics">
-                    <x-spinner />
-                </template>
-                <span
-                    x-text="
-                        loadingStatistics
-                            ? 'Cargando estadísticas...'
-                            : showStatistics
-                              ? 'Ocultar Tabla'
-                              : 'Mostrar Tabla'
-                    "
-                ></span>
-            </button>
-
-            <button
-                x-show="showStatistics && !showUserModal"
-                @click="toggleUserModal"
+                @click="fetchUserInfo"
                 :disabled="loadingUserInfo"
-                class="ml-auto inline-flex items-center rounded-full border-none bg-blue-400 p-1 transition-colors duration-200 hover:bg-blue-500 dark:bg-blue-700 dark:hover:bg-blue-800"
+                class="buttons inline-flex items-center bg-green-500 text-white px-4 py-2 rounded-md"
             >
                 <template x-if="loadingUserInfo">
                     <x-spinner />
                 </template>
-                <template x-if="!loadingUserInfo">
-                    <x-icon
-                        class="h-5 w-5 text-white"
-                        d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    />
-                </template>
+                <span x-text="loadingUserInfo ? 'Cargando usuario...' : 'Mostrar Información del Usuario'"></span>
+            </button>
+
+            <!-- Botón para mostrar/ocultar la tabla de estadísticas (solo se muestra si userInfo existe) -->
+            <button
+                x-show="userInfo"
+                @click="toggleStatistics"
+                :class="showStatistics ? 'buttons--active bg-blue-600 text-white' : 'buttons--default bg-gray-300 text-black'"
+                class="inline-flex items-center px-4 py-2 rounded-md transition duration-200"
+                x-cloak
+            >
+                <span x-text="showStatistics ? 'Ocultar Tabla' : 'Mostrar Tabla de Estadísticas'"></span>
             </button>
         </div>
 
-        <div x-show="errorMessage" class="mt-4 text-red-500">
-            <span x-text="errorMessage"></span>
+        <!-- Contenedor de Información del Usuario -->
+        <div x-show="userInfo" x-transition.opacity.duration.300ms class="mt-6 p-4 bg-gray-100 rounded-md shadow">
+            <h2 class="text-lg font-bold">Información del Usuario</h2>
+            <template x-if="userInfo">
+                <div class="mt-2">
+                    <h3 class="text-md font-semibold" x-text="userInfo.name"></h3>
+                    <p class="text-sm text-gray-600">Usuario desde: <span x-text="userInfo.join_date"></span></p>
+                    <p class="text-sm text-gray-600">Reproducciones totales: <span
+                            x-text="userInfo.total_scrobbles"></span></p>
+                </div>
+            </template>
         </div>
 
+        <!-- Tabla de estadísticas -->
         <div x-show="showStatistics" x-transition.opacity.duration.300ms x-cloak class="mt-4">
             <table class="w-full rounded-md bg-gray-50 text-left shadow-sm dark:bg-gray-700">
                 <thead>
-                    <tr class="bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
-                        <th class="px-4 py-2">ID</th>
-                        <th class="px-4 py-2">Nombre</th>
-                        <th class="px-4 py-2">Edad</th>
-                    </tr>
+                <tr class="bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
+                    <th class="px-4 py-2">ID</th>
+                    <th class="px-4 py-2">Nombre</th>
+                    <th class="px-4 py-2">Edad</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <template x-for="item in tableData" :key="item.id">
-                        <tr>
-                            <td class="px-4 py-2" x-text="item.id"></td>
-                            <td class="px-4 py-2" x-text="item.nombre"></td>
-                            <td class="px-4 py-2" x-text="item.edad"></td>
-                        </tr>
-                    </template>
+                <template x-for="item in tableData" :key="item.id">
+                    <tr>
+                        <td class="px-4 py-2" x-text="item.id"></td>
+                        <td class="px-4 py-2" x-text="item.nombre"></td>
+                        <td class="px-4 py-2" x-text="item.edad"></td>
+                    </tr>
+                </template>
                 </tbody>
             </table>
-        </div>
-
-        <div
-            x-show="showUserModal"
-            x-transition.opacity
-            class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-            x-cloak
-        >
-            <div class="relative w-11/12 rounded-lg bg-white p-6 shadow-lg md:w-1/2">
-                <div class="mb-4 flex items-center justify-between">
-                    <h2 class="text-xl font-bold">Información del Usuario</h2>
-                    <button @click="toggleUserModal" class="text-2xl text-gray-600 hover:text-gray-900">&times;</button>
-                </div>
-                <div>
-                    <template x-if="loadingUserInfo">
-                        <div class="flex justify-center">
-                            <x-spinner />
-                        </div>
-                    </template>
-                    <template x-if="!loadingUserInfo && userInfo">
-                        <div>
-                            <h3 class="text-lg font-semibold" x-text="userInfo.name"></h3>
-                            <p class="text-sm text-gray-600">
-                                Usuario desde:
-                                <span x-text="userInfo.join_date"></span>
-                            </p>
-                            <p class="text-sm text-gray-600">
-                                Reproducciones totales:
-                                <span x-text="userInfo.total_scrobbles"></span>
-                            </p>
-                        </div>
-                    </template>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -116,20 +79,36 @@
 
                 return {
                     showStatistics: false,
-                    showUserModal: false,
-                    loadingStatistics: false,
                     loadingUserInfo: false,
+                    loadingStatistics: false,
                     errorMessage: '',
                     userInfo: null,
                     tableData: [],
 
                     apiCall(url) {
-                        return fetch(url, { method: 'GET', headers }).then((response) => {
-                            if (!response.ok) {
-                                throw new Error(`Error al consultar ${url}`);
-                            }
-                            return response.json();
-                        });
+                        return fetch(url, {method: 'GET', headers})
+                            .then((response) => {
+                                if (!response.ok) {
+                                    throw new Error(`Error al consultar ${url}`);
+                                }
+                                return response.json();
+                            });
+                    },
+
+                    fetchUserInfo() {
+                        this.loadingUserInfo = true;
+                        this.errorMessage = '';
+
+                        this.apiCall('{{ route('last-fm.user_get_info') }}')
+                            .then((data) => {
+                                this.userInfo = data; // Muestra la información del usuario en el contenedor
+                            })
+                            .catch(() => {
+                                this.errorMessage = 'No se pudo cargar la información del usuario. Intenta nuevamente.';
+                            })
+                            .finally(() => {
+                                this.loadingUserInfo = false;
+                            });
                     },
 
                     fetchStatistics() {
@@ -149,41 +128,12 @@
                             });
                     },
 
-                    fetchUserInfo() {
-                        this.loadingUserInfo = true;
-                        this.errorMessage = '';
-
-                        this.apiCall('{{ route('last-fm.user_get_info') }}')
-                            .then((data) => {
-                                this.userInfo = data;
-                                this.showUserModal = true;
-                            })
-                            .catch(() => {
-                                this.errorMessage = 'No se pudo cargar la información del usuario. Intenta nuevamente.';
-                            })
-                            .finally(() => {
-                                this.loadingUserInfo = false;
-                            });
-                    },
-
                     toggleStatistics() {
-                        this.showStatistics ? this.resetStatistics() : this.fetchStatistics();
-                    },
-
-                    toggleUserModal() {
-                        this.showUserModal = !this.showUserModal;
-                        if (!this.showUserModal) {
-                            this.userInfo = null;
-                        } else if (!this.userInfo) {
-                            this.fetchUserInfo();
+                        if (!this.showStatistics) {
+                            this.fetchStatistics(); // Cargar datos solo si la tabla no está visible
+                        } else {
+                            this.showStatistics = false; // Ocultar tabla si ya está visible
                         }
-                    },
-
-                    resetStatistics() {
-                        this.showStatistics = false;
-                        this.showUserModal = false;
-                        this.userInfo = null;
-                        this.tableData = [];
                     },
                 };
             });
