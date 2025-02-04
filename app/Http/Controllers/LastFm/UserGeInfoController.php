@@ -7,9 +7,9 @@ class UserGeInfoController
     public function __invoke()
     {
         return response()->json([
-            'nombre' => '<NAME>',
-            'email' => 'email@gmail.com',
-            'pais' => 'Mexico',
+            'name' => '<NAME>',
+            'join_date' => 'email@gmail.com',
+            'total_scrobbles' => 3,
         ]);
     }
 }
