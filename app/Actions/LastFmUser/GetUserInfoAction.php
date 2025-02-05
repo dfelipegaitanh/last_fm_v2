@@ -11,13 +11,12 @@ class GetUserInfoAction
     public function __construct(
         protected LastFmService $lastFmService,
         protected SaveGlobalSongsStatisticsAction $saveGlobalSongsStatisticsAction
-    ) {
-    }
+    ) {}
 
     /**
      * @throws \Exception
      */
-    public function execute(): LastFmUser
+    public function execute(): void
     {
 
         $userInfo = $this->lastFmService
@@ -37,9 +36,5 @@ class GetUserInfoAction
         $this->saveGlobalSongsStatisticsAction
             ->execute($userInfo);
 
-        //        $this->saveGlobalSongsStatisticsAction
-        //            ->execute($lastFmUser->id, $userInfo);
-
-        return auth()->user()->lastFmUser;
     }
 }

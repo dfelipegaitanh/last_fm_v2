@@ -4,7 +4,7 @@ use App\Http\Controllers\LastFm\UserGeInfoController;
 use App\Http\Controllers\LastFm\UserGetStatisticsController;
 use App\Http\Controllers\LastFm\UserInfoController;
 
-Route::middleware('auth')
+Route::middleware('auth:sanctum')
     ->prefix('last-fm')
     ->name('last-fm.')
     ->group(function () {

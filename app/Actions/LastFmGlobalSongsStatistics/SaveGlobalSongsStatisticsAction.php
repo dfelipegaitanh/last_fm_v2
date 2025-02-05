@@ -4,23 +4,32 @@ namespace App\Actions\LastFmGlobalSongsStatistics;
 
 use App\Models\LastFmGlobalSongsStatistics;
 
-class SaveGlobalSongsStatisticsAction
+readonly class SaveGlobalSongsStatisticsAction
 {
+    private array $userInfo;
+
     public function execute(array $userInfo): void
     {
-        dd(auth()->user()->lastfmUser); //()->statistics);
+        $this->userInfo = $userInfo;
+
+        $attributes = $this->getAttributes();
+
         LastFmGlobalSongsStatistics::firstOrCreate(
-            [
-                'last_fm_user_id' => auth()->user()->lastFmUser->id,
-                'playcount' => $userInfo['playcount'] ?? 0,
-                'artist_count' => $userInfo['artist_count'] ?? 0,
-                'track_count' => $userInfo['track_count'] ?? 0,
-                'album_count' => $userInfo['album_count'] ?? 0,
-            ],
-            $userInfo,
+            $attributes,
+            collect($attributes)
+                ->except('last_fm_user_id')
+                ->all()
         );
+    }
 
-        auth()->user()->lastfmUser()->statistics->save($stats);
-
+    protected function getAttributes(): array
+    {
+        return [
+            'last_fm_user_id' => auth()->user()->lastFmUser->id,
+            'playcount' => $this->userInfo['playcount'] ?? 0,
+            'artist_count' => $this->userInfo['artist_count'] ?? 0,
+            'track_count' => $this->userInfo['track_count'] ?? 0,
+            'album_count' => $this->userInfo['album_count'] ?? 0,
+        ];
     }
 }
