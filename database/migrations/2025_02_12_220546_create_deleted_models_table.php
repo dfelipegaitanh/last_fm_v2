@@ -20,4 +20,9 @@ return new class extends Migration
             $table->unique(['model', 'key']);
         });
     }
+
+    public function down()
+    {
+        Schema::dropIfExists('deleted_models');
+    }
 };
