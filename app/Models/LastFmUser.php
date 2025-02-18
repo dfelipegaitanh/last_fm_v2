@@ -26,10 +26,6 @@ class LastFmUser extends Model
 
     protected $primaryKey = 'uuid';
 
-    protected $casts = [
-        'registered' => 'json',
-    ];
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -44,6 +40,7 @@ class LastFmUser extends Model
     {
         return [
             'subscriber' => 'boolean',
+            'registered' => 'json',
         ];
     }
 
