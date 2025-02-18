@@ -8,8 +8,7 @@ readonly class LastFmService
 {
     public function __construct(
         private Lastfm $lastfm
-    ) {
-    }
+    ) {}
 
     public function userInfo(): array
     {

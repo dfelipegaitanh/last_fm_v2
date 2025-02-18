@@ -31,5 +31,4 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/api_v1.php'));
 
     }
-
 }
