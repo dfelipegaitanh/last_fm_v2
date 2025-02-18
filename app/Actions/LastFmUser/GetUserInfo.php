@@ -2,21 +2,24 @@
 
 namespace App\Actions\LastFmUser;
 
-use App\Actions\LastFmGlobalSongsStatistics\SaveGlobalSongsStatisticsAction;
+use App\Actions\LastFmGlobalSongsStatistics\SaveGlobalSongsStatistics;
 use App\Models\LastFmUser;
 use App\Services\LastFmService;
+use Exception;
+use Lorisleiva\Actions\Concerns\AsAction;
 
-class GetUserInfoAction
+readonly class GetUserInfo
 {
+    use AsAction;
+
     public function __construct(
         protected LastFmService $lastFmService,
-        protected SaveGlobalSongsStatisticsAction $saveGlobalSongsStatisticsAction
     ) {}
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    public function execute(): void
+    public function handle(): void
     {
 
         $userInfo = $this->lastFmService
@@ -33,8 +36,7 @@ class GetUserInfoAction
             ],
         );
 
-        $this->saveGlobalSongsStatisticsAction
-            ->execute($userInfo);
+        SaveGlobalSongsStatistics::run($userInfo);
 
     }
 }

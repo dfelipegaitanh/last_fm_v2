@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers\LastFm;
 
-use App\Actions\LastFmUser\GetUserInfoAction;
+use App\Actions\LastFmUser\GetUserInfo;
 
 class UserGeInfoController
 {
-    public function __construct(
-        protected GetUserInfoAction $action
-    ) {}
-
     public function __invoke()
     {
-        $this->action
-            ->execute();
+        GetUserInfo::run();
 
         $user = auth()->user()->lastFmUser;
 

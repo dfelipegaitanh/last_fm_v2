@@ -3,12 +3,15 @@
 namespace App\Actions\LastFmGlobalSongsStatistics;
 
 use App\Models\LastFmGlobalSongsStatistics;
+use Lorisleiva\Actions\Concerns\AsAction;
 
-readonly class SaveGlobalSongsStatisticsAction
+readonly class SaveGlobalSongsStatistics
 {
+    use AsAction;
+
     private array $userInfo;
 
-    public function execute(array $userInfo): void
+    public function handle(array $userInfo): void
     {
         $this->userInfo = $userInfo;
 
