@@ -24,6 +24,8 @@ class LastFmUser extends Model
         'uuid',
     ];
 
+    protected $primaryKey = 'uuid';
+
     protected $casts = [
         'registered' => 'json',
     ];

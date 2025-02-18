@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\NumberCast;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +11,7 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 class LastFmGlobalSongsStatistics extends Model
 {
-    use HasFactory, KeepsDeletedModels;
+    use HasFactory, HasUuids, KeepsDeletedModels;
 
     protected $fillable = [
         'last_fm_user_id',
@@ -20,6 +21,8 @@ class LastFmGlobalSongsStatistics extends Model
         'album_count',
         'uuid',
     ];
+
+    protected $primaryKey = 'uuid';
 
     protected function casts(): array
     {
