@@ -6,10 +6,11 @@ use App\Casts\NumberCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 class LastFmGlobalSongsStatistics extends Model
 {
-    use hasFactory;
+    use HasFactory, KeepsDeletedModels;
 
     protected $fillable = [
         'last_fm_user_id',
