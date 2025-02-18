@@ -18,6 +18,7 @@ class LastFmGlobalSongsStatistics extends Model
         'artist_count',
         'track_count',
         'album_count',
+        'uuid',
     ];
 
     protected function casts(): array

@@ -21,6 +21,7 @@ class LastFmUser extends Model
         'country',
         'url',
         'registered',
+        'uuid',
     ];
 
     protected $casts = [
