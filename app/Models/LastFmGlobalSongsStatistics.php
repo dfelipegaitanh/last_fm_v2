@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Casts\NumberCast;
+use App\Services\DateService;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -40,5 +42,12 @@ class LastFmGlobalSongsStatistics extends Model
     public function scopeBasicData($query)
     {
         return $query->select(['playcount', 'artist_count', 'track_count', 'album_count', 'created_at']);
+    }
+
+    protected function createdAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => DateService::dateToDateTime($value),
+        );
     }
 }
