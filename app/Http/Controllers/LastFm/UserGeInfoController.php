@@ -10,12 +10,15 @@ class UserGeInfoController
     {
         GetUserInfo::run();
 
-        $user = auth()->user()->lastFmUser;
+        $user = auth()->user()
+            ->lastFmUser()
+            ->with('latestStatistic')
+            ->first();
 
         return response()->json([
             'name' => $user->name,
             'join_date' => $user->registered,
-            'total_scrobbles' => 3,
+            'total_scrobbles' => $user->latestStatistic?->playcount ?? 0,
         ]);
     }
 }

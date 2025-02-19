@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
 class LastFmUser extends Model
@@ -21,19 +23,21 @@ class LastFmUser extends Model
         'country',
         'url',
         'registered',
-        'uuid',
     ];
-
-    protected $primaryKey = 'uuid';
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function statistics(): BelongsTo
+    public function statistics(): HasMany
     {
-        return $this->belongsTo(LastFmGlobalSongsStatistics::class);
+        return $this->hasMany(LastFmGlobalSongsStatistics::class, 'last_fm_user_id');
+    }
+
+    public function latestStatistic(): HasOne
+    {
+        return $this->hasOne(LastFmGlobalSongsStatistics::class, 'last_fm_user_id')->latestOfMany();
     }
 
     protected function casts(): array
