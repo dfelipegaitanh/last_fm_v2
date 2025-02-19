@@ -13,9 +13,15 @@ readonly class GetUserInfo
 {
     use AsAction;
 
+    private array $userInfo;
+
     public function __construct(
         protected LastFmService $lastFmService,
-    ) {}
+    ) {
+        $this->userInfo = $this->lastFmService
+            ->userInfo();
+
+    }
 
     /**
      * @throws Exception
@@ -23,10 +29,7 @@ readonly class GetUserInfo
     public function handle(): void
     {
 
-        $userInfo = $this->lastFmService
-            ->userInfo();
-
-        $userInfoDto = UserInfoDto::fromArray($userInfo);
+        $userInfoDto = UserInfoDto::fromArray($this->userInfo);
 
         LastFmUser::firstOrCreate(
             ['user_id' => auth()->user()->id],
@@ -39,7 +42,7 @@ readonly class GetUserInfo
             ],
         );
 
-        SaveGlobalSongsStatistics::run($userInfo);
+        SaveGlobalSongsStatistics::run($this->userInfo);
 
     }
 }
