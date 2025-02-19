@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\DTO\LastFm\AuthenticatedUserDTO;
 use Barryvanveen\Lastfm\Lastfm;
 
 readonly class LastFmService
@@ -26,10 +27,7 @@ readonly class LastFmService
             ->with('latestStatistic')
             ->firstOrFail();
 
-        return [
-            'name' => $user->name,
-            'join_date' => $user->registered,
-            'total_scrobbles' => $user->latestStatistic?->playcount ?? 0,
-        ];
+        return AuthenticatedUserDTO::fromModel($user)
+            ->toArray();
     }
 }
