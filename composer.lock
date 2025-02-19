@@ -2184,16 +2184,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v11.43.0",
+            "version": "v11.43.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "70760d976486310b11d8e487e873077db069e77a"
+                "reference": "99d1573698abc42222f04d25fcd5b213d0eedf21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/70760d976486310b11d8e487e873077db069e77a",
-                "reference": "70760d976486310b11d8e487e873077db069e77a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/99d1573698abc42222f04d25fcd5b213d0eedf21",
+                "reference": "99d1573698abc42222f04d25fcd5b213d0eedf21",
                 "shasum": ""
             },
             "require": {
@@ -2395,7 +2395,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-02-18T15:37:56+00:00"
+            "time": "2025-02-19T21:53:48+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -4237,16 +4237,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "2.0.2",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "51087f87dcce2663e1fed4dfd4e56eccd580297e"
+                "reference": "9b30d6fd026b2c132b3985ce6b23bec09ab3aa68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/51087f87dcce2663e1fed4dfd4e56eccd580297e",
-                "reference": "51087f87dcce2663e1fed4dfd4e56eccd580297e",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/9b30d6fd026b2c132b3985ce6b23bec09ab3aa68",
+                "reference": "9b30d6fd026b2c132b3985ce6b23bec09ab3aa68",
                 "shasum": ""
             },
             "require": {
@@ -4278,9 +4278,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.0.2"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.1.0"
             },
-            "time": "2025-02-17T20:25:51+00:00"
+            "time": "2025-02-19T13:28:12+00:00"
         },
         {
             "name": "psr/clock",
@@ -5154,32 +5154,32 @@
         },
         {
             "name": "spatie/laravel-deleted-models",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-deleted-models.git",
-                "reference": "1f5543b4c16b09573cc92c24cde5fad194379864"
+                "reference": "1ebed3b4b5b81f65320d92cdd04a1362a6c4889f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-deleted-models/zipball/1f5543b4c16b09573cc92c24cde5fad194379864",
-                "reference": "1f5543b4c16b09573cc92c24cde5fad194379864",
+                "url": "https://api.github.com/repos/spatie/laravel-deleted-models/zipball/1ebed3b4b5b81f65320d92cdd04a1362a6c4889f",
+                "reference": "1ebed3b4b5b81f65320d92cdd04a1362a6c4889f",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "^10|^11.0",
+                "illuminate/contracts": "^10|^11.0|^12.0",
                 "php": "^8.2",
                 "spatie/laravel-package-tools": "^1.13.0"
             },
             "require-dev": {
                 "nunomaduro/collision": "^7.0|^8.0",
-                "orchestra/testbench": "^8.0|^9.0",
-                "pestphp/pest": "^2.34",
-                "pestphp/pest-plugin-laravel": "^2.3",
+                "orchestra/testbench": "^8.0|^9.0|^10.0",
+                "pestphp/pest": "^2.34|^3.7",
+                "pestphp/pest-plugin-laravel": "^2.3|^3.1",
                 "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan-deprecation-rules": "^1.0",
-                "phpstan/phpstan-phpunit": "^1.0",
-                "phpunit/phpunit": "^10.5",
+                "phpstan/phpstan-deprecation-rules": "^1.0|^2.0",
+                "phpstan/phpstan-phpunit": "^1.0|^2.0",
+                "phpunit/phpunit": "^10.5|^11.5.3",
                 "spatie/laravel-ray": "^1.26",
                 "spatie/pest-plugin-test-time": "^2.1"
             },
@@ -5219,9 +5219,9 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-deleted-models/issues",
-                "source": "https://github.com/spatie/laravel-deleted-models/tree/1.1.1"
+                "source": "https://github.com/spatie/laravel-deleted-models/tree/1.1.2"
             },
-            "time": "2025-02-03T19:52:42+00:00"
+            "time": "2025-02-19T06:57:13+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",
@@ -9363,16 +9363,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.5",
+            "version": "2.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "451b17f9665481ee502adc39be987cb71067ece2"
+                "reference": "6eaec7c6c9e90dcfe46ad1e1ffa5171e2dab641c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/451b17f9665481ee502adc39be987cb71067ece2",
-                "reference": "451b17f9665481ee502adc39be987cb71067ece2",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/6eaec7c6c9e90dcfe46ad1e1ffa5171e2dab641c",
+                "reference": "6eaec7c6c9e90dcfe46ad1e1ffa5171e2dab641c",
                 "shasum": ""
             },
             "require": {
@@ -9417,7 +9417,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-02-13T12:49:56+00:00"
+            "time": "2025-02-19T15:46:42+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
