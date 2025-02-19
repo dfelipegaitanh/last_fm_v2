@@ -3,22 +3,21 @@
 namespace App\Http\Controllers\LastFm;
 
 use App\Actions\LastFmUser\GetUserInfo;
+use App\Services\LastFmService;
 
-class UserGeInfoController
+readonly class UserGeInfoController
 {
+    public function __construct(
+        private LastFmService $lastFmUserService
+    ) {}
+
     public function __invoke()
     {
         GetUserInfo::run();
 
-        $user = auth()->user()
-            ->lastFmUser()
-            ->with('latestStatistic')
-            ->first();
+        $userData = $this->lastFmUserService
+            ->getAuthenticatedUserData();
 
-        return response()->json([
-            'name' => $user->name,
-            'join_date' => $user->registered,
-            'total_scrobbles' => $user->latestStatistic?->playcount ?? 0,
-        ]);
+        return response()->json($userData);
     }
 }

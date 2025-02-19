@@ -18,4 +18,18 @@ readonly class LastFmService
             )->get();
 
     }
+
+    public function getAuthenticatedUserData(): array
+    {
+        $user = auth()->user()
+            ->lastFmUser()
+            ->with('latestStatistic')
+            ->firstOrFail();
+
+        return [
+            'name' => $user->name,
+            'join_date' => $user->registered,
+            'total_scrobbles' => $user->latestStatistic?->playcount ?? 0,
+        ];
+    }
 }
