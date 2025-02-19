@@ -3,6 +3,7 @@
 namespace App\Actions\LastFmUser;
 
 use App\Actions\LastFmGlobalSongsStatistics\SaveGlobalSongsStatistics;
+use App\DTO\LastFm\UserInfoDto;
 use App\Models\LastFmUser;
 use App\Services\LastFmService;
 use Exception;
@@ -25,14 +26,16 @@ readonly class GetUserInfo
         $userInfo = $this->lastFmService
             ->userInfo();
 
+        $userInfoDto = UserInfoDto::fromArray($userInfo);
+
         LastFmUser::firstOrCreate(
             ['user_id' => auth()->user()->id],
             [
-                'name' => $userInfo['name'],
-                'subscriber' => $userInfo['subscriber'],
-                'country' => $userInfo['country'],
-                'url' => $userInfo['url'],
-                'registered' => $userInfo['registered'],
+                'name' => $userInfoDto->name,
+                'subscriber' => $userInfoDto->subscriber,
+                'country' => $userInfoDto->country,
+                'url' => $userInfoDto->url,
+                'registered' => $userInfoDto->registered,
             ],
         );
 
