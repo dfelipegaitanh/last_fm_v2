@@ -22,7 +22,6 @@ class RouteServiceProvider extends ServiceProvider
     {
 
         $this->mapV1Routes();
-        $this->mapLastFmRoutes();
     }
 
     protected function mapV1Routes(): void
@@ -30,15 +29,6 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('api')
             ->prefix('api/v1')
             ->group(base_path('routes/api_v1.php'));
-
-    }
-
-    protected function mapLastFmRoutes(): void
-    {
-        Route::middleware('auth:sanctum')
-            ->prefix('last-fm')
-            ->name('last-fm.')
-            ->group(base_path('routes/last_fm.php'));
 
     }
 }
