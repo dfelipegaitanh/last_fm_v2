@@ -13,14 +13,12 @@ readonly class GetUserInfo
 {
     use AsAction;
 
-    private array $userInfo;
+    private array $lastFmUserInfo;
 
     public function __construct(
         protected LastFmService $lastFmService,
     ) {
-        $this->userInfo = $this->lastFmService
-            ->userInfo();
-
+        $this->lastFmUserInfo = $this->lastFmService->userInfo();
     }
 
     /**
@@ -29,7 +27,14 @@ readonly class GetUserInfo
     public function handle(): void
     {
 
-        $userInfoDto = UserInfoDto::fromArray($this->userInfo);
+        $this->syncLastFmUser();
+
+        SaveGlobalSongsStatistics::run($this->lastFmUserInfo);
+    }
+
+    private function syncLastFmUser(): void
+    {
+        $userInfoDto = UserInfoDto::from($this->lastFmUserInfo);
 
         LastFmUser::firstOrCreate(
             ['user_id' => auth()->user()->id],
@@ -39,10 +44,7 @@ readonly class GetUserInfo
                 'country' => $userInfoDto->country,
                 'url' => $userInfoDto->url,
                 'registered' => $userInfoDto->registered,
-            ],
+            ]
         );
-
-        SaveGlobalSongsStatistics::run($this->userInfo);
-
     }
 }
