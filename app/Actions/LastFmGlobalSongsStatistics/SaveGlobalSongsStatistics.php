@@ -2,37 +2,39 @@
 
 namespace App\Actions\LastFmGlobalSongsStatistics;
 
+use App\DTO\LastFm\StatisticsDto;
 use App\Models\LastFmGlobalSongsStatistics;
+use App\Models\User;
+use Illuminate\Container\Attributes\CurrentUser;
+use Illuminate\Support\Arr;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 readonly class SaveGlobalSongsStatistics
 {
     use AsAction;
 
-    private array $userInfo;
+    public function __construct(
+        #[CurrentUser]
+        private User $user,
+    ) {}
 
     public function handle(array $userInfo): void
     {
-        $this->userInfo = $userInfo;
-
-        $attributes = $this->getAttributes();
+        $dto = StatisticsDto::fromArray($userInfo);
+        $attributes = $dto->toArray();
 
         LastFmGlobalSongsStatistics::firstOrCreate(
-            $attributes,
-            collect($attributes)
-                ->except('last_fm_user_id')
-                ->all()
+            $this->buildSearchAttributes($attributes),
+            $attributes
         );
     }
 
-    protected function getAttributes(): array
+    private function buildSearchAttributes(array $attributes): array
     {
-        return [
-            'last_fm_user_id' => auth()->user()->lastFmUser->id,
-            'playcount' => $this->userInfo['playcount'] ?? 0,
-            'artist_count' => $this->userInfo['artist_count'] ?? 0,
-            'track_count' => $this->userInfo['track_count'] ?? 0,
-            'album_count' => $this->userInfo['album_count'] ?? 0,
-        ];
+        return Arr::add(
+            $attributes,
+            'last_fm_user_id',
+            $this->user->lastFmUser->id
+        );
     }
 }
