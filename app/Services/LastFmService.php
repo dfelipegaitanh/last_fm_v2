@@ -2,32 +2,35 @@
 
 namespace App\Services;
 
-use App\DTO\LastFm\AuthenticatedUserDTO;
+use App\DTO\LastFm\AuthenticatedUserDto;
+use App\Models\User;
 use Barryvanveen\Lastfm\Lastfm;
+use Illuminate\Container\Attributes\CurrentUser;
 
 readonly class LastFmService
 {
     public function __construct(
-        private Lastfm $lastfm
+        private Lastfm $lastfm,
+        #[CurrentUser]
+        private User $user,
     ) {}
 
     public function userInfo(): array
     {
+
         return $this->lastfm
             ->userInfo(
-                auth()->user()->lastfm_user
+                $this->user->lastfm_user
             )->get();
 
     }
 
     public function getAuthenticatedUserData(): array
     {
-        $user = auth()->user()
-            ->lastFmUser()
-            ->with('latestStatistic')
-            ->firstOrFail();
+        $lastFmUser = $this->user
+            ->lastFmUser;
 
-        return AuthenticatedUserDTO::fromModel($user)
+        return AuthenticatedUserDto::fromModel($lastFmUser)
             ->toArray();
     }
 }

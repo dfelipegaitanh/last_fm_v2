@@ -5,8 +5,9 @@ namespace App\Actions\LastFmUser;
 use App\Actions\LastFmGlobalSongsStatistics\SaveGlobalSongsStatistics;
 use App\DTO\LastFm\UserInfoDto;
 use App\Models\LastFmUser;
+use App\Models\User;
 use App\Services\LastFmService;
-use Exception;
+use Illuminate\Container\Attributes\CurrentUser;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 readonly class GetUserInfo
@@ -16,14 +17,13 @@ readonly class GetUserInfo
     private array $lastFmUserInfo;
 
     public function __construct(
-        protected LastFmService $lastFmService,
+        private LastFmService $lastFmService,
+        #[CurrentUser]
+        private User $user,
     ) {
         $this->lastFmUserInfo = $this->lastFmService->userInfo();
     }
 
-    /**
-     * @throws Exception
-     */
     public function handle(): void
     {
 
@@ -37,7 +37,9 @@ readonly class GetUserInfo
         $userInfoDto = UserInfoDto::from($this->lastFmUserInfo);
 
         LastFmUser::firstOrCreate(
-            ['user_id' => auth()->user()->id],
+            [
+                'user_id' => $this->user->id,
+            ],
             [
                 'name' => $userInfoDto->name,
                 'subscriber' => $userInfoDto->subscriber,
