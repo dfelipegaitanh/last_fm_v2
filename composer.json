@@ -9,7 +9,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "barryvanveen/lastfm": "^2.0",
         "chrisdicarlo/eloquent-human-timestamps": "^6.0",
         "laravel/framework": "^11.0",
