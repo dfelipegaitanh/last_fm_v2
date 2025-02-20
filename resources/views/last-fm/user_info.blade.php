@@ -53,7 +53,7 @@
         <div
             x-show="$store.user.info"
             x-transition.opacity.duration.300ms
-            class="mt-6 rounded-md bg-gray-100 p-4 shadow dark:border dark:border-gray-700 dark:bg-gray-900"
+            class="mt-6 rounded-lg bg-gray-100 p-4 shadow-md dark:border dark:border-gray-700 dark:bg-gray-900 dark:shadow-md dark:shadow-gray-900"
         >
             <h2 class="text-lg font-bold dark:text-white">Información del Usuario</h2>
             <template x-if="$store.user.info">
@@ -73,9 +73,12 @@
 
         <!-- Tabla de estadísticas -->
         <div x-show="$store.user.showStatistics" x-transition.opacity.duration.300ms x-cloak class="mt-4">
-            <div class="rounded-md bg-gray-50 p-4 shadow dark:border dark:border-gray-700 dark:bg-gray-900">
-                <table class="w-full rounded-md bg-gray-50 text-left shadow-sm dark:bg-gray-700">
-                    <thead>
+            <div
+                class="rounded-lg bg-gray-100 p-4 shadow-md dark:border dark:border-gray-700 dark:bg-gray-900 dark:shadow-md dark:shadow-gray-900"
+            >
+                <div class="overflow-hidden rounded-lg">
+                    <table class="w-full rounded-lg bg-gray-50 text-left shadow-sm dark:bg-gray-700">
+                        <thead>
                         <tr class="bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
                             <th class="px-4 py-2">Play Count</th>
                             <th class="px-4 py-2">Artist Count</th>
@@ -83,8 +86,8 @@
                             <th class="hide-on-mobile px-4 py-2">Album Count</th>
                             <th class="hide-on-mobile px-4 py-2">Created At</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         <template x-for="item in $store.user.statistics.data">
                             <tr
                                 class="odd:bg-gray-50 even:bg-white hover:bg-gray-100 dark:odd:bg-gray-700 dark:even:bg-gray-800 dark:hover:bg-gray-600"
@@ -96,8 +99,9 @@
                                 <td class="px-4 py-2 dark:text-gray-300" x-text="item.created_at"></td>
                             </tr>
                         </template>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
 
                 <nav class="mt-4 flex justify-center" aria-label="Pagination">
                     <template x-for="link in $store.user.statistics.links" :key="link.label">
