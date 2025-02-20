@@ -8,7 +8,7 @@ class DateService
 {
     public static function timestampToDateTime($timestamp): string
     {
-        return Carbon::createFromDate($timestamp)
+        return Carbon::createFromTimestamp($timestamp)
             ->diffForHumans(
                 other: ['parts' => 4, 'join' => true]
             );
