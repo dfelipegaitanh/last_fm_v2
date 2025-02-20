@@ -4,12 +4,10 @@ namespace App\Actions\LastFmGlobalSongsStatistics;
 
 use App\Models\LastFmGlobalSongsStatistics;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class GetGlobalSongsStatistics
 {
-
     use AsAction;
 
     const int PAGINATION = 10;
@@ -20,7 +18,7 @@ class GetGlobalSongsStatistics
         return LastFmGlobalSongsStatistics::latest()
             ->basicData()
             ->whereLastFmUserId(auth()->user()->lastFmUser->id)
-            ->paginate(self::PAGINATION)
-            ;
+            ->paginate(perPage: self::PAGINATION)
+            ->onEachSide(1);
     }
 }

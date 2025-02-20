@@ -104,7 +104,7 @@
                 </div>
 
                 <nav class="mt-4 flex justify-center" aria-label="Pagination">
-                    <template x-for="link in $store.user.statistics.links" :key="link.label">
+                    <template x-for="link in $store.user.statistics.links">
                         <button
                             x-on:click.prevent="link.url ? $store.user.fetchStatistics(link.url) : null"
                             :class="{
