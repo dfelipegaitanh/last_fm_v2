@@ -15,9 +15,15 @@ readonly class UserGeInfoController
     {
         GetUserInfo::run();
 
-        $userData = $this->lastFmUserService
-            ->getAuthenticatedUserData();
+        return response()
+            ->json(
+                $this->getUserData()
+            );
+    }
 
-        return response()->json($userData);
+    private function getUserData(): array
+    {
+        return $this->lastFmUserService
+            ->getAuthenticatedUserData();
     }
 }
