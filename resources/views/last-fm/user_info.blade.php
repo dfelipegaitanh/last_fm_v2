@@ -4,6 +4,12 @@
             [x-cloak] {
                 display: none !important;
             }
+
+            @media (max-width: 640px) {
+                .hide-on-mobile {
+                    display: none;
+                }
+            }
         </style>
 
         <!-- Botones principales -->
@@ -47,17 +53,17 @@
         <div
             x-show="$store.user.info"
             x-transition.opacity.duration.300ms
-            class="mt-6 rounded-md bg-gray-100 p-4 shadow"
+            class="mt-6 rounded-md bg-gray-100 p-4 shadow dark:border dark:border-gray-700 dark:bg-gray-900"
         >
-            <h2 class="text-lg font-bold">Información del Usuario</h2>
+            <h2 class="text-lg font-bold dark:text-white">Información del Usuario</h2>
             <template x-if="$store.user.info">
                 <div class="mt-2">
-                    <h3 class="text-md font-semibold" x-text="$store.user.info.name"></h3>
-                    <p class="text-sm text-gray-600">
+                    <h3 class="text-md font-semibold dark:text-gray-300" x-text="$store.user.info.name"></h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
                         Usuario desde:
                         <span x-text="$store.user.info.join_date"></span>
                     </p>
-                    <p class="text-sm text-gray-600">
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
                         Reproducciones totales:
                         <span x-text="$store.user.info.total_scrobbles"></span>
                     </p>
@@ -67,81 +73,102 @@
 
         <!-- Tabla de estadísticas -->
         <div x-show="$store.user.showStatistics" x-transition.opacity.duration.300ms x-cloak class="mt-4">
-            <table class="w-full rounded-md bg-gray-50 text-left shadow-sm dark:bg-gray-700">
-                <thead>
-                    <tr class="bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
-                        <th class="px-4 py-2">1</th>
-                        <th class="px-4 py-2">2</th>
-                        <th class="px-4 py-2">3</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <template x-for="item in $store.user.statistics" >
-                        <tr>
-                            <td class="px-4 py-2" x-text="item.playcount"></td>
-                            <td class="px-4 py-2" x-text="item.artist_count"></td>
-                            <td class="px-4 py-2" x-text="item.track_count"></td>
+            <div class="rounded-md bg-gray-50 p-4 shadow dark:border dark:border-gray-700 dark:bg-gray-900">
+                <table class="w-full rounded-md bg-gray-50 text-left shadow-sm dark:bg-gray-700">
+                    <thead>
+                        <tr class="bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
+                            <th class="px-4 py-2">Play Count</th>
+                            <th class="px-4 py-2">Artist Count</th>
+                            <th class="px-4 py-2">Track Count</th>
+                            <th class="hide-on-mobile px-4 py-2">Album Count</th>
+                            <th class="hide-on-mobile px-4 py-2">Created At</th>
                         </tr>
+                    </thead>
+                    <tbody>
+                        <template x-for="item in $store.user.statistics.data">
+                            <tr
+                                class="odd:bg-gray-50 even:bg-white hover:bg-gray-100 dark:odd:bg-gray-700 dark:even:bg-gray-800 dark:hover:bg-gray-600"
+                            >
+                                <td class="px-4 py-2 dark:text-gray-300" x-text="item.playcount"></td>
+                                <td class="px-4 py-2 dark:text-gray-300" x-text="item.artist_count"></td>
+                                <td class="px-4 py-2 dark:text-gray-300" x-text="item.track_count"></td>
+                                <td class="px-4 py-2 dark:text-gray-300" x-text="item.album_count"></td>
+                                <td class="px-4 py-2 dark:text-gray-300" x-text="item.created_at"></td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+
+                <nav class="mt-4 flex justify-center" aria-label="Pagination">
+                    <template x-for="link in $store.user.statistics.links" :key="link.label">
+                        <button
+                            x-on:click.prevent="link.url ? $store.user.fetchStatistics(link.url) : null"
+                            :class="{
+                                'bg-blue-500 text-white dark:bg-blue-600': link.active,
+                                'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300': !link.active
+                            }"
+                            class="mx-1 rounded px-3 py-1"
+                            x-html="link.label"
+                        ></button>
                     </template>
-                </tbody>
-            </table>
+                </nav>
+            </div>
         </div>
 
         <!-- Contenedor de errores -->
-        <div x-show="$store.user.errorMessage" class="mt-2 text-red-500">
+        <div x-show="$store.user.errorMessage" class="mt-2 text-red-500 dark:text-red-400">
             <span x-text="$store.user.errorMessage"></span>
         </div>
     </div>
 
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.store('user', {
-                info: null,
-                statistics: [],
-                loadingUserInfo: false,
-                loadingStatistics: false,
-                showStatistics: false,
-                errorMessage: '',
+    <x-slot name="script">
+        <script>
+            document.addEventListener('alpine:init', () => {
+                Alpine.store('user', {
+                    info: null,
+                    statistics: [],
+                    loadingUserInfo: false,
+                    loadingStatistics: false,
+                    showStatistics: false,
+                    errorMessage: '',
 
-                apiRoutes: {
-                    userInfo: @json(route('last-fm.user_get_info')),
-                    statistics: @json(route('last-fm.user_get_statistics')),
-                },
+                    apiRoutes: {
+                        userInfo: @json(route('last-fm.user_get_info')),
+                        statistics: @json(route('last-fm.user_get_statistics')),
+                    },
 
-                fetchUserInfo() {
-                    this.loadingUserInfo = true;
-                    fetch(this.apiRoutes.userInfo)
-                        .then((res) => {
-                            if (!res.ok) throw new Error(`Error al obtener usuario: ${res.statusText}`);
-                            return res.json();
-                        })
-                        .then((data) => (this.info = data))
-                        .catch((error) => (this.errorMessage = error.message))
-                        .finally(() => (this.loadingUserInfo = false));
-                },
+                    fetchUserInfo() {
+                        this.loadingUserInfo = true;
+                        fetch(this.apiRoutes.userInfo)
+                            .then((res) => {
+                                if (!res.ok) throw new Error(`Error al obtener usuario: ${res.statusText}`);
+                                return res.json();
+                            })
+                            .then((data) => (this.info = data))
+                            .catch((error) => (this.errorMessage = error.message))
+                            .finally(() => (this.loadingUserInfo = false));
+                    },
 
-                fetchStatistics() {
-                    this.loadingStatistics = true;
-                    fetch(this.apiRoutes.statistics)
-                        .then((res) => {
-                            if (!res.ok) throw new Error(`Error al obtener estadísticas: ${res.statusText}`);
-                            return res.json();
-                        })
-                        .then(function(data) {
-                            this.statistics = data.data
-                            console.log(this.statistics)
-                        })
-                        .catch((error) => (this.errorMessage = error.message))
-                        .finally(() => (this.loadingStatistics = false));
-                },
+                    fetchStatistics(url = this.apiRoutes.statistics) {
+                        this.loadingStatistics = true;
+                        fetch(url)
+                            .then((res) => {
+                                if (!res.ok) throw new Error(`Error al obtener estadísticas: ${res.statusText}`);
+                                return res.json();
+                            })
+                            .then((data) => (this.statistics = data))
+                            .catch((error) => (this.errorMessage = error.message))
+                            .finally(() => (this.loadingStatistics = false));
+                    },
 
-                toggleStatistics() {
-                    if (!this.showStatistics) {
-                        this.fetchStatistics();
-                    }
-                    this.showStatistics = !this.showStatistics;
-                },
+                    toggleStatistics() {
+                        if (!this.showStatistics) {
+                            this.fetchStatistics();
+                        }
+                        this.showStatistics = !this.showStatistics;
+                    },
+                });
             });
-        });
-    </script>
+        </script>
+    </x-slot>
 </x-app-layout>
