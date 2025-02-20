@@ -70,17 +70,17 @@
             <table class="w-full rounded-md bg-gray-50 text-left shadow-sm dark:bg-gray-700">
                 <thead>
                     <tr class="bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
-                        <th class="px-4 py-2">ID</th>
-                        <th class="px-4 py-2">Nombre</th>
-                        <th class="px-4 py-2">Edad</th>
+                        <th class="px-4 py-2">1</th>
+                        <th class="px-4 py-2">2</th>
+                        <th class="px-4 py-2">3</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <template x-for="item in $store.user.statistics" :key="item.id">
+                    <template x-for="item in $store.user.statistics" >
                         <tr>
-                            <td class="px-4 py-2" x-text="item.id"></td>
-                            <td class="px-4 py-2" x-text="item.nombre"></td>
-                            <td class="px-4 py-2" x-text="item.edad"></td>
+                            <td class="px-4 py-2" x-text="item.playcount"></td>
+                            <td class="px-4 py-2" x-text="item.artist_count"></td>
+                            <td class="px-4 py-2" x-text="item.track_count"></td>
                         </tr>
                     </template>
                 </tbody>
@@ -127,7 +127,10 @@
                             if (!res.ok) throw new Error(`Error al obtener estadísticas: ${res.statusText}`);
                             return res.json();
                         })
-                        .then((data) => (this.statistics = data))
+                        .then(function(data) {
+                            this.statistics = data.data
+                            console.log(this.statistics)
+                        })
                         .catch((error) => (this.errorMessage = error.message))
                         .finally(() => (this.loadingStatistics = false));
                 },
