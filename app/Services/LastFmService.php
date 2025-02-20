@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
+use App\Classes\Lastfm;
 use App\DTO\LastFm\AuthenticatedUserDto;
 use App\Models\User;
-use Barryvanveen\Lastfm\Lastfm;
 use Illuminate\Container\Attributes\CurrentUser;
 
 readonly class LastFmService
@@ -22,6 +22,16 @@ readonly class LastFmService
             ->userInfo(
                 $this->user->lastfm_user
             )->get();
+
+    }
+
+    public function userRecentTrack(): array
+    {
+        return $this->lastfm
+            ->userRecentTrack(
+                $this->user->lastfm_user
+            )
+            ->get();
 
     }
 
