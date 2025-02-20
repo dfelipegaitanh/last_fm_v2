@@ -79,26 +79,26 @@
                 <div class="overflow-hidden rounded-lg">
                     <table class="w-full rounded-lg bg-gray-50 text-left shadow-sm dark:bg-gray-700">
                         <thead>
-                        <tr class="bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
-                            <th class="px-4 py-2">Play Count</th>
-                            <th class="px-4 py-2">Artist Count</th>
-                            <th class="px-4 py-2">Track Count</th>
-                            <th class="hide-on-mobile px-4 py-2">Album Count</th>
-                            <th class="hide-on-mobile px-4 py-2">Created At</th>
-                        </tr>
+                            <tr class="bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
+                                <th class="px-4 py-2">Play Count</th>
+                                <th class="px-4 py-2">Artist Count</th>
+                                <th class="px-4 py-2">Track Count</th>
+                                <th class="hide-on-mobile px-4 py-2">Album Count</th>
+                                <th class="hide-on-mobile px-4 py-2">Created At</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <template x-for="item in $store.user.statistics.data">
-                            <tr
-                                class="odd:bg-gray-50 even:bg-white hover:bg-gray-100 dark:odd:bg-gray-700 dark:even:bg-gray-800 dark:hover:bg-gray-600"
-                            >
-                                <td class="px-4 py-2 dark:text-gray-300" x-text="item.playcount"></td>
-                                <td class="px-4 py-2 dark:text-gray-300" x-text="item.artist_count"></td>
-                                <td class="px-4 py-2 dark:text-gray-300" x-text="item.track_count"></td>
-                                <td class="px-4 py-2 dark:text-gray-300" x-text="item.album_count"></td>
-                                <td class="px-4 py-2 dark:text-gray-300" x-text="item.created_at"></td>
-                            </tr>
-                        </template>
+                            <template x-for="item in $store.user.statistics.data">
+                                <tr
+                                    class="odd:bg-gray-50 even:bg-white hover:bg-gray-100 dark:odd:bg-gray-700 dark:even:bg-gray-800 dark:hover:bg-gray-600"
+                                >
+                                    <td class="px-4 py-2 dark:text-gray-300" x-text="item.playcount"></td>
+                                    <td class="px-4 py-2 dark:text-gray-300" x-text="item.artist_count"></td>
+                                    <td class="px-4 py-2 dark:text-gray-300" x-text="item.track_count"></td>
+                                    <td class="px-4 py-2 dark:text-gray-300" x-text="item.album_count"></td>
+                                    <td class="px-4 py-2 dark:text-gray-300" x-text="item.created_at"></td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>
