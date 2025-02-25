@@ -7,21 +7,21 @@ use Spatie\LaravelData\Data;
 class UserInfoDTO // extends Data
 {
     public function __construct(
-        public ?string $name,
-        public ?string $subscriber,
-        public ?string $country,
-        public ?string $url,
-        public ?array $registered,
+        public string $name,
+        public string $subscriber,
+        public string $country,
+        public string $url,
+        public array $registered,
     ) {}
 
     public static function fromArray(array $data): self
     {
         return new self(
-            name: $data['name'] ?? null,
-            subscriber: $data['subscriber'] ?? null,
-            country: $data['country'] ?? null,
-            url: $data['url'] ?? null,
-            registered: $data['registered'] ?? null,
+            name: $data['name'] ?? '',
+            subscriber: $data['subscriber'] ?? '',
+            country: $data['country'] ?? '',
+            url: $data['url'] ?? '',
+            registered: $data['registered'] ?? '',
         );
     }
 }
