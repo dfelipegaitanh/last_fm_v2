@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\LastFm\User;
 
 use App\Modules\LastFm\Users\Actions\Users\GetUserInfo;
-use App\Services\LastFmService;
+use App\Services\LastFmUserService;
 
 class UserGetInfoController
 {
     public function __construct(
-        private readonly LastFmService $lastFmUserService,
+        private readonly LastFmUserService $lastFmUserService,
         private readonly GetUserInfo $getUserInfo
     ) {}
 
