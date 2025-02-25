@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\LastFm\User\UserGeInfoController;
+use App\Http\Controllers\LastFm\User\UserGetInfoController;
 use App\Http\Controllers\LastFm\User\UserGetStatisticsController;
 
 Route::middleware('auth:sanctum')
@@ -14,7 +14,7 @@ Route::middleware('auth:sanctum')
         Route::get('user-get-statistics', UserGetStatisticsController::class)
             ->name('user_get_statistics');
 
-        Route::get('user-get-info', UserGeInfoController::class)
+        Route::get('user-get-info', UserGetInfoController::class)
             ->name('user_get_info');
 
     });

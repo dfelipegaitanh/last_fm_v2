@@ -3,10 +3,12 @@
 namespace App\Modules\LastFm\Users\DTO;
 
 use App\Modules\LastFm\Users\Models\User;
-use Spatie\LaravelData\Data;
+use App\Traits\DTO;
 
-class AuthenticatedUserDTO extends Data
+class AuthenticatedUserDTO
 {
+    use DTO;
+
     public function __construct(
         public ?string $name,
         public ?string $join_date,

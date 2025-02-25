@@ -5,15 +5,16 @@ namespace App\Http\Controllers\LastFm\User;
 use App\Modules\LastFm\Users\Actions\Users\GetUserInfo;
 use App\Services\LastFmService;
 
-class UserGeInfoController
+class UserGetInfoController
 {
     public function __construct(
-        private readonly LastFmService $lastFmUserService
+        private readonly LastFmService $lastFmUserService,
+        private readonly GetUserInfo $getUserInfo
     ) {}
 
     public function __invoke()
     {
-        GetUserInfo::run();
+        $this->getUserInfo->handle();
 
         return response()
             ->json(

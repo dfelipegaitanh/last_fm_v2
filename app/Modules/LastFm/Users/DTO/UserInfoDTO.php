@@ -4,7 +4,7 @@ namespace App\Modules\LastFm\Users\DTO;
 
 use Spatie\LaravelData\Data;
 
-class UserInfoDTO extends Data
+class UserInfoDTO // extends Data
 {
     public function __construct(
         public ?string $name,
@@ -13,4 +13,15 @@ class UserInfoDTO extends Data
         public ?string $url,
         public ?array $registered,
     ) {}
+
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            name: $data['name'] ?? null,
+            subscriber: $data['subscriber'] ?? null,
+            country: $data['country'] ?? null,
+            url: $data['url'] ?? null,
+            registered: $data['registered'] ?? null,
+        );
+    }
 }

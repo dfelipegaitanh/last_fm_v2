@@ -2,18 +2,14 @@
 
 namespace App\Modules\LastFm\Users\Actions\Users;
 
-use App\Modules\LastFm\Users\Actions\Users\SaveGlobalSongsStatistics;
 use App\Modules\LastFm\Users\DTO\UserInfoDTO;
 use App\Modules\LastFm\Users\Models\User;
 use App\Services\LastFmService;
 use Illuminate\Container\Attributes\CurrentUser;
 use JetBrains\PhpStorm\NoReturn;
-use Lorisleiva\Actions\Concerns\AsAction;
 
 readonly class GetUserInfo
 {
-    use AsAction;
-
     private array $lastFmUserInfo;
 
     private array $userRecentTrack;
@@ -23,6 +19,7 @@ readonly class GetUserInfo
         private LastFmService $lastFmService,
         #[CurrentUser]
         private \App\Models\User $user,
+        private SaveGlobalSongsStatistics $saveGlobalSongsStatistics,
     ) {
         $this->lastFmUserInfo = $this->lastFmService
             ->userInfo();
@@ -37,12 +34,13 @@ readonly class GetUserInfo
 
         $this->syncLastFmUser();
 
-        SaveGlobalSongsStatistics::run($this->lastFmUserInfo);
+        $this->saveGlobalSongsStatistics->handle($this->lastFmUserInfo);
     }
 
     private function syncLastFmUser(): void
     {
-        $userInfoDto = UserInfoDTO::from($this->lastFmUserInfo);
+
+        $userInfoDto = UserInfoDTO::fromArray($this->lastFmUserInfo);
 
         User::firstOrCreate(
             [

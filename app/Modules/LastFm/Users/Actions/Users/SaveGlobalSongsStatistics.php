@@ -2,17 +2,14 @@
 
 namespace App\Modules\LastFm\Users\Actions\Users;
 
-use App\Modules\LastFm\Users\Models\GlobalSongsStatistics;
 use App\Models\User;
 use App\Modules\LastFm\Users\DTO\StatisticsDTO;
+use App\Modules\LastFm\Users\Models\GlobalSongsStatistics;
 use Illuminate\Container\Attributes\CurrentUser;
 use Illuminate\Support\Arr;
-use Lorisleiva\Actions\Concerns\AsAction;
 
 readonly class SaveGlobalSongsStatistics
 {
-    use AsAction;
-
     public function __construct(
         #[CurrentUser]
         private User $user,

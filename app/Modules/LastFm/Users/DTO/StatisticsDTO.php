@@ -2,10 +2,12 @@
 
 namespace App\Modules\LastFm\Users\DTO;
 
-use Spatie\LaravelData\Data;
+use App\Traits\DTO;
 
-class StatisticsDTO extends Data
+readonly class StatisticsDTO
 {
+    use DTO;
+
     public function __construct(
         public int $playcount,
         public int $artist_count,
@@ -25,9 +27,6 @@ class StatisticsDTO extends Data
 
     private static function toInt(mixed $value): int
     {
-        return match (true) {
-            is_numeric($value) => (int) $value,
-            default => 0,
-        };
+        return is_numeric($value) ? (int) $value : 0;
     }
 }
