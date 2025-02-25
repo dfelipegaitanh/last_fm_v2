@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\LastFmUser;
+use App\Modules\LastFm\Users\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('last_fm_global_songs_statistics', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(LastFmUser::class)->constrained('last_fm_users');
+            $table->foreignIdFor(User::class)->constrained('last_fm_users');
             $table->string('playcount');
             $table->string('artist_count');
             $table->string('track_count');

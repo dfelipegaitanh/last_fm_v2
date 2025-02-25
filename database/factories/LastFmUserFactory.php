@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\LastFmUser;
 use App\Models\User;
+use App\Modules\LastFm\Users\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
 class LastFmUserFactory extends Factory
 {
-    protected $model = LastFmUser::class;
+    protected $model = User::class;
 
     public function definition(): array
     {

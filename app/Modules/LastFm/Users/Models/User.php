@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\LastFm\Users\Models;
 
+use App\Modules\LastFm\Users\Models\GlobalSongsStatistics;
 use App\Services\DateService;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
-class LastFmUser extends Model
+class User extends Model
 {
     use HasFactory, HasUlids, KeepsDeletedModels;
 
@@ -25,19 +26,21 @@ class LastFmUser extends Model
         'registered',
     ];
 
+    protected $table = 'last_fm_users';
+
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     public function statistics(): HasMany
     {
-        return $this->hasMany(LastFmGlobalSongsStatistics::class, 'last_fm_user_id');
+        return $this->hasMany(GlobalSongsStatistics::class, 'last_fm_user_id');
     }
 
     public function latestStatistic(): HasOne
     {
-        return $this->hasOne(LastFmGlobalSongsStatistics::class, 'last_fm_user_id')->latestOfMany();
+        return $this->hasOne(GlobalSongsStatistics::class, 'last_fm_user_id')->latestOfMany();
     }
 
     protected function casts(): array

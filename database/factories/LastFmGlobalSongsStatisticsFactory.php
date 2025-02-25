@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\LastFmGlobalSongsStatistics;
-use App\Models\LastFmUser;
+use App\Modules\LastFm\Users\Models\GlobalSongsStatistics;
+use App\Modules\LastFm\Users\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
 class LastFmGlobalSongsStatisticsFactory extends Factory
 {
-    protected $model = LastFmGlobalSongsStatistics::class;
+    protected $model = GlobalSongsStatistics::class;
 
     public function definition(): array
     {
@@ -22,7 +22,7 @@ class LastFmGlobalSongsStatisticsFactory extends Factory
             'updated_at' => Carbon::now(),
             'uuid' => $this->faker->uuid(),
 
-            'last_fm_user_id' => LastFmUser::factory(),
+            'last_fm_user_id' => User::factory(),
         ];
     }
 }

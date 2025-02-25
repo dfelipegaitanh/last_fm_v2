@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Actions\LastFmGlobalSongsStatistics;
+namespace App\Modules\LastFm\Users\Actions\Users;
 
-use App\Models\LastFmGlobalSongsStatistics;
+use App\Modules\LastFm\Users\Models\GlobalSongsStatistics;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Lorisleiva\Actions\Concerns\AsAction;
 
@@ -15,7 +15,7 @@ class GetGlobalSongsStatistics
     public function handle(): LengthAwarePaginator
     {
 
-        return LastFmGlobalSongsStatistics::latest()
+        return GlobalSongsStatistics::latest()
             ->basicData()
             ->whereLastFmUserId(auth()->user()->lastFmUser->id)
             ->paginate(perPage: self::PAGINATION)

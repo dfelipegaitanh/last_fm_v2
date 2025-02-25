@@ -1,10 +1,10 @@
 <?php
 
-namespace App\DTO\LastFm;
+namespace App\Modules\LastFm\Users\DTO;
 
 use Spatie\LaravelData\Data;
 
-class UserInfoDto extends Data
+class UserInfoDTO extends Data
 {
     public function __construct(
         public ?string $name,

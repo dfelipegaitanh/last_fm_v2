@@ -54,6 +54,6 @@ class User extends Authenticatable
 
     public function lastFmUser(): HasOne
     {
-        return $this->hasOne(LastFmUser::class, 'user_id');
+        return $this->hasOne(\App\Modules\LastFm\Users\Models\User::class, 'user_id');
     }
 }

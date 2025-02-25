@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Actions\LastFmGlobalSongsStatistics;
+namespace App\Modules\LastFm\Users\Actions\Users;
 
-use App\DTO\LastFm\StatisticsDto;
-use App\Models\LastFmGlobalSongsStatistics;
+use App\Modules\LastFm\Users\Models\GlobalSongsStatistics;
 use App\Models\User;
+use App\Modules\LastFm\Users\DTO\StatisticsDTO;
 use Illuminate\Container\Attributes\CurrentUser;
 use Illuminate\Support\Arr;
 use Lorisleiva\Actions\Concerns\AsAction;
@@ -20,10 +20,10 @@ readonly class SaveGlobalSongsStatistics
 
     public function handle(array $userInfo): void
     {
-        $dto = StatisticsDto::fromArray($userInfo);
+        $dto = StatisticsDTO::fromArray($userInfo);
         $attributes = $dto->toArray();
 
-        LastFmGlobalSongsStatistics::firstOrCreate(
+        GlobalSongsStatistics::firstOrCreate(
             $this->buildSearchAttributes($attributes),
             $attributes
         );

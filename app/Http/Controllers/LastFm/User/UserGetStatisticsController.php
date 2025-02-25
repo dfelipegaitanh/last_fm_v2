@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\LastFm;
+namespace App\Http\Controllers\LastFm\User;
 
-use App\Actions\LastFmGlobalSongsStatistics\GetGlobalSongsStatistics;
+use App\Modules\LastFm\Users\Actions\Users\GetGlobalSongsStatistics;
 use App\Http\Controllers\Controller;
 
 class UserGetStatisticsController extends Controller

@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Classes\Lastfm;
-use App\DTO\LastFm\AuthenticatedUserDto;
 use App\Models\User;
+use App\Modules\LastFm\Users\DTO\AuthenticatedUserDTO;
 use Illuminate\Container\Attributes\CurrentUser;
 
 readonly class LastFmService
@@ -40,7 +40,7 @@ readonly class LastFmService
         $lastFmUser = $this->user
             ->lastFmUser;
 
-        return AuthenticatedUserDto::fromModel($lastFmUser)
+        return AuthenticatedUserDTO::fromModel($lastFmUser)
             ->toArray();
     }
 }

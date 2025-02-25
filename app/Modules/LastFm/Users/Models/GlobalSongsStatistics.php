@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\LastFm\Users\Models;
 
 use App\Casts\NumberCast;
+use App\Modules\LastFm\Users\Models\User;
 use App\Services\DateService;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 
-class LastFmGlobalSongsStatistics extends Model
+class GlobalSongsStatistics extends Model
 {
     use HasFactory, KeepsDeletedModels;
 
@@ -22,6 +23,8 @@ class LastFmGlobalSongsStatistics extends Model
         'album_count',
         'uuid',
     ];
+
+    protected $table = 'last_fm_global_songs_statistics';
 
     protected function casts(): array
     {
@@ -36,7 +39,7 @@ class LastFmGlobalSongsStatistics extends Model
 
     public function lastFmUser(): BelongsTo
     {
-        return $this->belongsTo(LastFmUser::class);
+        return $this->belongsTo(User::class);
     }
 
     public function scopeBasicData($query)

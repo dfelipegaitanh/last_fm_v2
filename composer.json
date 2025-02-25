@@ -69,6 +69,9 @@
         ],
         "rector-dry": [
             "vendor/bin/rector process app --dry-run"
+        ],
+        "pint-dirty": [
+            "vendor/bin/pint --dirty"
         ]
     },
     "extra": {

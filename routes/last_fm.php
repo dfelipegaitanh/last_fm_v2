@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\LastFm\UserGeInfoController;
-use App\Http\Controllers\LastFm\UserGetStatisticsController;
+use App\Http\Controllers\LastFm\User\UserGeInfoController;
+use App\Http\Controllers\LastFm\User\UserGetStatisticsController;
 
 Route::middleware('auth:sanctum')
     ->prefix('last-fm')

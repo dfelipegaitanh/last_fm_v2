@@ -1,11 +1,11 @@
 <?php
 
-namespace App\DTO\LastFm;
+namespace App\Modules\LastFm\Users\DTO;
 
-use App\Models\LastFmUser;
+use App\Modules\LastFm\Users\Models\User;
 use Spatie\LaravelData\Data;
 
-class AuthenticatedUserDto extends Data
+class AuthenticatedUserDTO extends Data
 {
     public function __construct(
         public ?string $name,
@@ -13,7 +13,7 @@ class AuthenticatedUserDto extends Data
         public ?string $total_scrobbles,
     ) {}
 
-    public static function fromModel(LastFmUser $lastFmUser): self
+    public static function fromModel(User $lastFmUser): self
     {
 
         $user = $lastFmUser->with('latestStatistic')
