@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Classes\Lastfm;
 use App\Models\User;
+use App\Modules\LastFm\Users\DTO\SongInfoDTO;
 use Illuminate\Container\Attributes\CurrentUser;
 
 readonly class LastFmService
@@ -32,5 +33,18 @@ readonly class LastFmService
             )
             ->get();
 
+    }
+
+    public function trackGetInfo(array $song): array
+    {
+
+        $songDto = SongInfoDTO::fromArray($song);
+
+        return $this->lastfm
+            ->getRecentTrack(
+                $this->user->lastfm_user,
+                $songDto
+            )
+            ->get();
     }
 }

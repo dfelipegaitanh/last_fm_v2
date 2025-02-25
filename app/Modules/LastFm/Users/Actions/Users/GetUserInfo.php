@@ -12,8 +12,6 @@ readonly class GetUserInfo
 {
     private array $lastFmUserInfo;
 
-    private array $userRecentTrack;
-
     #[NoReturn]
     public function __construct(
         private LastFmService $lastFmService,
@@ -24,9 +22,13 @@ readonly class GetUserInfo
         $this->lastFmUserInfo = $this->lastFmService
             ->userInfo();
 
-        $this->userRecentTrack = $this->lastFmService
-            ->userRecentTrack();
-        //        dd($this->userRecentTrack);
+        dd(
+            $this->lastFmService
+                ->trackGetInfo(
+                    $this->lastFmService
+                        ->userRecentTrack()
+                )
+        );
     }
 
     public function handle(): void
