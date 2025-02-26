@@ -41,7 +41,7 @@ readonly class LastFmService
         $songDto = SongInfoDTO::fromArray($song);
 
         return $this->lastfm
-            ->getRecentTrack(
+            ->trackGetInfo(
                 $this->user->lastfm_user,
                 $songDto
             )

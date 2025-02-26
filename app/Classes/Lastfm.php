@@ -19,7 +19,7 @@ class Lastfm extends \Barryvanveen\Lastfm\Lastfm
         return $this;
     }
 
-    public function getRecentTrack(string $username, SongInfoDTO $songInfoDTO): self
+    public function trackGetInfo(string $username, SongInfoDTO $songInfoDTO): self
     {
         $this->query = array_merge($this->query, [
             'method' => 'track.getInfo',
