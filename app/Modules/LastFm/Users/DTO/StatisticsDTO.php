@@ -2,11 +2,12 @@
 
 namespace App\Modules\LastFm\Users\DTO;
 
+use App\Traits\CastsAttributesTrait;
 use App\Traits\DTO;
 
 readonly class StatisticsDTO
 {
-    use DTO;
+    use CastsAttributesTrait, DTO;
 
     public function __construct(
         public int $playcount,
@@ -23,10 +24,5 @@ readonly class StatisticsDTO
             track_count: self::toInt($data['track_count'] ?? 0),
             album_count: self::toInt($data['album_count'] ?? 0)
         );
-    }
-
-    private static function toInt(mixed $value): int
-    {
-        return is_numeric($value) ? (int) $value : 0;
     }
 }
