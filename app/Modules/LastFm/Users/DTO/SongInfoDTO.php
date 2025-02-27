@@ -3,10 +3,12 @@
 namespace App\Modules\LastFm\Users\DTO;
 
 use App\Traits\DTO;
+use App\Traits\ExcludedWordsTrait;
 
 class SongInfoDTO
 {
     use DTO;
+    use ExcludedWordsTrait;
 
     public function __construct(
         public string $artist,
@@ -20,14 +22,20 @@ class SongInfoDTO
 
     public static function fromArray(array $data): self
     {
-        return new self(
-            artist: $data['artist']['#text'] ?? '',
+        $instance = new self(
+            artist: $data['artist']['#text'] ?? $data['artist']['name'] ?? '',
             artist_mbid: $data['artist']['mbid'] ?? '',
             name: $data['name'] ?? '',
             mbid: $data['mbid'] ?? '',
-            album: $data['album']['#text'] ?? '',
+            album: $data['album']['#text'] ?? $data['album']['title'] ?? '',
             album_mbid: $data['album']['mbid'] ?? '',
             url: $data['url'] ?? '',
         );
+
+        $instance->name = $instance->cleanText($instance->name);
+        $instance->album = $instance->cleanText($instance->album);
+
+        return $instance;
+
     }
 }
