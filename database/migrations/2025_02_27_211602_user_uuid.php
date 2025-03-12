@@ -1,0 +1,22 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+
+        Schema::rename('Users', 'users_');
+        Schema::rename('users_', 'users');
+
+    }
+
+    public function down(): void
+    {
+        Schema::rename('users', 'Users_');
+        Schema::rename('Users_', 'Users');
+
+    }
+};
