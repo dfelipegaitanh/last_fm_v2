@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Modules\LastFm\Users\Actions\Users;
 
 use App\Models\User;
@@ -11,38 +13,28 @@ use Illuminate\Support\Arr;
 
 readonly class SaveGlobalSongsStatistics
 {
-    private array $song;
-
-    public function __construct(
-        #[CurrentUser]
-        private User $user,
-        private LastFmService $lastFmService,
-    ) {
-        $userRecentTrack = $this->lastFmService
+    public function __construct(#[CurrentUser]
+    private User $user, private LastFmService $lastFmService)
+    {
+        $this->lastFmService
             ->userRecentTrack();
-
-        $this->song = $this->lastFmService
-            ->trackGetInfo(
-                $userRecentTrack
-            );
-
     }
 
     public function handle(array $userInfo): void
     {
         $dto = StatisticsDTO::fromArray($userInfo);
-        $attributes = $dto->toArray();
 
+        dd($dto);
         GlobalSongsStatistics::firstOrCreate(
-            $this->buildSearchAttributes($attributes),
-            $attributes
+            $this->buildSearchAttributes($dto),
+            $dto->toArray()
         );
     }
 
-    private function buildSearchAttributes(array $attributes): array
+    private function buildSearchAttributes(StatisticsDTO $dto): array
     {
         return Arr::add(
-            $attributes,
+            $dto->toArray(),
             'last_fm_user_id',
             $this->user->lastFmUser->id
         );

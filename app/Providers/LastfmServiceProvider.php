@@ -35,10 +35,10 @@ class LastfmServiceProvider extends ServiceProvider
     /**
      * Register any package services.
      */
-    public function register()
+    public function register(): void
     {
 
-        $this->app->bind(Lastfm::class, function () {
+        $this->app->bind(Lastfm::class, function (): \App\Classes\Lastfm {
             return new Lastfm(new Client, config('lastfm.api_key'));
         });
     }

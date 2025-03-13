@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Modules\LastFm\Users\DTO;
 
 use App\Traits\CastsAttributesTrait;
@@ -19,10 +21,10 @@ readonly class StatisticsDTO
     public static function fromArray(array $data): self
     {
         return new self(
-            playcount: self::toInt($data['playcount'] ?? 0),
-            artist_count: self::toInt($data['artist_count'] ?? 0),
-            track_count: self::toInt($data['track_count'] ?? 0),
-            album_count: self::toInt($data['album_count'] ?? 0)
+            playcount: self::toInt($data['playcount']),
+            artist_count: self::toInt($data['artist_count']),
+            track_count: self::toInt($data['track_count']),
+            album_count: self::toInt($data['album_count']),
         );
     }
 }

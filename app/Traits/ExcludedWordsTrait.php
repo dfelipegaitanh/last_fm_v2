@@ -40,7 +40,7 @@ trait ExcludedWordsTrait
 
     private function removeExcludedPatterns(string $text): string
     {
-        $escapedWords = array_map(fn ($word) => preg_quote($word, '/'), $this->excludedWords);
+        $escapedWords = array_map(fn ($word): string => preg_quote($word, '/'), $this->excludedWords);
         $wordsPattern = implode('|', $escapedWords);
         $pattern = sprintf(
             '/(?:\s-\s|-\s|\s-)?(?:%s|\d{4}|Remaster(?:izado|ed)?)\b/i',

@@ -50,7 +50,7 @@ class GlobalSongsStatistics extends Model
     protected function createdAt(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => DateService::dateToDateTime($value),
+            get: fn ($value): string => DateService::dateToDateTime($value),
         );
     }
 }

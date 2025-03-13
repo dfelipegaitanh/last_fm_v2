@@ -6,7 +6,7 @@ use Illuminate\Support\Carbon;
 
 class DateService
 {
-    public static function timestampToDateTime($timestamp): string
+    public static function timestampToDateTime(float|int|string $timestamp): string
     {
         return Carbon::createFromTimestamp($timestamp)
             ->diffForHumans(

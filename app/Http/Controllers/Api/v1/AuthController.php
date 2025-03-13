@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
     use ApiResponseTrait;
 
-    public function login(ApiLoginRequest $request)
+    public function login(ApiLoginRequest $request): \Illuminate\Http\JsonResponse
     {
 
         $request->validated();

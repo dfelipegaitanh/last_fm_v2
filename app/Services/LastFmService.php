@@ -1,18 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Classes\Lastfm;
-use App\Models\User;
 use App\Modules\LastFm\Users\DTO\SongInfoDTO;
-use Illuminate\Container\Attributes\CurrentUser;
 
 readonly class LastFmService
 {
     public function __construct(
         private Lastfm $lastfm,
-        #[CurrentUser]
-        private User $user,
     ) {}
 
     public function userInfo(): array
@@ -20,7 +18,7 @@ readonly class LastFmService
 
         return $this->lastfm
             ->userInfo(
-                $this->user->lastfm_user
+                auth()->user()->lastfm_user
             )->get();
 
     }
@@ -29,7 +27,7 @@ readonly class LastFmService
     {
         return $this->lastfm
             ->userRecentTrack(
-                $this->user->lastfm_user
+                auth()->user()->lastfm_user
             )
             ->get();
 
@@ -42,7 +40,7 @@ readonly class LastFmService
 
         return $this->lastfm
             ->trackGetInfo(
-                $this->user->lastfm_user,
+                auth()->user()->lastfm_user,
                 $songDto
             )
             ->get();
