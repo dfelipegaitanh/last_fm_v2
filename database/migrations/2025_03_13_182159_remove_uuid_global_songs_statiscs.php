@@ -10,15 +10,21 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('last_fm_global_songs_statistics', function (Blueprint $table): void {
-            $table->dropColumn('uuid');
-        });
+        try {
+            Schema::table('last_fm_global_songs_statistics', function (Blueprint $table): void {
+                $table->dropColumn('uuid');
+            });
+        } catch (Exception) {
+        }
     }
 
     public function down(): void
     {
-        Schema::table('last_fm_global_songs_statistics', function (Blueprint $table): void {
-            $table->uuid('uuid')->after('id');
-        });
+        try {
+            Schema::table('last_fm_global_songs_statistics', function (Blueprint $table): void {
+                $table->uuid('uuid')->after('id');
+            });
+        } catch (Exception) {
+        }
     }
 };
