@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
+use App\Modules\LastFm\Users\Models\User as LastFmUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -39,6 +42,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function lastFmUser(): HasOne
+    {
+        return $this->hasOne(LastFmUser::class, 'user_id');
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -50,10 +58,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    public function lastFmUser(): HasOne
-    {
-        return $this->hasOne(\App\Modules\LastFm\Users\Models\User::class, 'user_id');
     }
 }
