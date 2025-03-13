@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Modules\LastFm\Users\Models\GlobalSongsStatistics;
@@ -20,7 +22,6 @@ class LastFmGlobalSongsStatisticsFactory extends Factory
             'album_count' => $this->faker->word(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-            'uuid' => $this->faker->uuid(),
 
             'last_fm_user_id' => User::factory(),
         ];

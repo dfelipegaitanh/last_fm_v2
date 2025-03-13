@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Modules\LastFm\Users\Models;
 
 use App\Casts\NumberCast;
-use App\Modules\LastFm\Users\Models\User;
 use App\Services\DateService;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,10 +22,19 @@ class GlobalSongsStatistics extends Model
         'artist_count',
         'track_count',
         'album_count',
-        'uuid',
     ];
 
     protected $table = 'last_fm_global_songs_statistics';
+
+    public function lastFmUser(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function scopeBasicData($query)
+    {
+        return $query->select(['playcount', 'artist_count', 'track_count', 'album_count', 'created_at']);
+    }
 
     protected function casts(): array
     {
@@ -35,16 +45,6 @@ class GlobalSongsStatistics extends Model
             'album_count' => NumberCast::class,
             'created_at' => 'datetime',
         ];
-    }
-
-    public function lastFmUser(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function scopeBasicData($query)
-    {
-        return $query->select(['playcount', 'artist_count', 'track_count', 'album_count', 'created_at']);
     }
 
     protected function createdAt(): Attribute
