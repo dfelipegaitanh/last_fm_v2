@@ -14,7 +14,6 @@ class UserGetStatisticsController extends Controller
     public function __invoke()
     {
 
-        dd(1234);
         return response()->json(
             $this->getSongsStatistics->handle()
         );
