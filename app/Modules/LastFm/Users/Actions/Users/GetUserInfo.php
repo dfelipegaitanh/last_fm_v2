@@ -1,45 +1,42 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Modules\LastFm\Users\Actions\Users;
 
+use App\Models\User;
 use App\Modules\LastFm\Users\DTO\UserInfoDTO;
-use App\Modules\LastFm\Users\Models\User;
+use App\Modules\LastFm\Users\Models\User as LastFmUser;
 use App\Services\LastFmService;
-use Illuminate\Container\Attributes\CurrentUser;
-use JetBrains\PhpStorm\NoReturn;
 
 readonly class GetUserInfo
 {
     private array $lastFmUserInfo;
 
-    #[NoReturn]
     public function __construct(
-        private LastFmService $lastFmService,
-        #[CurrentUser]
-        private \App\Models\User $user,
         private SaveGlobalSongsStatistics $saveGlobalSongsStatistics,
+        private LastFmService $lastFmService
     ) {
-        $this->lastFmUserInfo = $this->lastFmService
-            ->userInfo();
-
+        $this->lastFmUserInfo = $this->lastFmService->userInfo();
     }
 
-    public function handle(): void
+    public function handle(User $user): void
     {
+        $this->syncLastFmUser($user);
 
-        $this->syncLastFmUser();
+        $userInfoDTO = UserInfoDTO::fromArray($this->lastFmUserInfo);
 
-        $this->saveGlobalSongsStatistics->handle($this->lastFmUserInfo);
+        $this->saveGlobalSongsStatistics->handle($user, $userInfoDTO);
     }
 
-    private function syncLastFmUser(): void
+    private function syncLastFmUser(User $user): void
     {
 
         $userInfoDto = UserInfoDTO::fromArray($this->lastFmUserInfo);
 
-        User::firstOrCreate(
+        LastFmUser::firstOrCreate(
             [
-                'user_id' => $this->user->id,
+                'user_id' => $user->id,
             ],
             [
                 'name' => $userInfoDto->name,

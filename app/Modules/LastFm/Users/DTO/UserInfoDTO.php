@@ -14,7 +14,7 @@ class UserInfoDTO // extends Data
 
     public function __construct(
         public string $name,
-        public string $subscriber,
+        public bool $subscriber,
         public string $country,
         public string $url,
         public array $registered,
@@ -28,14 +28,24 @@ class UserInfoDTO // extends Data
     {
         return new self(
             name: $data['name'] ?? '',
-            subscriber: $data['subscriber'] ?? '',
+            subscriber: filter_var($data['subscriber'] ?? false, FILTER_VALIDATE_BOOL),
             country: $data['country'] ?? '',
             url: $data['url'] ?? '',
-            registered: $data['registered'] ?? '',
+            registered: is_array($data['registered'] ?? null) ? $data['registered'] : [],
             playcount: self::toInt($data['playcount']),
             artist_count: self::toInt($data['artist_count']),
             track_count: self::toInt($data['track_count']),
             album_count: self::toInt($data['album_count']),
         );
+    }
+
+    public function toStatisticsArray(): array
+    {
+        return [
+            'playcount' => $this->playcount,
+            'artist_count' => $this->artist_count,
+            'album_count' => $this->album_count,
+            'track_count' => $this->track_count,
+        ];
     }
 }

@@ -1,30 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\LastFm\User;
 
 use App\Modules\LastFm\Users\Actions\Users\GetUserInfo;
 use App\Services\LastFmUserService;
 
-class UserGetInfoController
+readonly class UserGetInfoController
 {
     public function __construct(
-        private readonly LastFmUserService $lastFmUserService,
-        private readonly GetUserInfo $getUserInfo
+        private LastFmUserService $lastFmUserService,
+        private GetUserInfo $getUserInfo
     ) {}
 
     public function __invoke()
     {
-        $this->getUserInfo->handle();
+        if (! auth()->user()) {
+            return response()->json(['error' => 'User is not authenticated'], 401);
+        }
 
-        return response()
-            ->json(
-                $this->getUserData()
-            );
-    }
+        $user = auth()->user();
 
-    private function getUserData(): array
-    {
-        return $this->lastFmUserService
-            ->getAuthenticatedUserData();
+        $this->getUserInfo->handle($user);
+
+        $authenticatedUser = $this->lastFmUserService->getAuthenticatedUserData();
+
+        return response()->json($authenticatedUser);
     }
 }
