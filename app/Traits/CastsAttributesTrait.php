@@ -6,6 +6,6 @@ trait CastsAttributesTrait
 {
     protected static function toInt(mixed $value): int
     {
-        return (int) ($value ?? 0);
+        return is_numeric($value) ? (int) $value : 0;
     }
 }
