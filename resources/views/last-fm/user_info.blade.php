@@ -33,6 +33,7 @@
                 @click="$store.user.toggleStatistics()"
                 :class="$store.user.showStatistics ? 'buttons--active' : 'buttons--default'"
                 class="buttons"
+                :disabled="$store.user.loadingStatistics"
                 x-cloak
             >
                 <template x-if="$store.user.loadingStatistics">
