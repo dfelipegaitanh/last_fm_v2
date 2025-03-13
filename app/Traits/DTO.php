@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Traits;
 
 use Illuminate\Contracts\Support\Arrayable;
@@ -8,13 +10,9 @@ trait DTO
 {
     public function toArray(): array
     {
-        $data = get_object_vars($this);
 
-        foreach ($data as $key => $value) {
-            $data[$key] = $this->convertValueToArray($value);
-        }
+        return array_map(fn ($value) => $this->convertValueToArray($value), get_object_vars($this));
 
-        return $data;
     }
 
     private function convertValueToArray(mixed $value): mixed
