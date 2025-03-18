@@ -59,7 +59,7 @@
             <h2 class="text-lg font-bold dark:text-white">Información del Usuario</h2>
             <template x-if="$store.user.info">
                 <div class="mt-2">
-                    <h3 class="text-md font-semibold dark:text-gray-300" x-text="$store.user.info.name"></h3>
+                    <h3 class="text-md font-semibold dark:text-gray-300" x-text="$store.user.name"></h3>
                     <p class="text-sm text-gray-600 dark:text-gray-400">
                         Usuario desde:
                         <span x-text="$store.user.info.join_date"></span>

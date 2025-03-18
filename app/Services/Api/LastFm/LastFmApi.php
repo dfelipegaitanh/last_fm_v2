@@ -8,7 +8,7 @@ use App\Services\Api\LastFm\DTO\AlbumDTO;
 use App\Services\Api\LastFm\DTO\ArtistDTO;
 use App\Services\Api\LastFm\DTO\TagDTO;
 use App\Services\Api\LastFm\DTO\TrackDTO;
-use App\Services\Api\LastFm\DTO\UserInfoDTO;
+use App\Modules\LastFm\Users\DTO\UserInfoDTO;
 use Illuminate\Support\Collection;
 
 class LastFmApi extends LastFmApiClient
@@ -19,7 +19,7 @@ class LastFmApi extends LastFmApiClient
             'user' => $username,
         ]);
 
-        return UserInfoDTO::fromApiResponse($response->json('user'));
+        return UserInfoDTO::fromArray($response->json('user'));
     }
 
     public function getRecentTracks(
