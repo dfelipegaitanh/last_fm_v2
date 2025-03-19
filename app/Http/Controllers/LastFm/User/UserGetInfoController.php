@@ -6,16 +6,13 @@ namespace App\Http\Controllers\LastFm\User;
 
 use App\Models\User;
 use App\Modules\LastFm\Users\Actions\Users\GetUserInfo;
-use App\Modules\LastFm\Users\Models\User as LastFmUser;
-use App\Services\Api\LastFm\LastFmApi;
-use App\Modules\LastFm\Users\DTO\UserInfoDTO;
+use App\Modules\LastFm\Users\DTO\AuthenticatedUserDTO;
 use Illuminate\Http\JsonResponse;
 
 readonly class UserGetInfoController
 {
     public function __construct(
-        private LastFmApi $lastFmApi,
-        private GetUserInfo $getUserInfo,
+        private GetUserInfo $getUserInfo
     ) {}
 
     public function __invoke(): JsonResponse
@@ -25,26 +22,16 @@ readonly class UserGetInfoController
         }
 
         $user = auth()->user();
-        $lastFmInfo = $this->lastFmApi->getUserInfo($user->lastfm_user);
-
-        // Sync with database and process statistics
-        $this->syncLastFmUser($user, $lastFmInfo);
         $this->getUserInfo->handle($user);
 
-        return response()->json($lastFmInfo);
+        return response()->json(
+            $this->getUserData($user)
+        );
     }
 
-    private function syncLastFmUser(User $user, UserInfoDTO $userInfo): void
+    private function getUserData(User $user): array
     {
-        LastFmUser::firstOrCreate(
-            ['user_id' => $user->id],
-            [
-                'name' => $userInfo->name,
-                'subscriber' => $userInfo->subscriber,
-                'country' => $userInfo->country,
-                'url' => $userInfo->url,
-                'registered' => $userInfo->registered,
-            ]
-        );
+        return AuthenticatedUserDTO::fromModel($user->lastFmUser)
+            ->toArray();
     }
 }
