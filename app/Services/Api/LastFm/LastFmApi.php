@@ -11,6 +11,7 @@ use App\Services\Api\LastFm\DTO\TagDTO;
 use App\Services\Api\LastFm\DTO\TrackDTO;
 use App\Services\Api\LastFm\DTO\TrackInfoDTO;
 use Illuminate\Support\Collection;
+use RuntimeException;
 
 class LastFmApi extends LastFmApiClient
 {
@@ -131,9 +132,12 @@ class LastFmApi extends LastFmApiClient
         }
 
         $response = $this->get('track.getInfo', $params);
-        //        dd($response->json('track'));
+        $trackData = $response->json('track');
 
-        return TrackInfoDTO::fromApiResponse($response->json('track'));
+        if (! $trackData) {
+            throw new RuntimeException('Track not found or invalid response from Last.fm');
+        }
+        return TrackInfoDTO::fromApiResponse($trackData);
     }
 
     public function getWeeklyArtistChart(

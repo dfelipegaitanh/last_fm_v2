@@ -6,7 +6,6 @@ namespace App\Modules\LastFm\Users\Actions\Tracks;
 
 use App\Models\User;
 use App\Modules\LastFm\Users\Models\GlobalSongsStatistics;
-use App\Modules\LastFm\Users\Models\Track;
 use App\Services\Api\LastFm\LastFmApi;
 
 readonly class SaveRecentTrack
@@ -35,10 +34,8 @@ readonly class SaveRecentTrack
             username: $user->lastfm_user
         );
 
-        // Primero guardamos o recuperamos el track
         $track = $this->saveTrack->handle($trackInfo);
 
-        // Actualizamos las estadísticas con el track
         $statistics->track()->associate($track);
         $statistics->save();
     }
