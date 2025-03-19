@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Services\Api\LastFm;
 
+use App\Modules\LastFm\Users\DTO\UserInfoDTO;
 use App\Services\Api\LastFm\DTO\AlbumDTO;
 use App\Services\Api\LastFm\DTO\ArtistDTO;
 use App\Services\Api\LastFm\DTO\TagDTO;
 use App\Services\Api\LastFm\DTO\TrackDTO;
-use App\Modules\LastFm\Users\DTO\UserInfoDTO;
+use App\Services\Api\LastFm\DTO\TrackInfoDTO;
 use Illuminate\Support\Collection;
 
 class LastFmApi extends LastFmApiClient
@@ -106,6 +107,33 @@ class LastFmApi extends LastFmApiClient
         $tracks = $response->json('toptracks.track');
 
         return collect($tracks)->map(fn (array $track): TrackDTO => TrackDTO::fromApiResponse($track));
+    }
+
+    public function getTrackInfo(
+        string $artist,
+        string $track,
+        ?string $username = null,
+        ?string $mbid = null,
+        bool $autocorrect = true,
+    ): TrackInfoDTO {
+        $params = [
+            'track' => $track,
+            'artist' => $artist,
+            'autocorrect' => (int) $autocorrect,
+        ];
+
+        if ($username !== null) {
+            $params['username'] = $username;
+        }
+
+        if ($mbid !== null) {
+            $params['mbid'] = $mbid;
+        }
+
+        $response = $this->get('track.getInfo', $params);
+        //        dd($response->json('track'));
+
+        return TrackInfoDTO::fromApiResponse($response->json('track'));
     }
 
     public function getWeeklyArtistChart(
