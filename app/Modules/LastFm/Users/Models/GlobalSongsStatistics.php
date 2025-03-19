@@ -18,6 +18,7 @@ class GlobalSongsStatistics extends Model
 
     protected $fillable = [
         'last_fm_user_id',
+        'track_id',
         'playcount',
         'artist_count',
         'track_count',
@@ -29,6 +30,11 @@ class GlobalSongsStatistics extends Model
     public function lastFmUser(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function track(): BelongsTo
+    {
+        return $this->belongsTo(Track::class);
     }
 
     public function scopeBasicData($query)
