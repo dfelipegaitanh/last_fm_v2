@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Modules\LastFm\Users\Actions\Users;
+namespace App\Modules\LastFm\Users\Actions\Statistics;
 
 use App\Modules\LastFm\Users\Models\GlobalSongsStatistics;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class GetGlobalSongsStatistics
+readonly class GetGlobalSongsStatistics
 {
     const int PAGINATION = 10;
 

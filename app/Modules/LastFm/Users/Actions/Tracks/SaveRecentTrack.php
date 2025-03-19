@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\LastFm\Users\Actions\Users;
+namespace App\Modules\LastFm\Users\Actions\Tracks;
 
 use App\Models\User;
 use App\Modules\LastFm\Users\Models\GlobalSongsStatistics;
@@ -12,7 +12,8 @@ use App\Services\Api\LastFm\LastFmApi;
 readonly class SaveRecentTrack
 {
     public function __construct(
-        private LastFmApi $lastFmApi
+        private LastFmApi $lastFmApi,
+        private SaveTrack $saveTrack,
     ) {}
 
     public function handle(User $user, GlobalSongsStatistics $statistics): void
@@ -34,18 +35,11 @@ readonly class SaveRecentTrack
             username: $user->lastfm_user
         );
 
-        // Guardar o actualizar el track
-        Track::updateOrCreate(
-            [
-                'global_songs_statistics_id' => $statistics->id,
-                'name' => $trackInfo->name,
-                'artist' => $recentTrack->artist,
-            ],
-            [
-                'url' => $trackInfo->url,
-                'playcount' => $trackInfo->playcount,
-                'user_playcount' => $trackInfo->userPlaycount,
-            ]
-        );
+        // Primero guardamos o recuperamos el track
+        $track = $this->saveTrack->handle($trackInfo);
+
+        // Actualizamos las estadísticas con el track
+        $statistics->track()->associate($track);
+        $statistics->save();
     }
 }

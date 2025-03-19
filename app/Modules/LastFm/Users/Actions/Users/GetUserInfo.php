@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Modules\LastFm\Users\Actions\Users;
 
 use App\Models\User;
+use App\Modules\LastFm\Users\Actions\Statistics\SaveGlobalSongsStatistics;
+use App\Modules\LastFm\Users\Actions\Tracks\SaveRecentTrack;
 use App\Modules\LastFm\Users\DTO\UserInfoDTO;
 use App\Modules\LastFm\Users\Models\User as LastFmUser;
 use App\Services\Api\LastFm\LastFmApi;
@@ -17,7 +19,7 @@ readonly class GetUserInfo
     public function __construct(
         private LastFmApi $lastFmApi,
         private SaveGlobalSongsStatistics $saveGlobalSongsStatistics,
-        //        private SaveRecentTrack $saveRecentTrack,
+        private SaveRecentTrack $saveRecentTrack,
     ) {}
 
     public function handle(User $user): void
@@ -26,9 +28,9 @@ readonly class GetUserInfo
 
         $this->syncLastFmUser($user, $userInfoDTO);
 
-        $this->saveGlobalSongsStatistics->handle($user, $userInfoDTO);
+        $statistics = $this->saveGlobalSongsStatistics->handle($user, $userInfoDTO);
 
-        //        $this->saveRecentTrack->handle($user, $statistics);
+        $this->saveRecentTrack->handle($user, $statistics);
     }
 
     private function syncLastFmUser(User $user, UserInfoDTO $userInfoDTO): void

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\LastFm\Users\Actions\Users;
+namespace App\Modules\LastFm\Users\Actions\Statistics;
 
 use App\Models\User;
 use App\Modules\LastFm\Users\DTO\UserInfoDTO;
@@ -12,10 +12,6 @@ use Illuminate\Support\Arr;
 
 readonly class SaveGlobalSongsStatistics
 {
-    //    public function __construct(
-    //        private LastFmApi $lastFmApi
-    //    ) {}
-
     public function handle(User $user, UserInfoDTO $userInfoDTO): GlobalSongsStatistics
     {
         return GlobalSongsStatistics::firstOrCreate(
