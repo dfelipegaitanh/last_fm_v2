@@ -39,7 +39,15 @@ class GlobalSongsStatistics extends Model
 
     public function scopeBasicData($query)
     {
-        return $query->select(['playcount', 'artist_count', 'track_count', 'album_count', 'created_at']);
+        return $query->select([
+            'id',
+            'track_id',
+            'playcount',
+            'artist_count',
+            'track_count',
+            'album_count',
+            'created_at',
+        ]);
     }
 
     protected function casts(): array
