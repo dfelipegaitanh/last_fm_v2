@@ -11,6 +11,12 @@ class Artist extends Model
 {
     protected $table = 'last_fm_artists';
 
+    protected $hidden = [
+        'id',
+        'created_at',
+        'updated_at',
+    ];
+
     protected $fillable = [
         'name',
         'mbid',

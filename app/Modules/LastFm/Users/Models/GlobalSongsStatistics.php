@@ -16,6 +16,14 @@ class GlobalSongsStatistics extends Model
 {
     use HasFactory, KeepsDeletedModels;
 
+    protected $hidden = [
+        'id',
+        'track_id',
+        'last_fm_user_id',
+        'created_at',
+        'updated_at',
+    ];
+
     protected $fillable = [
         'last_fm_user_id',
         'track_id',

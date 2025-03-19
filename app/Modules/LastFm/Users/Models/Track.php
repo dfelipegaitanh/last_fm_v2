@@ -12,6 +12,14 @@ class Track extends Model
 {
     protected $table = 'last_fm_tracks';
 
+    protected $hidden = [
+        'id',
+        'artist_id',
+        'album_id',
+        'created_at',
+        'updated_at',
+    ];
+
     protected $fillable = [
         'name',
         'artist_id',
