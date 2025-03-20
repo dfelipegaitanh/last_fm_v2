@@ -6,8 +6,8 @@ namespace App\Modules\LastFm\Users\Actions\Albums;
 
 use App\Modules\LastFm\Users\Actions\Artists\SaveArtist;
 use App\Modules\LastFm\Users\Models\Album;
-use App\Services\Api\LastFm\DTO\AlbumDTO;
-use App\Services\Api\LastFm\DTO\ArtistDTO;
+use App\Services\Api\LastFm\DTOs\AlbumDTO;
+use App\Services\Api\LastFm\DTOs\ArtistDTO;
 
 readonly class SaveAlbum
 {

@@ -7,8 +7,8 @@ namespace App\Modules\LastFm\Users\Actions\Tracks;
 use App\Modules\LastFm\Users\Actions\Albums\SaveAlbum;
 use App\Modules\LastFm\Users\Actions\Artists\SaveArtist;
 use App\Modules\LastFm\Users\Models\Track;
-use App\Services\Api\LastFm\DTO\AlbumDTO;
-use App\Services\Api\LastFm\DTO\TrackInfoDTO;
+use App\Services\Api\LastFm\DTOs\AlbumDTO;
+use App\Services\Api\LastFm\DTOs\TrackInfoDTO;
 
 readonly class SaveTrack
 {

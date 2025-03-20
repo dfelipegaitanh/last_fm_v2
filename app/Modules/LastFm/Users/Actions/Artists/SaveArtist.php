@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Modules\LastFm\Users\Actions\Artists;
 
 use App\Modules\LastFm\Users\Models\Artist;
-use App\Services\Api\LastFm\DTO\ArtistDTO;
+use App\Services\Api\LastFm\DTOs\ArtistDTO;
 
 readonly class SaveArtist
 {

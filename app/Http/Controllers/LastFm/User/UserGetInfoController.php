@@ -6,7 +6,7 @@ namespace App\Http\Controllers\LastFm\User;
 
 use App\Models\User;
 use App\Modules\LastFm\Users\Actions\Users\GetUserInfo;
-use App\Modules\LastFm\Users\DTO\AuthenticatedUserDTO;
+use App\Modules\LastFm\Users\DTOs\AuthenticatedUserDTO;
 use Illuminate\Http\JsonResponse;
 
 readonly class UserGetInfoController

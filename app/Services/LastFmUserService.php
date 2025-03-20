@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
-use App\Modules\LastFm\Users\DTO\AuthenticatedUserDTO;
+use App\Modules\LastFm\Users\DTOs\AuthenticatedUserDTO;
 use Illuminate\Container\Attributes\CurrentUser;
 
 class LastFmUserService

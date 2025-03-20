@@ -2,13 +2,13 @@
 
 use App\Models\User;
 use App\Modules\LastFm\Users\Actions\Users\GetUserInfo;
-use App\Modules\LastFm\Users\DTO\UserInfoDTO;
+use App\Modules\LastFm\Users\DTOs\UserInfoDTO;
 use App\Modules\LastFm\Users\Models\GlobalSongsStatistics;
 use App\Modules\LastFm\Users\Models\User as LastFmUser;
-use App\Services\Api\LastFm\DTO\AlbumDTO;
-use App\Services\Api\LastFm\DTO\ArtistDTO;
-use App\Services\Api\LastFm\DTO\TrackDTO;
-use App\Services\Api\LastFm\DTO\TrackInfoDTO;
+use App\Services\Api\LastFm\DTOs\AlbumDTO;
+use App\Services\Api\LastFm\DTOs\ArtistDTO;
+use App\Services\Api\LastFm\DTOs\TrackDTO;
+use App\Services\Api\LastFm\DTOs\TrackInfoDTO;
 use App\Services\Api\LastFm\LastFmApi;
 use App\Services\DateService;
 use Illuminate\Foundation\Testing\RefreshDatabase;

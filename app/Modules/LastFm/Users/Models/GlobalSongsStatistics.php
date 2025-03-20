@@ -58,15 +58,9 @@ class GlobalSongsStatistics extends Model
         ]);
     }
 
-    protected function casts(): array
+    protected static function newFactory()
     {
-        return [
-            'playcount' => NumberCast::class,
-            'artist_count' => NumberCast::class,
-            'track_count' => NumberCast::class,
-            'album_count' => NumberCast::class,
-            'created_at' => 'datetime',
-        ];
+        return \Database\Factories\LastFm\GlobalSongsStatisticsFactory::new();
     }
 
     protected function createdAt(): Attribute

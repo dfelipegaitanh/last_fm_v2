@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Services\Api\LastFm;
 
-use App\Modules\LastFm\Users\DTO\UserInfoDTO;
-use App\Services\Api\LastFm\DTO\AlbumDTO;
-use App\Services\Api\LastFm\DTO\ArtistDTO;
-use App\Services\Api\LastFm\DTO\TagDTO;
-use App\Services\Api\LastFm\DTO\TrackDTO;
-use App\Services\Api\LastFm\DTO\TrackInfoDTO;
+use App\Modules\LastFm\Users\DTOs\UserInfoDTO;
+use App\Services\Api\LastFm\DTOs\AlbumDTO;
+use App\Services\Api\LastFm\DTOs\ArtistDTO;
+use App\Services\Api\LastFm\DTOs\TagDTO;
+use App\Services\Api\LastFm\DTOs\TrackDTO;
+use App\Services\Api\LastFm\DTOs\TrackInfoDTO;
 use Illuminate\Support\Collection;
 use RuntimeException;
 

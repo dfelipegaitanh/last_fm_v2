@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace App\Modules\LastFm\Users\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Album extends Model
 {
+    use HasFactory;
+
     protected $table = 'last_fm_albums';
 
     protected $hidden = [
@@ -34,5 +37,10 @@ class Album extends Model
     public function tracks(): HasMany
     {
         return $this->hasMany(Track::class);
+    }
+
+    protected static function newFactory()
+    {
+        return \Database\Factories\LastFm\AlbumFactory::new();
     }
 }

@@ -7,7 +7,7 @@ namespace App\Modules\LastFm\Users\Actions\Users;
 use App\Models\User;
 use App\Modules\LastFm\Users\Actions\Statistics\SaveGlobalSongsStatistics;
 use App\Modules\LastFm\Users\Actions\Tracks\SaveRecentTrack;
-use App\Modules\LastFm\Users\DTO\UserInfoDTO;
+use App\Modules\LastFm\Users\DTOs\UserInfoDTO;
 use App\Modules\LastFm\Users\Models\User as LastFmUser;
 use App\Services\Api\LastFm\LastFmApi;
 

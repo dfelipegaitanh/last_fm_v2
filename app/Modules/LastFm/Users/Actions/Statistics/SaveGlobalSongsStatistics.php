@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Modules\LastFm\Users\Actions\Statistics;
 
 use App\Models\User;
-use App\Modules\LastFm\Users\DTO\UserInfoDTO;
+use App\Modules\LastFm\Users\DTOs\UserInfoDTO;
 use App\Modules\LastFm\Users\Models\GlobalSongsStatistics;
 use App\Services\Api\LastFm\LastFmApi;
 use Illuminate\Support\Arr;
