@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\LastFm\User;
 
-use App\Actions\LastFm\Users\GetUserInfo;
+use App\Contracts\Actions\LastFm\Users\GetUserInfoInterface;
 use App\DTOs\LastFm\AuthenticatedUserDTO;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -12,7 +12,7 @@ use Illuminate\Http\JsonResponse;
 readonly class UserGetInfoController
 {
     public function __construct(
-        private GetUserInfo $getUserInfo
+        private GetUserInfoInterface $getUserInfo
     ) {}
 
     public function __invoke(): JsonResponse
@@ -22,11 +22,16 @@ readonly class UserGetInfoController
         }
 
         $user = auth()->user();
-        $this->getUserInfo->handle($user);
 
-        return response()->json(
-            $this->getUserData($user)
-        );
+        try {
+            $this->getUserInfo->handle($user);
+
+            return response()->json(
+                $this->getUserData($user)
+            );
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     private function getUserData(User $user): array

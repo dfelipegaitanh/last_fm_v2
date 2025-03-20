@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Actions\LastFm\Statistics;
 
+use App\Contracts\Actions\LastFm\Statistics\GetGlobalSongsStatisticsInterface;
 use App\Models\LastFm\GlobalSongsStatistics;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-readonly class GetGlobalSongsStatistics
+readonly class GetGlobalSongsStatistics implements GetGlobalSongsStatisticsInterface
 {
     public const int PAGINATION = 10;
 
