@@ -17,6 +17,11 @@ class User extends Model
 {
     use HasFactory, HasUlids, KeepsDeletedModels;
 
+    protected static function newFactory()
+    {
+        return \Database\Factories\LastFm\UserFactory::new();
+    }
+
     protected $fillable = [
         'user_id',
         'name',
@@ -35,12 +40,12 @@ class User extends Model
 
     public function statistics(): HasMany
     {
-        return $this->hasMany(GlobalSongsStatistics::class, 'last_fm_user_id');
+        return $this->hasMany(GlobalSongsStatistics::class, 'user_id');
     }
 
     public function latestStatistic(): HasOne
     {
-        return $this->hasOne(GlobalSongsStatistics::class, 'last_fm_user_id')->latestOfMany();
+        return $this->hasOne(GlobalSongsStatistics::class, 'user_id')->latestOfMany();
     }
 
     protected function casts(): array

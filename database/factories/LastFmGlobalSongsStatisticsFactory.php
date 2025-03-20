@@ -23,7 +23,7 @@ class LastFmGlobalSongsStatisticsFactory extends Factory
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
 
-            'last_fm_user_id' => User::factory(),
+            'user_id' => User::factory(),
         ];
     }
 }

@@ -19,13 +19,13 @@ class GlobalSongsStatistics extends Model
     protected $hidden = [
         'id',
         'track_id',
-        'last_fm_user_id',
+        'user_id',
         'created_at',
         'updated_at',
     ];
 
     protected $fillable = [
-        'last_fm_user_id',
+        'user_id',
         'track_id',
         'playcount',
         'artist_count',

@@ -24,7 +24,7 @@ readonly class SaveGlobalSongsStatistics
     {
         return Arr::add(
             $userInfoDTO->toStatisticsArray(),
-            'last_fm_user_id',
+            'user_id',
             $user->lastFmUser?->id ?? 0
         );
     }

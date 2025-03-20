@@ -35,7 +35,7 @@ readonly class GetUserInfo
 
     private function syncLastFmUser(User $user, UserInfoDTO $userInfoDTO): void
     {
-        LastFmUser::firstOrCreate(
+        LastFmUser::updateOrCreate(
             ['user_id' => $user->id],
             $this->mapUserInfoToArray($userInfoDTO)
         );

@@ -19,7 +19,7 @@ readonly class GetGlobalSongsStatistics
                 'track.album',
             ])
             ->basicData()
-            ->whereLastFmUserId(auth()->user()->lastFmUser->id)
+            ->whereUserId(auth()->user()->lastFmUser->id)
             ->paginate(perPage: self::PAGINATION)
             ->onEachSide(1);
     }

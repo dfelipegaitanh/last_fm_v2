@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('last_fm_global_songs_statistics', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained('last_fm_users');
+            $table->foreignIdFor(User::class);
             $table->string('playcount');
             $table->string('artist_count');
             $table->string('track_count');

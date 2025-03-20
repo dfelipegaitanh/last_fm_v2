@@ -13,7 +13,7 @@ return new class extends Migration
         Schema::table('last_fm_global_songs_statistics', function (Blueprint $table) {
             $table->foreignId('track_id')
                 ->nullable()
-                ->after('last_fm_user_id')
+                ->after('user_id')
                 ->constrained('last_fm_tracks');
         });
     }
