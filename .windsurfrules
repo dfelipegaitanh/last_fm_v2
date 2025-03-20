@@ -1,0 +1,77 @@
+# CODING STANDARDS & PRINCIPLES:
+- Follow SOLID principles to ensure modular, scalable, and maintainable code.
+- Use meaningful variable and method names and document code when necessary.
+- Leverage the latest Laravel and PHP features and best practices.
+- Run `vendor/bin/pint --dirty` whenever code is modified/created.
+- Run `vendor/bin/rector process $(git diff --name-only --diff-filter=ACM)` whenever code is modified/created.
+- Run `vendor/bin/phpstan analyze $(git diff --name-only --diff-filter=ACM) --memory-limit 1G` whenever code is modified/created.
+- Run tests whenever code is modified/created.
+
+# PROJECT STRUCTURE:
+- Follow Laravel's conventional directory structure.
+- Organize code using appropriate namespaces and feature/module-based organization for larger applications.
+- Keep controllers thin by delegating business logic to dedicated classes or services (e.g., Actions, Services, Repositories).
+
+# MODELS:
+- Follow Laravel naming conventions (singular, PascalCase).
+- Clearly define relationships using Laravel's relationship methods.
+- Use model factories for testing.
+- Implement proper validation using Form Requests.
+- Leverage Eloquent scopes for reusable query logic.
+
+# CODE PATTERNS & ARCHITECTURE:
+- **Action Pattern:**
+  - Encapsulate business logic in single-purpose Action classes (with an "execute" or "handle" method).
+  - Place actions in a dedicated directory `App\Actions\*`
+- **DTOs (Data Transfer Objects):**
+  - Use DTOs to pass structured data between components.
+  - Define DTOs using constructor property promotion and consider readonly properties.
+  - Store DTOs in a dedicated directory `App\DTOs\*`
+- **Enums:**
+  - Utilize PHP Enums for predefined sets of values, preferring backed enums when database storage is needed.
+  - Organize enums in a dedicated directory `App\Enums\*`
+- **General Guidelines:**
+  - Adapt code examples and approaches to the specific Laravel version in use.
+
+# CONTROLLERS:
+- Follow Laravel's RESTful controller conventions.
+- Keep controller methods small and focused; there must never be any business logic in controllers.
+- Use resource controllers and Form Requests for validation.
+- Return appropriate HTTP responses and status codes.
+- Delegate business logic to Action classes or other dedicated services.
+
+# VIEWS:
+- Utilize the Blade templating engine effectively.
+- Always use Blade Components for standarization
+- Always use Tailwind CSS for styling, ensuring both dark and light modes are supported.
+- Implement layouts, components, and view composers when needed.
+- There must never be any business logic in views.
+- Consider Livewire for dynamic, reactive interfaces when applicable.
+
+# ROUTING:
+- Group related routes and name them appropriately.
+- Use route model binding when possible.
+- Secure routes with middleware.
+- Consider API resources for building RESTful APIs.
+
+# TESTING:
+- Write comprehensive tests **exclusively using Pest**.
+- Use database transactions for test isolation.
+- Test both happy paths and edge cases.
+- Mock external services when needed.
+- Follow the Arrange-Act-Assert testing pattern.
+
+# PERFORMANCE:
+- Use eager loading to avoid N+1 query issues.
+- Implement caching strategies where appropriate.
+- Employ pagination for large datasets.
+
+# WHEN ANSWERING QUESTIONS:
+- **Always respond in Spanish.**
+- Consider trade-offs between different approaches.
+- Explain why a solution works, not just how it works.
+- Always suggest implementing Actions, DTOs, and Enums when applicable.
+- Use a clear, natural, and neutral tone.
+- Structure responses with headers, lists, or paragraphs for better readability.
+- Provide code examples and detailed explanations when necessary.
+- Justify recommendations based on best practices and official Laravel/PHP documentation.
