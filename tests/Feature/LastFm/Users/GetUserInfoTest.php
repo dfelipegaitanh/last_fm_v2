@@ -1,24 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
+use App\Actions\LastFm\Users\GetUserInfo;
+use App\DTOs\LastFm\AlbumDTO;
+use App\DTOs\LastFm\ArtistDTO;
+use App\DTOs\LastFm\TrackDTO;
+use App\DTOs\LastFm\TrackInfoDTO;
+use App\DTOs\LastFm\UserInfoDTO;
+use App\Models\LastFm\GlobalSongsStatistics;
+use App\Models\LastFm\User as LastFmUser;
 use App\Models\User;
-use App\Modules\LastFm\Users\Actions\Users\GetUserInfo;
-use App\Modules\LastFm\Users\DTOs\UserInfoDTO;
-use App\Modules\LastFm\Users\Models\GlobalSongsStatistics;
-use App\Modules\LastFm\Users\Models\User as LastFmUser;
-use App\Services\Api\LastFm\DTOs\AlbumDTO;
-use App\Services\Api\LastFm\DTOs\ArtistDTO;
-use App\Services\Api\LastFm\DTOs\TrackDTO;
-use App\Services\Api\LastFm\DTOs\TrackInfoDTO;
-use App\Services\Api\LastFm\LastFmApi;
 use App\Services\DateService;
+use App\Services\LastFm\Api\LastFmApi;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Collection;
 
 uses(RefreshDatabase::class);
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->user = User::factory()->create([
-        'lastfm_user' => 'svigle'
+        'lastfm_user' => 'svigle',
     ]);
 
     $this->lastFmApi = mock(LastFmApi::class);
@@ -60,7 +61,7 @@ beforeEach(function () {
     $this->app->instance(LastFmApi::class, $this->lastFmApi);
 });
 
-test('successfully syncs user info from LastFm', function () {
+test('successfully syncs user info from LastFm', function (): void {
     // Arrange
     $timestamp = now()->timestamp;
 
@@ -99,11 +100,11 @@ test('successfully syncs user info from LastFm', function () {
     expect(GlobalSongsStatistics::count())->toBe(1);
 });
 
-test('updates existing LastFm user info', function () {
+test('updates existing LastFm user info', function (): void {
     // Arrange
     LastFmUser::factory()->create([
         'user_id' => $this->user->id,
-        'name' => 'oldusername'
+        'name' => 'oldusername',
     ]);
 
     $timestamp = now()->timestamp;

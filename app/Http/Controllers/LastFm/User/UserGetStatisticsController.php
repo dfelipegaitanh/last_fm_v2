@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\LastFm\User;
 
+use App\Actions\LastFm\Statistics\GetGlobalSongsStatistics;
 use App\Http\Controllers\Controller;
-use App\Modules\LastFm\Users\Actions\Statistics\GetGlobalSongsStatistics;
 
 class UserGetStatisticsController extends Controller
 {

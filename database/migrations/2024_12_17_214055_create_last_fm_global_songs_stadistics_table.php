@@ -1,6 +1,8 @@
 <?php
 
-use App\Modules\LastFm\Users\Models\User;
+declare(strict_types=1);
+
+use App\Models\LastFm\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -9,7 +11,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('last_fm_global_songs_statistics', function (Blueprint $table) {
+        Schema::create('last_fm_global_songs_statistics', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(User::class);
             $table->string('playcount');

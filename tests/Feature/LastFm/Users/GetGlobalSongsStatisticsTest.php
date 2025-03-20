@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
+use App\Actions\LastFm\Statistics\GetGlobalSongsStatistics;
+use App\Models\LastFm\Album;
+use App\Models\LastFm\Artist;
+use App\Models\LastFm\GlobalSongsStatistics;
+use App\Models\LastFm\Track;
+use App\Models\LastFm\User as LastFmUser;
 use App\Models\User;
-use App\Modules\LastFm\Users\Actions\Statistics\GetGlobalSongsStatistics;
-use App\Modules\LastFm\Users\Models\Album;
-use App\Modules\LastFm\Users\Models\Artist;
-use App\Modules\LastFm\Users\Models\GlobalSongsStatistics;
-use App\Modules\LastFm\Users\Models\Track;
-use App\Modules\LastFm\Users\Models\User as LastFmUser;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->user = User::factory()->create([
         'lastfm_user' => 'svigle',
     ]);
@@ -57,7 +57,7 @@ beforeEach(function () {
     test()->actingAs($this->user);
 });
 
-test('successfully retrieves paginated global songs statistics', function () {
+test('successfully retrieves paginated global songs statistics', function (): void {
     // Act
     $action = app()->make(GetGlobalSongsStatistics::class);
     $result = $action->handle();
@@ -79,7 +79,7 @@ test('successfully retrieves paginated global songs statistics', function () {
         ->track->album->toBeInstanceOf(Album::class);
 });
 
-test('returns empty paginator when user has no statistics', function () {
+test('returns empty paginator when user has no statistics', function (): void {
     // Arrange
     GlobalSongsStatistics::query()->delete();
 

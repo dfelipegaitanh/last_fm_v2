@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\LastFm\User;
 
+use App\Actions\LastFm\Users\GetUserInfo;
+use App\DTOs\LastFm\AuthenticatedUserDTO;
 use App\Models\User;
-use App\Modules\LastFm\Users\Actions\Users\GetUserInfo;
-use App\Modules\LastFm\Users\DTOs\AuthenticatedUserDTO;
 use Illuminate\Http\JsonResponse;
 
 readonly class UserGetInfoController

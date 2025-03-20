@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories\LastFm;
 
+use App\Models\LastFm\User as LastFmUser;
 use App\Models\User;
-use App\Modules\LastFm\Users\Models\User as LastFmUser;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Database\Factories\LastFm;
 
-use App\Modules\LastFm\Users\Models\GlobalSongsStatistics;
-use App\Modules\LastFm\Users\Models\Track;
-use App\Modules\LastFm\Users\Models\User as LastFmUser;
+use App\Models\LastFm\GlobalSongsStatistics;
+use App\Models\LastFm\Track;
+use App\Models\LastFm\User as LastFmUser;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class GlobalSongsStatisticsFactory extends Factory

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories\LastFm;
 
-use App\Modules\LastFm\Users\Models\Artist;
+use App\Models\LastFm\Artist;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ArtistFactory extends Factory

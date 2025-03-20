@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Modules\LastFm\Users\Models\GlobalSongsStatistics;
-use App\Modules\LastFm\Users\Models\User;
+use App\Models\LastFm\GlobalSongsStatistics;
+use App\Models\LastFm\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
