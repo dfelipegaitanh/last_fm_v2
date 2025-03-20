@@ -1,3 +1,8 @@
+# KEEP IN MIND
+- Check directory structure before creating new files.
+- If you need to create a new directory, ask for permission first.
+- Always run tests after creating or modifying files.
+
 # CODING STANDARDS & PRINCIPLES:
 - Follow SOLID principles to ensure modular, scalable, and maintainable code.
 - Use meaningful variable and method names and document code when necessary.
