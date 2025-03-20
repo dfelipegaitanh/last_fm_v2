@@ -6,7 +6,9 @@ namespace App\Http\Controllers\LastFm\User;
 
 use App\Contracts\Actions\LastFm\Users\GetUserInfoInterface;
 use App\DTOs\LastFm\AuthenticatedUserDTO;
+use App\Http\Requests\LastFm\User\GetUserInfoRequest;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\JsonResponse;
 
 readonly class UserGetInfoController
@@ -15,11 +17,8 @@ readonly class UserGetInfoController
         private GetUserInfoInterface $getUserInfo
     ) {}
 
-    public function __invoke(): JsonResponse
+    public function __invoke(GetUserInfoRequest $request): JsonResponse
     {
-        if (! auth()->user()) {
-            return response()->json(['error' => 'User is not authenticated'], 401);
-        }
 
         $user = auth()->user();
 
@@ -29,7 +28,7 @@ readonly class UserGetInfoController
             return response()->json(
                 $this->getUserData($user)
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }

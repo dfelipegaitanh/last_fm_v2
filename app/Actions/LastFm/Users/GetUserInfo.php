@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Actions\LastFm\Users;
 
-use App\Contracts\Actions\LastFm\Users\GetUserInfoInterface;
-use App\Models\User;
 use App\Actions\LastFm\Statistics\SaveGlobalSongsStatistics;
 use App\Actions\LastFm\Tracks\SaveRecentTrack;
+use App\Contracts\Actions\LastFm\Users\GetUserInfoInterface;
 use App\DTOs\LastFm\UserInfoDTO;
 use App\Models\LastFm\User as LastFmUser;
+use App\Models\User;
 use App\Services\LastFm\Api\LastFmApi;
 
 /**
  * Action to synchronize user information from LastFm API and update global statistics.
  */
-readonly class GetUserInfo implements GetUserInfoInterface
+class GetUserInfo implements GetUserInfoInterface
 {
     public function __construct(
         private LastFmApi $lastFmApi,

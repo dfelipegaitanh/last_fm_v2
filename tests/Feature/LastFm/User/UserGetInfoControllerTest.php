@@ -7,10 +7,22 @@ namespace Tests\Feature\LastFm\User;
 use App\Contracts\Actions\LastFm\Users\GetUserInfoInterface;
 use App\Models\LastFm\User as LastFmUser;
 use App\Models\User;
+use App\Services\LastFm\Api\LastFmRateLimiter;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+
 uses(RefreshDatabase::class);
 
-test('returns unauthorized when user is not authenticated', function () {
+beforeEach(function (): void {
+    $this->mock(LastFmRateLimiter::class)
+        ->shouldReceive('tooManyAttempts')
+        ->andReturn(false)
+        ->shouldReceive('hit')
+        ->andReturn(1)
+        ->shouldReceive('remaining')
+        ->andReturn(4);
+});
+
+test('returns unauthorized when user is not authenticated', function (): void {
     // Act
     $response = $this->getJson(route('last-fm.user_get_info'));
 
@@ -18,7 +30,7 @@ test('returns unauthorized when user is not authenticated', function () {
     $response->assertUnauthorized();
 });
 
-test('returns user info when user is authenticated', function () {
+test('returns user info when user is authenticated and within rate limit', function (): void {
     // Arrange
     $user = User::factory()->create();
     $lastFmUser = LastFmUser::factory()->create([

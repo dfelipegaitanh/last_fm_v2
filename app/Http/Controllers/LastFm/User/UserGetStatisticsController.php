@@ -6,6 +6,7 @@ namespace App\Http\Controllers\LastFm\User;
 
 use App\Contracts\Actions\LastFm\Statistics\GetGlobalSongsStatisticsInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LastFm\User\GetUserStatisticsRequest;
 use Illuminate\Http\JsonResponse;
 
 class UserGetStatisticsController extends Controller
@@ -14,11 +15,8 @@ class UserGetStatisticsController extends Controller
         private readonly GetGlobalSongsStatisticsInterface $getSongsStatistics
     ) {}
 
-    public function __invoke(): JsonResponse
+    public function __invoke(GetUserStatisticsRequest $request): JsonResponse
     {
-        if (! auth()->user()) {
-            return response()->json(['error' => 'User is not authenticated'], 401);
-        }
 
         return response()->json(
             $this->getSongsStatistics->handle()
