@@ -14,13 +14,18 @@ class UserFactory extends Factory
 
     public function definition(): array
     {
+        $unixTime = fake()->unixTime();
+
         return [
             'user_id' => User::factory(),
             'name' => fake()->userName(),
             'subscriber' => fake()->boolean(),
             'country' => fake()->countryCode(),
             'url' => fake()->url(),
-            'registered' => fake()->unixTime(),
+            'registered' => [
+                '#text' => $unixTime,
+                'unixtime' => (string) $unixTime,
+            ],
         ];
     }
 }
