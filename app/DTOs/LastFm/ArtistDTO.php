@@ -18,7 +18,7 @@ class ArtistDTO extends Data
     {
         return new self(
             name: $data['name'] ?? $data['#text'] ?? '',
-            url: $data['url'],
+            url: $data['url'] ?? '',
             mbid: $data['mbid'] ?? null,
         );
     }

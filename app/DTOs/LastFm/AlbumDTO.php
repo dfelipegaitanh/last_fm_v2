@@ -18,9 +18,9 @@ class AlbumDTO extends Data
     public static function fromApiResponse(array $data): self
     {
         return new self(
-            title: $data['title'],
-            artist: $data['artist']['name'] ?? $data['artist']['#text'] ?? $data['artist'],
-            url: $data['url'],
+            title: $data['title'] ?? '',
+            artist: $data['artist']['name'] ?? $data['artist']['#text'] ?? $data['artist'] ?? '',
+            url: $data['url'] ?? '',
             mbid: $data['mbid'] ?? null,
         );
     }
