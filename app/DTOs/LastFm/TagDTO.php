@@ -17,8 +17,8 @@ class TagDTO extends Data
     public static function fromApiResponse(array $data): self
     {
         return new self(
-            name: $data['name'],
-            url: $data['url'],
+            name: $data['name'] ?? '',
+            url: $data['url'] ?? '',
             count: isset($data['count']) ? (int) $data['count'] : null,
         );
     }

@@ -10,7 +10,6 @@ use Spatie\LaravelData\Data;
 
 class AuthenticatedUserDTO extends Data
 {
-
     use CastsAttributesTrait;
 
     public function __construct(
@@ -21,12 +20,11 @@ class AuthenticatedUserDTO extends Data
 
     public static function fromModel(LastFmUser $lastFmUser): self
     {
-        $user = $lastFmUser->load('latestStatistic')->firstOrFail();
 
         return new self(
-            name: $user->name ?? '',
-            join_date: $user->registered ?? '',
-            total_scrobbles: self::toInt($user->latestStatistic?->playcount) ?? 0,
+            name: $lastFmUser->name ?? '',
+            join_date: $lastFmUser->registered ?? '',
+            total_scrobbles: self::toInt($lastFmUser->latestStatistic?->playcount) ?? 0,
         );
     }
 }

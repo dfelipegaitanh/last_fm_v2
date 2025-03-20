@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models\LastFm;
 
-use App\Models\LastFm\GlobalSongsStatistics;
 use App\Services\DateService;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
@@ -16,11 +17,6 @@ use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 class User extends Model
 {
     use HasFactory, HasUlids, KeepsDeletedModels;
-
-    protected static function newFactory()
-    {
-        return \Database\Factories\LastFm\UserFactory::new();
-    }
 
     protected $fillable = [
         'user_id',
@@ -46,6 +42,11 @@ class User extends Model
     public function latestStatistic(): HasOne
     {
         return $this->hasOne(GlobalSongsStatistics::class, 'user_id')->latestOfMany();
+    }
+
+    protected static function newFactory()
+    {
+        return \Database\Factories\LastFm\UserFactory::new();
     }
 
     protected function casts(): array
