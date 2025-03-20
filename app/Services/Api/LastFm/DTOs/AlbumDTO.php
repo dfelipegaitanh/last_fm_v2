@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Api\LastFm\DTO;
+namespace App\Services\Api\LastFm\DTOs;
 
 use Spatie\LaravelData\Data;
 
-class ArtistDTO extends Data
+class AlbumDTO extends Data
 {
     public function __construct(
-        public readonly string $name,
+        public readonly string $title,
+        public readonly string $artist,
         public readonly string $url,
         public readonly ?string $mbid = null,
     ) {}
@@ -17,7 +18,8 @@ class ArtistDTO extends Data
     public static function fromApiResponse(array $data): self
     {
         return new self(
-            name: $data['name'] ?? $data['#text'] ?? '',
+            title: $data['title'],
+            artist: $data['artist']['name'] ?? $data['artist']['#text'] ?? $data['artist'],
             url: $data['url'],
             mbid: $data['mbid'] ?? null,
         );

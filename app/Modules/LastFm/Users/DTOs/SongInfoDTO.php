@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\LastFm\Users\DTO;
+namespace App\Modules\LastFm\Users\DTOs;
 
 use App\Traits\DTO;
 use App\Traits\ExcludedWordsTrait;

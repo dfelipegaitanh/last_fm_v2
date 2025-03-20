@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\LastFm\Users\DTO;
+namespace App\Modules\LastFm\Users\DTOs;
 
 use App\Traits\CastsAttributesTrait;
 use App\Traits\DTO;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Api\LastFm\DTO;
+namespace App\Services\Api\LastFm\DTOs;
 
 readonly class TrackInfoDTO
 {
