@@ -5,7 +5,9 @@
         "build": "vite build",
         "dev": "vite",
         "format": "npx prettier --write resources/",
-        "check": "npx prettier --check resources/"
+        "check": "npx prettier --check resources/",
+        "prettier-diff-fancy": "for file in $(npx prettier --list-different resources/); do echo \"\\n\\033[1;36m=== $file ===\\033[0m\"; npx prettier \"$file\" | diff -u \"$file\" - | diff-so-fancy; done",
+        "format-apply-with-diff": "for file in $(npx prettier --list-different resources/); do echo \"\\n\\033[1;36m=== $file ===\\033[0m\"; npx prettier \"$file\" | diff -u \"$file\" - | diff-so-fancy; npx prettier --write \"$file\"; echo \"\\033[0;32m✓ Archivo formateado\\033[0m\"; done"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
