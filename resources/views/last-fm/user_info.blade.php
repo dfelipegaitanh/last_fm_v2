@@ -79,49 +79,83 @@
         </div>
 
         <!-- Contenedor de errores -->
-        <div x-show="$store.user.errorMessage" class="mt-2 text-red-500 dark:text-red-400">
-            <span x-text="$store.user.errorMessage"></span>
+        <div x-show="$store.notifications.error" class="mt-2 text-red-500 dark:text-red-400">
+            <span x-text="$store.notifications.error"></span>
         </div>
     </div>
 
     <x-slot name="script">
         <script>
             document.addEventListener('alpine:init', () => {
+                // Store para el manejo de errores y notificaciones
+                Alpine.store('notifications', {
+                    error: null,
+                    showError(message) {
+                        this.error = message;
+                        setTimeout(() => (this.error = null), 5000);
+                    },
+                });
+
+                // Store para las llamadas a la API
+                Alpine.store('api', {
+                    routes: {
+                        userInfo: @json(route('last-fm.user_get_info')),
+                        statistics: @json(route('last-fm.user_get_statistics')),
+                    },
+
+                    async fetchWithInterceptor(url) {
+                        try {
+                            const response = await fetch(url);
+                            if (!response.ok) {
+                                throw new Error(`Error HTTP: ${response.status}`);
+                            }
+                            return await response.json();
+                        } catch (error) {
+                            Alpine.store('notifications').showError(error.message);
+                            throw error;
+                        }
+                    },
+                });
+
+                // Store principal del usuario
                 Alpine.store('user', {
+                    // Estado
                     info: null,
                     statistics: [],
                     loadingUserInfo: false,
                     loadingStatistics: false,
                     showStatistics: false,
-                    errorMessage: '',
 
-                    apiRoutes: {
-                        userInfo: @json(route('last-fm.user_get_info')),
-                        statistics: @json(route('last-fm.user_get_statistics')),
+                    // Getters
+                    get isLoading() {
+                        return this.loadingUserInfo || this.loadingStatistics;
                     },
 
-                    fetchUserInfo() {
-                        this.loadingUserInfo = true;
-                        fetch(this.apiRoutes.userInfo)
-                            .then(res => {
-                                if (!res.ok) throw new Error(`Error al obtener usuario: ${res.statusText}`);
-                                return res.json();
-                            })
-                            .then(data => (this.info = data))
-                            .catch(error => (this.errorMessage = error.message))
-                            .finally(() => (this.loadingUserInfo = false));
+                    // Métodos
+                    async fetchUserInfo() {
+                        try {
+                            this.loadingUserInfo = true;
+                            this.info = await Alpine.store('api').fetchWithInterceptor(
+                                Alpine.store('api').routes.userInfo
+                            );
+                        } catch (error) {
+                            this.info = null;
+                        } finally {
+                            this.loadingUserInfo = false;
+                        }
                     },
 
-                    fetchStatistics(url = this.apiRoutes.statistics) {
-                        this.loadingStatistics = true;
-                        fetch(url)
-                            .then(res => {
-                                if (!res.ok) throw new Error(`Error al obtener estadísticas: ${res.statusText}`);
-                                return res.json();
-                            })
-                            .then(data => (this.statistics = data))
-                            .catch(error => (this.errorMessage = error.message))
-                            .finally(() => (this.loadingStatistics = false));
+                    async fetchStatistics(url = null) {
+                        try {
+                            this.loadingStatistics = true;
+                            this.statistics = await Alpine.store('api').fetchWithInterceptor(
+                                url || Alpine.store('api').routes.statistics
+                            );
+                        } catch (error) {
+                            this.statistics = [];
+                        } finally {
+                            this.loadingStatistics = false;
+                        }
                     },
 
                     toggleStatistics() {
