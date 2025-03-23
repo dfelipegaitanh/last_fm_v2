@@ -3,15 +3,22 @@
     "semi": true,
     "singleQuote": true,
     "tabWidth": 4,
-    "trailingComma": "all",
+    "trailingComma": "es5",
+    "htmlWhitespaceSensitivity": "ignore",
+    "arrowParens": "avoid",
+    "endOfLine": "lf",
     "plugins": ["prettier-plugin-blade", "prettier-plugin-tailwindcss"],
     "overrides": [
         {
-            "files": [
-                "*.blade.php"
-            ],
+            "files": ["*.blade.php"],
             "options": {
                 "parser": "blade"
+            }
+        },
+        {
+            "files": ["*.js", "*.jsx", "*.ts", "*.tsx", "*.css", "*.json", "*.vue"],
+            "options": {
+                "tabWidth": 2
             }
         }
     ]
