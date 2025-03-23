@@ -22,7 +22,7 @@ class GlobalSongsStatistics extends Model
         'id',
         'track_id',
         'user_id',
-        'created_at',
+//        'created_at',
         'updated_at',
     ];
 
@@ -68,7 +68,7 @@ class GlobalSongsStatistics extends Model
     protected function createdAt(): Attribute
     {
         return Attribute::make(
-            get: fn ($value): string => DateService::dateToDateTime($value),
+            get: fn ($value): string => DateService::dateToDateTime($value, 1),
         );
     }
 }

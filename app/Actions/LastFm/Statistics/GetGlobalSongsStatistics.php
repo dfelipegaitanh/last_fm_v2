@@ -21,6 +21,7 @@ readonly class GetGlobalSongsStatistics implements GetGlobalSongsStatisticsInter
             ])
             ->basicData()
             ->whereUserId(auth()->user()->lastFmUser->id)
+            ->orderBy('created_at', 'desc')
             ->paginate(perPage: self::PAGINATION)
             ->onEachSide(1);
     }

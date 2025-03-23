@@ -14,11 +14,11 @@ class DateService
             );
     }
 
-    public static function dateToDateTime($timestamp): string
+    public static function dateToDateTime(string $timestamp, int $parts = 2): string
     {
         return (new Carbon($timestamp))
             ->diffForHumans(
-                other: ['parts' => 2, 'join' => true]
+                other: ['parts' => $parts, 'join' => true]
             );
     }
 }
