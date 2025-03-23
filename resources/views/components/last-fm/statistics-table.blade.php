@@ -14,12 +14,12 @@
                     Play Count
                 </th>
                 <th
-                    class="bg-gray-50/80 px-4 py-3.5 text-left text-sm font-medium text-gray-900 dark:bg-gray-800/80 dark:text-white"
+                    class="hide-on-mobile bg-gray-50/80 px-4 py-3.5 text-left text-sm font-medium text-gray-900 dark:bg-gray-800/80 dark:text-white"
                 >
                     Artist Count
                 </th>
                 <th
-                    class="bg-gray-50/80 px-4 py-3.5 text-left text-sm font-medium text-gray-900 dark:bg-gray-800/80 dark:text-white"
+                    class="hide-on-mobile bg-gray-50/80 px-4 py-3.5 text-left text-sm font-medium text-gray-900 dark:bg-gray-800/80 dark:text-white"
                 >
                     Track Count
                 </th>
@@ -29,7 +29,7 @@
                     Album Count
                 </th>
                 <th
-                    class="hide-on-mobile bg-gray-50/80 px-4 py-3.5 text-left text-sm font-medium text-gray-900 dark:bg-gray-800/80 dark:text-white"
+                    class="bg-gray-50/80 px-4 py-3.5 text-left text-sm font-medium text-gray-900 dark:bg-gray-800/80 dark:text-white"
                 >
                     Created At
                 </th>
@@ -45,15 +45,15 @@
                         x-text="item.playcount"
                     ></td>
                     <td
-                        class="whitespace-nowrap px-4 py-3 text-sm text-gray-600 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                        class="hide-on-mobile whitespace-nowrap px-4 py-3 text-sm text-gray-600 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
                         x-text="item.artist_count"
                     ></td>
                     <td
-                        class="whitespace-nowrap px-4 py-3 text-sm text-gray-600 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                        class="hide-on-mobile whitespace-nowrap px-4 py-3 text-sm text-gray-600 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
                         x-text="item.track_count"
                     ></td>
                     <td
-                        class="whitespace-nowrap px-4 py-3 text-sm text-gray-600 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                        class="hide-on-mobile whitespace-nowrap px-4 py-3 text-sm text-gray-600 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
                         x-text="item.album_count"
                     ></td>
                     <td
