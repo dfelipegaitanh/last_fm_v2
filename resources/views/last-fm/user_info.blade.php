@@ -103,24 +103,24 @@
                     fetchUserInfo() {
                         this.loadingUserInfo = true;
                         fetch(this.apiRoutes.userInfo)
-                            .then((res) => {
+                            .then(res => {
                                 if (!res.ok) throw new Error(`Error al obtener usuario: ${res.statusText}`);
                                 return res.json();
                             })
-                            .then((data) => (this.info = data))
-                            .catch((error) => (this.errorMessage = error.message))
+                            .then(data => (this.info = data))
+                            .catch(error => (this.errorMessage = error.message))
                             .finally(() => (this.loadingUserInfo = false));
                     },
 
                     fetchStatistics(url = this.apiRoutes.statistics) {
                         this.loadingStatistics = true;
                         fetch(url)
-                            .then((res) => {
+                            .then(res => {
                                 if (!res.ok) throw new Error(`Error al obtener estadísticas: ${res.statusText}`);
                                 return res.json();
                             })
-                            .then((data) => (this.statistics = data))
-                            .catch((error) => (this.errorMessage = error.message))
+                            .then(data => (this.statistics = data))
+                            .catch(error => (this.errorMessage = error.message))
                             .finally(() => (this.loadingStatistics = false));
                     },
 

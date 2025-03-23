@@ -32,7 +32,7 @@
         prevFocusableIndex() { return Math.max(0, this.focusables().indexOf(document.activeElement)) -1 },
     }"
     x-init="
-        $watch('show', (value) => {
+        $watch('show', value => {
             if (value) {
                 document.body.classList.add('overflow-y-hidden')
                 {{ $attributes->has('focusable') ? 'setTimeout(() => firstFocusable().focus(), 100)' : '' }}
