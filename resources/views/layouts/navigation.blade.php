@@ -1,4 +1,7 @@
-<nav x-data="{ open: false }" class="border-b border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800">
+<nav
+    x-data="{ open: false }"
+    class="sticky top-0 z-50 border-b border-gray-200/50 bg-white/80 backdrop-blur-sm transition-colors duration-500 dark:border-gray-800/50 dark:bg-gray-900/80"
+>
     <!-- Primary Navigation Menu -->
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 justify-between">
@@ -6,7 +9,9 @@
                 <!-- Logo -->
                 <div class="flex shrink-0 items-center">
                     <a href="{{ route('last-fm.user_info') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        <x-application-logo
+                            class="block h-8 w-auto fill-current text-gray-700 transition-colors duration-300 hover:text-gray-950 dark:text-gray-300 dark:hover:text-white"
+                        />
                     </a>
                 </div>
 
@@ -24,7 +29,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
-                            class="inline-flex cursor-pointer items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition hover:bg-gray-100 hover:text-gray-700 focus-visible:ring-2 focus-visible:ring-gray-300 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:focus-visible:ring-gray-600"
+                            class="group inline-flex cursor-pointer items-center gap-x-2 rounded-lg border border-gray-200/50 bg-white/80 px-3 py-2 text-sm font-medium leading-4 text-gray-600 shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-gray-300/80 hover:bg-gray-50 hover:text-gray-900 hover:shadow-md focus-visible:border-gray-300/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-300/50 dark:border-gray-800/50 dark:bg-gray-900/80 dark:text-gray-300 dark:hover:border-gray-700/80 dark:hover:bg-gray-800 dark:hover:text-white dark:hover:shadow-gray-950/50 dark:focus-visible:border-gray-700/80 dark:focus-visible:ring-gray-700/50"
                         >
                             <div>{{ Auth::user()->name }}</div>
 
