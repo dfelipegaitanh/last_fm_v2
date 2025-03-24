@@ -3,6 +3,19 @@
 ])
 
 <div
+    x-data="{
+        getTrackInfo(item, property, fallback = 'No info available') {
+            if (! item.track) return fallback
+
+            if (property === 'artist') {
+                return item.track.artist ? item.track.artist.name : fallback
+            } else if (property === 'album') {
+                return item.track.album ? item.track.album.title : fallback
+            } else {
+                return item.track[property] || fallback
+            }
+        },
+    }"
     class="relative overflow-hidden rounded-xl border border-gray-200/50 bg-white/30 shadow-sm dark:border-gray-800/50 dark:bg-gray-900/30"
 >
     <table class="min-w-full divide-y divide-gray-200/50 dark:divide-gray-800/50">
@@ -29,9 +42,24 @@
                     Album Count
                 </th>
                 <th
-                    class="bg-gray-50/80 px-4 py-3.5 text-left text-sm font-medium text-gray-900 dark:bg-gray-800/80 dark:text-white"
+                    class="hide-on-mobile bg-gray-50/80 px-4 py-3.5 text-left text-sm font-medium text-gray-900 dark:bg-gray-800/80 dark:text-white"
                 >
                     Created At
+                </th>
+                <th
+                    class="bg-gray-50/80 px-4 py-3.5 text-left text-sm font-medium text-gray-900 dark:bg-gray-800/80 dark:text-white"
+                >
+                    Song
+                </th>
+                <th
+                    class="bg-gray-50/80 px-4 py-3.5 text-left text-sm font-medium text-gray-900 dark:bg-gray-800/80 dark:text-white"
+                >
+                    Artist
+                </th>
+                <th
+                    class="hide-on-mobile bg-gray-50/80 px-4 py-3.5 text-left text-sm font-medium text-gray-900 dark:bg-gray-800/80 dark:text-white"
+                >
+                    Album
                 </th>
             </tr>
         </thead>
@@ -57,8 +85,23 @@
                         x-text="item.album_count"
                     ></td>
                     <td
-                        class="whitespace-nowrap px-4 py-3 text-sm text-gray-600 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                        class="hide-on-mobile whitespace-nowrap px-4 py-3 text-sm text-gray-600 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
                         x-text="item.created_at"
+                    ></td>
+                    <td
+                        class="whitespace-nowrap px-4 py-3 text-sm"
+                        :class="getTrackInfo(item, 'name') === 'No info available' ? 'italic text-gray-400 dark:text-gray-500 opacity-60 cursor-not-allowed bg-gray-50 dark:bg-gray-800/30' : 'text-gray-600 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white'"
+                        x-text="getTrackInfo(item, 'name')"
+                    ></td>
+                    <td
+                        class="whitespace-nowrap px-4 py-3 text-sm"
+                        :class="getTrackInfo(item, 'artist') === 'No info available' ? 'italic text-gray-400 dark:text-gray-500 opacity-60 cursor-not-allowed bg-gray-50 dark:bg-gray-800/30' : 'text-gray-600 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white'"
+                        x-text="getTrackInfo(item, 'artist')"
+                    ></td>
+                    <td
+                        class="hide-on-mobile whitespace-nowrap px-4 py-3 text-sm"
+                        :class="getTrackInfo(item, 'album') === 'No info available' ? 'italic text-gray-400 dark:text-gray-500 opacity-60 cursor-not-allowed bg-gray-50 dark:bg-gray-800/30' : 'text-gray-600 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white'"
+                        x-text="getTrackInfo(item, 'album')"
                     ></td>
                 </tr>
             </template>

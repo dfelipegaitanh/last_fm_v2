@@ -47,7 +47,9 @@
         <x-last-fm.user-info-card />
 
         <!-- Tabla de estadísticas -->
-        <x-last-fm.statistics-table />
+        <div x-show="$store.user.info" x-cloak>
+            <x-last-fm.statistics-table />
+        </div>
 
         <!-- Contenedor de notificaciones -->
         <x-last-fm.notifications />
@@ -98,7 +100,7 @@
                     statistics: [],
                     loadingUserInfo: false,
                     loadingStatistics: false,
-                    showStatistics: false,
+                    showStatistics: true, // Iniciamos con las estadísticas visibles
 
                     // Getters
                     get isLoading() {
@@ -112,8 +114,14 @@
                             this.info = await Alpine.store('api').fetchWithInterceptor(
                                 Alpine.store('api').routes.userInfo
                             );
+
+                            // Cargar estadísticas automáticamente al conectar
+                            if (this.info) {
+                                await this.fetchStatistics();
+                            }
                         } catch (error) {
                             this.info = null;
+                            this.statistics = [];
                         } finally {
                             this.loadingUserInfo = false;
                         }
@@ -133,9 +141,6 @@
                     },
 
                     toggleStatistics() {
-                        if (!this.showStatistics) {
-                            this.fetchStatistics();
-                        }
                         this.showStatistics = !this.showStatistics;
                     },
 
