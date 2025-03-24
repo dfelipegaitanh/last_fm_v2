@@ -12,76 +12,45 @@
             }
         </style>
 
+        <!-- Título y descripción -->
+        <div class="mb-6 text-center">
+            <h1 class="mb-2 text-2xl font-bold text-gray-900 dark:text-white">Tu Historial Musical en Last.fm</h1>
+            <p class="text-gray-600 dark:text-gray-400">
+                Explora tus artistas favoritos, canciones más escuchadas y descubre tus patrones musicales
+            </p>
+        </div>
+
         <!-- Botones principales -->
-        <div class="flex flex-wrap items-center gap-4 sm:flex-nowrap">
-            <!-- Botón para cargar la información del usuario -->
-            <button
-                @click="$store.user.fetchUserInfo()"
-                x-show="!$store.user.info"
-                class="inline-flex items-center gap-2 rounded-lg border border-indigo-200 bg-indigo-500/10 px-4 py-2.5 text-sm font-medium text-indigo-700 shadow-sm transition-all duration-200 hover:bg-indigo-500/20 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-offset-2 dark:border-indigo-500/20 dark:bg-indigo-500/20 dark:text-indigo-300 dark:hover:bg-indigo-500/30 dark:focus:ring-indigo-400/50 dark:focus:ring-offset-gray-900"
-            >
-                <template x-if="$store.user.loadingUserInfo">
-                    <x-spinner />
-                </template>
-                <span
-                    x-text="
-                        $store.user.loadingUserInfo
-                            ? 'Cargando usuario...'
-                            : 'Mostrar Información del Usuario'
-                    "
-                ></span>
-            </button>
+        <div class="flex flex-wrap items-center gap-4 sm:flex-nowrap" x-data>
+            <!-- Botón inicial -->
+            <x-last-fm.buttons.user-info.init-button />
 
-            <button
-                x-show="$store.user.info"
-                @click="$store.user.toggleStatistics()"
-                :class="$store.user.showStatistics ? 'border-red-200 bg-red-500/10 text-red-700 hover:bg-red-500/20 dark:border-red-500/20 dark:bg-red-500/20 dark:text-red-300 dark:hover:bg-red-500/30 dark:focus:ring-red-400/50' : ''"
-                class="inline-flex items-center gap-2 rounded-lg border border-indigo-200 bg-indigo-500/10 px-4 py-2.5 text-sm font-medium text-indigo-700 shadow-sm transition-all duration-200 hover:bg-indigo-500/20 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-offset-2 dark:border-indigo-500/20 dark:bg-indigo-500/20 dark:text-indigo-300 dark:hover:bg-indigo-500/30 dark:focus:ring-indigo-400/50 dark:focus:ring-offset-gray-900"
-                :disabled="$store.user.loadingStatistics"
-                x-cloak
-            >
-                <template x-if="$store.user.loadingStatistics">
-                    <div class="flex items-center gap-2">
-                        <x-spinner />
-                        <span>Cargando estadísticas...</span>
-                    </div>
-                </template>
+            <!-- Botón de estadísticas -->
+            <x-last-fm.buttons.user-info.statistics-button />
 
-                <span
-                    x-show="!$store.user.loadingStatistics"
-                    x-text="$store.user.showStatistics ? 'Ocultar Tabla' : 'Mostrar Tabla de Estadísticas'"
-                ></span>
-            </button>
+            <!-- Botón de refrescar -->
+            <x-last-fm.buttons.user-info.refresh-button />
+        </div>
+
+        <!-- Mensaje de bienvenida -->
+        <div
+            x-show="!$store.user.info"
+            class="mt-6 rounded-xl bg-white/80 p-6 text-center shadow-sm ring-1 ring-gray-900/5 backdrop-blur-sm dark:bg-gray-800/80 dark:ring-white/10"
+        >
+            <p class="text-gray-600 dark:text-gray-400">
+                Bienvenido a tu dashboard de Last.fm. Conecta tu perfil para comenzar a explorar tu historial musical y
+                descubrir interesantes estadísticas sobre tus gustos musicales.
+            </p>
         </div>
 
         <!-- Contenedor de Información del Usuario -->
         <x-last-fm.user-info-card />
 
         <!-- Tabla de estadísticas -->
-        <div
-            x-show="$store.user.showStatistics"
-            x-transition:enter="transition duration-300 ease-out"
-            x-transition:enter-start="scale-95 transform opacity-0"
-            x-transition:enter-end="scale-100 transform opacity-100"
-            x-transition:leave="transition duration-200 ease-in"
-            x-transition:leave-start="scale-100 transform opacity-100"
-            x-transition:leave-end="scale-95 transform opacity-0"
-            x-cloak
-            class="mt-6"
-        >
-            <div
-                class="rounded-xl bg-white/80 p-6 shadow-lg ring-1 ring-gray-900/5 backdrop-blur-sm transition-all duration-300 dark:bg-gray-800/80 dark:ring-white/10"
-            >
-                <x-last-fm.statistics-table />
+        <x-last-fm.statistics-table />
 
-                <x-last-fm.pagination />
-            </div>
-        </div>
-
-        <!-- Contenedor de errores -->
-        <div x-show="$store.notifications.error" class="mt-2 text-red-500 dark:text-red-400">
-            <span x-text="$store.notifications.error"></span>
-        </div>
+        <!-- Contenedor de notificaciones -->
+        <x-last-fm.notifications />
     </div>
 
     <x-slot name="script">
@@ -90,9 +59,14 @@
                 // Store para el manejo de errores y notificaciones
                 Alpine.store('notifications', {
                     error: null,
+                    success: null,
                     showError(message) {
                         this.error = message;
-                        setTimeout(() => (this.error = null), 5000);
+                        setTimeout(() => (this.error = null), 3000);
+                    },
+                    showSuccess(message) {
+                        this.success = message;
+                        setTimeout(() => (this.success = null), 3000);
                     },
                 });
 
@@ -163,6 +137,34 @@
                             this.fetchStatistics();
                         }
                         this.showStatistics = !this.showStatistics;
+                    },
+
+                    async refreshData() {
+                        try {
+                            this.loadingUserInfo = true;
+                            this.loadingStatistics = true;
+
+                            // Actualizar información del usuario
+                            this.info = await Alpine.store('api').fetchWithInterceptor(
+                                Alpine.store('api').routes.userInfo
+                            );
+
+                            // Actualizar estadísticas
+                            if (this.showStatistics) {
+                                this.statistics = await Alpine.store('api').fetchWithInterceptor(
+                                    Alpine.store('api').routes.statistics
+                                );
+                            }
+
+                            // Mostrar notificación de éxito
+                            Alpine.store('notifications').showSuccess('Datos actualizados correctamente');
+                        } catch (error) {
+                            // Mantener datos existentes en caso de error
+                            Alpine.store('notifications').showError('Error al actualizar los datos');
+                        } finally {
+                            this.loadingUserInfo = false;
+                            this.loadingStatistics = false;
+                        }
                     },
                 });
             });
