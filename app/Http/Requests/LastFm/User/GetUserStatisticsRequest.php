@@ -10,7 +10,7 @@ class GetUserStatisticsRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return auth()->check() && auth()->user()->lastFmUser !== null;
+        return auth()->check() && auth()->user()->lastfm_user !== null;
     }
 
     public function rules(): array
