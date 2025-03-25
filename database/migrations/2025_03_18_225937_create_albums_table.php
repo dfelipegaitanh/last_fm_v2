@@ -13,7 +13,7 @@ return new class extends Migration
         Schema::create('last_fm_albums', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->foreignId('artist_id')->constrained('last_fm_artists')->cascadeOnDelete();
+            $table->foreignId('artist_id')->constrained('last_fm_artists');
             $table->string('mbid')->nullable();
             $table->string('url');
             $table->timestamps();
