@@ -1,0 +1,47 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Database\Factories\LastFm;
+
+use App\Enums\ChartType;
+use App\Models\LastFm\WeeklyChart;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class WeeklyChartFactory extends Factory
+{
+    protected $model = WeeklyChart::class;
+
+    public function definition(): array
+    {
+        $from = $this->faker->unixTime();
+
+        return [
+            'from_timestamp' => $from,
+            'to_timestamp' => $from + 604800, // Una semana en segundos
+            'type' => ChartType::random(),
+            'processed' => $this->faker->boolean(),
+        ];
+    }
+
+    public function weekly(): self
+    {
+        return $this->state(fn (array $attributes): array => [
+            'type' => ChartType::WEEKLY,
+        ]);
+    }
+
+    public function processed(): self
+    {
+        return $this->state(fn (array $attributes): array => [
+            'processed' => true,
+        ]);
+    }
+
+    public function unprocessed(): self
+    {
+        return $this->state(fn (array $attributes): array => [
+            'processed' => false,
+        ]);
+    }
+}
