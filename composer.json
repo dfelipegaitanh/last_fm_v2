@@ -66,10 +66,10 @@
             "vendor/bin/phpstan analyse $(git diff --name-only --diff-filter=ACM) --memory-limit 1G --configuration phpstan.neon"
         ],
         "rector": [
-            "vendor/bin/rector process $(git diff --name-only --diff-filter=ACM) "
+            "vendor/bin/rector process $(git diff --name-only  --cached --diff-filter=ACM) "
         ],
         "rector-dry": [
-            "vendor/bin/rector process $(git diff --name-only --diff-filter=ACM) --dry-run"
+            "vendor/bin/rector process $(git diff --name-only  --cached --diff-filter=ACM) --dry-run"
         ],
         "pint-dirty": [
             "vendor/bin/pint --dirty"
