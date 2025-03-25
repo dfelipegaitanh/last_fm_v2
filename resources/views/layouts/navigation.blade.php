@@ -8,7 +8,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex shrink-0 items-center">
-                    <a href="{{ route('last-fm.user_info') }}">
+                    <a href="{{ route('last-fm.user-info') }}">
                         <x-application-logo
                             class="block h-8 w-auto fill-current text-gray-700 transition-colors duration-300 hover:text-gray-950 dark:text-gray-300 dark:hover:text-white"
                         />
@@ -17,7 +17,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('last-fm.user_info')" :active="request()->routeIs('last-fm.user_info')">
+                    <x-nav-link :href="route('last-fm.user-info')" :active="request()->routeIs('last-fm.user-info')">
                         {{ __('User Info') }}
                     </x-nav-link>
                 </div>
@@ -103,8 +103,8 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="space-y-1 pb-3 pt-2">
             <x-responsive-nav-link
-                :href="route('last-fm.user_info')"
-                :active="request()->routeIs('last-fm.user_info')"
+                :href="route('last-fm.user-info')"
+                :active="request()->routeIs('last-fm.user-info')"
             >
                 {{ __('User Info') }}
             </x-responsive-nav-link>
