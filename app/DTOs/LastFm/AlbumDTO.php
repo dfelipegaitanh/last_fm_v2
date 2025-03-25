@@ -10,16 +10,26 @@ class AlbumDTO extends Data
 {
     public function __construct(
         public readonly string $title,
-        public readonly string $artist,
+        public readonly ArtistDTO $artist,
         public readonly string $url,
         public readonly ?string $mbid = null,
     ) {}
 
     public static function fromApiResponse(array $data): self
     {
+        $artistData = $data['artist'] ?? [];
+        
+        // Handle string artist
+        if (is_string($artistData)) {
+            $artistData = [
+                'name' => $artistData,
+                'url' => '',
+            ];
+        }
+        
         return new self(
             title: $data['title'] ?? '',
-            artist: $data['artist']['name'] ?? $data['artist']['#text'] ?? $data['artist'] ?? '',
+            artist: ArtistDTO::fromApiResponse($artistData),
             url: $data['url'] ?? '',
             mbid: $data['mbid'] ?? null,
         );

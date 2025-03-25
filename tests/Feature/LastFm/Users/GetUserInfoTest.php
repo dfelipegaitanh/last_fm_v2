@@ -39,17 +39,18 @@ beforeEach(function (): void {
         ->andReturn(collect([$recentTrack]));
 
     // Mock getTrackInfo
+    $artistDTO = new ArtistDTO(
+        name: 'Test Artist',
+        url: 'https://last.fm/artist/1'
+    );
     $trackInfo = new TrackInfoDTO(
         name: 'Test Track',
         mbid: '',
         url: 'https://last.fm/track/1',
-        artist: new ArtistDTO(
-            name: 'Test Artist',
-            url: 'https://last.fm/artist/1'
-        ),
+        artist: $artistDTO,
         album: new AlbumDTO(
             title: 'Test Album',
-            artist: 'Test Artist',
+            artist: $artistDTO,
             url: 'https://last.fm/album/1'
         ),
         loved: false

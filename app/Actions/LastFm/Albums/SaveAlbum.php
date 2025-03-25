@@ -18,7 +18,7 @@ readonly class SaveAlbum
     public function handle(AlbumDTO $albumDTO): Album
     {
         $artistDTO = new ArtistDTO(
-            name: $albumDTO->artist,
+            name: $albumDTO->artist->name,
             url: '',
             mbid: '',
         );
