@@ -39,6 +39,20 @@
 - Prefer backed enums when database storage is needed
 - Organize in directory `App\Enums\*`
 
+#### 2.2.4 Code Formatting
+- Method Chaining Format:
+  - For multiple chained methods:
+    ```php
+    // Incorrect
+    $result = $this->action->method1()->method2()->method3();
+
+    // Correct
+    $result = $this->action
+        ->method1()
+        ->method2()
+        ->method3();
+    ```
+
 ## 3. PROJECT STRUCTURE
 - Follow Laravel's conventional directory structure
 - Organize code using appropriate namespaces
