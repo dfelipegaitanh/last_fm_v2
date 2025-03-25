@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models\LastFm;
 
-use App\Models\LastFm\Album;
-use App\Models\LastFm\Artist;
-use App\Models\LastFm\GlobalSongsStatistics;
+use Database\Factories\LastFm\TrackFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Track extends Model
@@ -49,8 +48,21 @@ class Track extends Model
         return $this->hasMany(GlobalSongsStatistics::class);
     }
 
-    protected static function newFactory()
+    public function weeklyCharts(): BelongsToMany
     {
-        return \Database\Factories\LastFm\TrackFactory::new();
+        return $this->belongsToMany(WeeklyChart::class, 'last_fm_track_last_fm_weekly_chart', 'last_fm_track_id', 'last_fm_weekly_chart_id')
+            ->withPivot(['user_id', 'playcount']);
+
+        //        return $this->belongsToMany(WeeklyChart::class, 'last_fm_track_last_fm_weekly_chart', 'last_fm_track_id', 'last_fm_weekly_chart_id');
+    }
+
+    public function weeklyChartsForUser(User $user): BelongsToMany
+    {
+        return $this->weeklyCharts()->wherePivot('user_id', $user->id);
+    }
+
+    protected static function newFactory(): TrackFactory
+    {
+        return TrackFactory::new();
     }
 }

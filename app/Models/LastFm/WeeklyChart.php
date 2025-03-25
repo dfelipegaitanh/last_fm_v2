@@ -9,7 +9,6 @@ use App\Models\User;
 use App\Services\DateService;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class WeeklyChart extends Model
@@ -32,12 +31,16 @@ class WeeklyChart extends Model
 
     public function tracks(): BelongsToMany
     {
-        return $this->belongsToMany(Track::class, 'last_fm_track_last_fm_weekly_chart', 'last_fm_weekly_chart_id', 'last_fm_track_id');
+        return $this->belongsToMany(Track::class, 'last_fm_track_last_fm_weekly_chart', 'last_fm_weekly_chart_id', 'last_fm_track_id')
+            ->withPivot(['user_id', 'playcount']);
+
+        //        return $this->belongsToMany(Track::class, 'last_fm_track_last_fm_weekly_chart', 'last_fm_weekly_chart_id', 'last_fm_track_id');
     }
 
-    public function user(): BelongsTo
+    // Para acceder a la relación con usuario específico
+    public function tracksForUser(User $user): BelongsToMany
     {
-        return $this->belongsTo(User::class);
+        return $this->tracks()->wherePivot('user_id', $user->id);
     }
 
     protected function casts(): array
