@@ -8,8 +8,8 @@ use App\DTOs\LastFm\ArtistDTO;
 use App\DTOs\LastFm\TrackInfoDTO;
 use App\DTOs\LastFm\WeeklyTrackChartDTO;
 use App\Enums\ChartType;
+use App\Models\LastFm\Chart;
 use App\Models\LastFm\Track;
-use App\Models\LastFm\WeeklyChart;
 use App\Models\User;
 
 test('it creates a new weekly chart when none exists', function (): void {
@@ -65,7 +65,7 @@ test('it creates a new weekly chart when none exists', function (): void {
 
     // Assert
     expect($result)
-        ->toBeInstanceOf(WeeklyChart::class)
+        ->toBeInstanceOf(Chart::class)
         ->from_timestamp->toBe($from)
         ->to_timestamp->toBe($to)
         ->type->toBe(ChartType::WEEKLY)
@@ -89,7 +89,7 @@ test('it reuses existing weekly chart', function (): void {
     $to = 1617580800;
 
     // Create existing chart
-    $existingChart = WeeklyChart::factory()->create([
+    $existingChart = Chart::factory()->create([
         'from_timestamp' => $from,
         'to_timestamp' => $to,
         'type' => ChartType::WEEKLY,
@@ -140,7 +140,7 @@ test('it returns existing chart without processing if tracks already exist for u
     $to = 1617580800;
 
     // Create existing chart
-    $existingChart = WeeklyChart::factory()->create([
+    $existingChart = Chart::factory()->create([
         'from_timestamp' => $from,
         'to_timestamp' => $to,
         'type' => ChartType::WEEKLY,

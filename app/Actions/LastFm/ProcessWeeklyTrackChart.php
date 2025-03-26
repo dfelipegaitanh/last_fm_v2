@@ -6,8 +6,8 @@ namespace App\Actions\LastFm;
 
 use App\DTOs\LastFm\WeeklyTrackChartDTO;
 use App\Enums\ChartType;
+use App\Models\LastFm\Chart;
 use App\Models\LastFm\Track;
-use App\Models\LastFm\WeeklyChart;
 use App\Models\User;
 use Illuminate\Support\Collection;
 
@@ -17,24 +17,19 @@ class ProcessWeeklyTrackChart
         private readonly FetchWeeklyTrackChart $fetchWeeklyTrackChart,
     ) {}
 
-    public function handle(User $user, int $from, int $to): WeeklyChart
+    public function handle(User $user, int $from, int $to): Chart
     {
         // Buscar o crear el chart semanal
-        $weeklyChart = WeeklyChart::query()
-            ->where('from_timestamp', $from)
-            ->where('to_timestamp', $to)
-            ->where('type', ChartType::WEEKLY)
-            ->first();
+        $weeklyChart = Chart::firstOrCreate(
+            [
+                'from_timestamp' => $from,
+                'to_timestamp' => $to,
+                'type' => ChartType::WEEKLY,
+            ],
+            ['processed' => false]
+        );
 
-        if (! $weeklyChart) {
-            $weeklyChart = new WeeklyChart();
-            $weeklyChart->from_timestamp = $from;
-            $weeklyChart->to_timestamp = $to;
-            $weeklyChart->type = ChartType::WEEKLY;
-            $weeklyChart->processed = false;
-            $weeklyChart->save();
-        }
-
+        dd($weeklyChart->tracksForUser($user)->toRawSql());
         // Si ya está procesado para este usuario, retornar
         if ($weeklyChart->tracksForUser($user)->exists()) {
             return $weeklyChart;
@@ -53,7 +48,7 @@ class ProcessWeeklyTrackChart
         return $weeklyChart;
     }
 
-    private function processAndSaveTracks(Collection $tracks, WeeklyChart $weeklyChart, User $user): void
+    private function processAndSaveTracks(Collection $tracks, Chart $weeklyChart, User $user): void
     {
         $tracks->each(function (WeeklyTrackChartDTO $trackDTO) use ($weeklyChart, $user): void {
             // Buscar o crear el track

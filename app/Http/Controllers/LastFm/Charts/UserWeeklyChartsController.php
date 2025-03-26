@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\LastFm\Charts;
 
 use App\Http\Requests\LastFm\Charts\UserWeeklyChartsRequest;
-use App\Models\LastFm\WeeklyChart;
+use App\Models\LastFm\Chart;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -15,7 +15,7 @@ readonly class UserWeeklyChartsController
     public function __invoke(UserWeeklyChartsRequest $request, User $user): JsonResponse
     {
         try {
-            $charts = WeeklyChart::query()
+            $charts = Chart::query()
                 ->whereHas('tracks', function ($query) use ($user): void {
                     $query->wherePivot('user_id', $user->id);
                 })

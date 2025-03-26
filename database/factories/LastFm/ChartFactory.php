@@ -8,7 +8,7 @@ use App\Enums\ChartType;
 use App\Models\LastFm\Chart;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class WeeklyChartFactory extends Factory
+class ChartFactory extends Factory
 {
     protected $model = Chart::class;
 

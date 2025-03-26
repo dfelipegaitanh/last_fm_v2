@@ -9,8 +9,8 @@ use App\Enums\ChartType;
 use App\Http\Requests\LastFm\Charts\ListWeeklyChartsRequest;
 use App\Http\Requests\LastFm\Charts\ShowWeeklyChartRequest;
 use App\Http\Requests\LastFm\Charts\UserWeeklyChartsRequest;
+use App\Models\LastFm\Chart;
 use App\Models\LastFm\Track;
-use App\Models\LastFm\WeeklyChart;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -65,7 +65,7 @@ test('ShowWeeklyChartController returns weekly chart tracks for authenticated us
     $from = 1616976000;
     $to = 1617580800;
 
-    $weeklyChart = WeeklyChart::factory()->create([
+    $weeklyChart = Chart::factory()->create([
         'from_timestamp' => $from,
         'to_timestamp' => $to,
         'type' => ChartType::WEEKLY,
@@ -127,14 +127,14 @@ test('UserWeeklyChartsController returns weekly charts for specific user', funct
         $mock->shouldReceive('validated')->andReturn(['user' => 2]);
     });
 
-    $weeklyChart1 = WeeklyChart::factory()->create([
+    $weeklyChart1 = Chart::factory()->create([
         'from_timestamp' => 1617580800,
         'to_timestamp' => 1618185600,
         'type' => ChartType::WEEKLY,
         'processed' => true,
     ]);
 
-    $weeklyChart2 = WeeklyChart::factory()->create([
+    $weeklyChart2 = Chart::factory()->create([
         'from_timestamp' => 1616976000,
         'to_timestamp' => 1617580800,
         'type' => ChartType::WEEKLY,
