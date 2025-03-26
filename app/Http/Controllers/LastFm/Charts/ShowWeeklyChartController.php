@@ -6,8 +6,8 @@ namespace App\Http\Controllers\LastFm\Charts;
 
 use App\Actions\LastFm\ProcessWeeklyTrackChart;
 use App\Http\Requests\LastFm\Charts\ShowWeeklyChartRequest;
-use Illuminate\Http\JsonResponse;
 use Exception;
+use Illuminate\Http\JsonResponse;
 
 readonly class ShowWeeklyChartController
 {
@@ -30,7 +30,7 @@ readonly class ShowWeeklyChartController
                     'from_formatted' => $weeklyChart->fromFormatted,
                     'to_formatted' => $weeklyChart->toFormatted,
                 ],
-                'tracks' => $tracks->map(function ($track) {
+                'tracks' => $tracks->map(function ($track): array {
                     return [
                         'name' => $track->name,
                         'artist' => $track->artist_name,

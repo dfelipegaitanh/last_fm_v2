@@ -7,8 +7,8 @@ namespace App\Http\Controllers\LastFm\Charts;
 use App\Http\Requests\LastFm\Charts\UserWeeklyChartsRequest;
 use App\Models\LastFm\WeeklyChart;
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
 use Exception;
+use Illuminate\Http\JsonResponse;
 
 readonly class UserWeeklyChartsController
 {
@@ -16,13 +16,13 @@ readonly class UserWeeklyChartsController
     {
         try {
             $charts = WeeklyChart::query()
-                ->whereHas('tracks', function ($query) use ($user) {
+                ->whereHas('tracks', function ($query) use ($user): void {
                     $query->wherePivot('user_id', $user->id);
                 })
                 ->orderBy('from_timestamp', 'desc')
                 ->get();
 
-            return response()->json($charts->map(function ($chart) use ($user) {
+            return response()->json($charts->map(function ($chart) use ($user): array {
                 $tracks = $chart->tracksForUser($user)->get();
 
                 return [

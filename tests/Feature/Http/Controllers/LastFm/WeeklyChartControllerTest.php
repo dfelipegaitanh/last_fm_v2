@@ -23,7 +23,7 @@ test('ListWeeklyChartsController returns weekly chart list for authenticated use
     $this->actingAs($user);
 
     // Mock the FormRequest authorize method to return true
-    $this->partialMock(ListWeeklyChartsRequest::class, function ($mock) {
+    $this->partialMock(ListWeeklyChartsRequest::class, function ($mock): void {
         $mock->shouldReceive('authorize')->andReturn(true);
     });
 
@@ -57,7 +57,7 @@ test('ShowWeeklyChartController returns weekly chart tracks for authenticated us
     $this->actingAs($user);
 
     // Mock the FormRequest authorize method to return true
-    $this->partialMock(ShowWeeklyChartRequest::class, function ($mock) {
+    $this->partialMock(ShowWeeklyChartRequest::class, function ($mock): void {
         $mock->shouldReceive('authorize')->andReturn(true);
         $mock->shouldReceive('validated')->andReturn(['from' => 1616976000, 'to' => 1617580800]);
     });
@@ -122,7 +122,7 @@ test('UserWeeklyChartsController returns weekly charts for specific user', funct
     $this->actingAs($user);
 
     // Mock the FormRequest authorize method to return true
-    $this->partialMock(UserWeeklyChartsRequest::class, function ($mock) {
+    $this->partialMock(UserWeeklyChartsRequest::class, function ($mock): void {
         $mock->shouldReceive('authorize')->andReturn(true);
         $mock->shouldReceive('validated')->andReturn(['user' => 2]);
     });
@@ -171,7 +171,7 @@ test('ListWeeklyChartsController returns error when user has no Last.fm username
     $this->actingAs($user);
 
     // Mock the FormRequest authorize method to return false
-    $this->partialMock(ListWeeklyChartsRequest::class, function ($mock) {
+    $this->partialMock(ListWeeklyChartsRequest::class, function ($mock): void {
         $mock->shouldReceive('authorize')->andReturn(false);
     });
 
@@ -188,7 +188,7 @@ test('ShowWeeklyChartController returns error when user has no Last.fm username'
     $this->actingAs($user);
 
     // Mock the FormRequest authorize method to return false
-    $this->partialMock(ShowWeeklyChartRequest::class, function ($mock) {
+    $this->partialMock(ShowWeeklyChartRequest::class, function ($mock): void {
         $mock->shouldReceive('authorize')->andReturn(false);
     });
 

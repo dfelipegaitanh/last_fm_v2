@@ -69,7 +69,7 @@ class ProcessWeeklyTrackChart
                 $track->mbid = $trackDTO->track->mbid;
                 $track->url = $trackDTO->track->url;
 
-                if ($trackDTO->track->album) {
+                if ($trackDTO->track->album instanceof \App\DTOs\LastFm\AlbumDTO) {
                     $track->album_name = $trackDTO->track->album->title;
                     $track->album_artist = $trackDTO->track->album->artist->name;
                 }

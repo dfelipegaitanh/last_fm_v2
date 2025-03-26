@@ -11,7 +11,7 @@ use App\Http\Controllers\LastFm\User\UserGetStatisticsController;
 Route::middleware('auth:sanctum')
     ->prefix('last-fm')
     ->name('last-fm.')
-    ->group(function () {
+    ->group(function (): void {
 
         Route::view('user-info', 'last-fm.user-info')
             ->name('user-info');
@@ -23,8 +23,8 @@ Route::middleware('auth:sanctum')
             ->name('user_get_info');
 
         // Weekly Charts
-//        Route::get('/weekly-charts', ListWeeklyChartsController::class)
-//            ->name('last-fm.weekly-charts.index');
+        //        Route::get('/weekly-charts', ListWeeklyChartsController::class)
+        //            ->name('last-fm.weekly-charts.index');
 
         Route::get('/weekly-charts/{from}/{to}', ShowWeeklyChartController::class)
             ->name('last-fm.weekly-charts.show');

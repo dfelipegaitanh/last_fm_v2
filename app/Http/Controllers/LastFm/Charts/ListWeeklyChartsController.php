@@ -6,8 +6,8 @@ namespace App\Http\Controllers\LastFm\Charts;
 
 use App\Actions\LastFm\FetchWeeklyChartList;
 use App\Http\Requests\LastFm\Charts\ListWeeklyChartsRequest;
-use Illuminate\Http\JsonResponse;
 use Exception;
+use Illuminate\Http\JsonResponse;
 
 readonly class ListWeeklyChartsController
 {
