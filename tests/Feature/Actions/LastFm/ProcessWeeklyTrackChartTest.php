@@ -8,6 +8,8 @@ use App\DTOs\LastFm\ArtistDTO;
 use App\DTOs\LastFm\TrackInfoDTO;
 use App\DTOs\LastFm\WeeklyTrackChartDTO;
 use App\Enums\ChartType;
+use App\Models\LastFm\Album;
+use App\Models\LastFm\Artist;
 use App\Models\LastFm\Chart;
 use App\Models\LastFm\Track;
 use App\Models\User;
@@ -17,6 +19,9 @@ test('it creates a new weekly chart when none exists', function (): void {
     $user = User::factory()->create(['lastfm_user' => 'testuser']);
     $from = 1616976000;
     $to = 1617580800;
+
+    // Crear artista y álbum para los tests
+    $artist = Artist::factory()->create(['name' => 'Artist 1']);
 
     $mockFetchAction = mock(FetchWeeklyTrackChart::class);
 
@@ -55,7 +60,7 @@ test('it creates a new weekly chart when none exists', function (): void {
 
     $mockFetchAction->shouldReceive('handle')
         ->once()
-        ->with($user->lastfm_username, $from, $to)
+        ->with($user->lastfm_user, $from, $to)
         ->andReturn($mockTracks);
 
     $action = new ProcessWeeklyTrackChart($mockFetchAction);
@@ -88,6 +93,10 @@ test('it reuses existing weekly chart', function (): void {
     $from = 1616976000;
     $to = 1617580800;
 
+    // Crear artista y álbum para los tests
+    $artist = Artist::factory()->create(['name' => 'Artist 1']);
+    $album = Album::factory()->create(['artist_id' => $artist->id, 'title' => 'Album 1']);
+
     // Create existing chart
     $existingChart = Chart::factory()->create([
         'from_timestamp' => $from,
@@ -118,7 +127,7 @@ test('it reuses existing weekly chart', function (): void {
 
     $mockFetchAction->shouldReceive('handle')
         ->once()
-        ->with($user->lastfm_username, $from, $to)
+        ->with('testuser', $from, $to)
         ->andReturn($mockTracks);
 
     $action = new ProcessWeeklyTrackChart($mockFetchAction);
@@ -139,6 +148,10 @@ test('it returns existing chart without processing if tracks already exist for u
     $from = 1616976000;
     $to = 1617580800;
 
+    // Crear artista y álbum para los tests
+    $artist = Artist::factory()->create(['name' => 'Existing Artist']);
+    $album = Album::factory()->create(['artist_id' => $artist->id, 'title' => 'Existing Album']);
+
     // Create existing chart
     $existingChart = Chart::factory()->create([
         'from_timestamp' => $from,
@@ -150,7 +163,10 @@ test('it returns existing chart without processing if tracks already exist for u
     // Create existing track
     $track = Track::factory()->create([
         'name' => 'Existing Track',
-        'artist_name' => 'Existing Artist',
+        'artist_id' => $artist->id,
+        'album_id' => $album->id,
+        'mbid' => 'track-mbid-1',
+        'url' => 'https://last.fm/track/1',
     ]);
 
     // Attach track to chart for this user
