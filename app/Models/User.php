@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\LastFm\Chart;
 use App\Models\LastFm\Track;
 use App\Models\LastFm\User as LastFmUser;
-use App\Models\LastFm\WeeklyChart;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -35,18 +35,6 @@ class User extends Authenticatable
         'lastfm_user',
     ];
 
-    public function weeklyChartTracks(): BelongsToMany
-    {
-        return $this->belongsToMany(Track::class, 'last_fm_track_last_fm_weekly_chart', 'user_id', 'last_fm_track_id')
-            ->withPivot(['last_fm_weekly_chart_id', 'playcount']);
-    }
-
-    public function weeklyCharts(): BelongsToMany
-    {
-        return $this->belongsToMany(WeeklyChart::class, 'last_fm_track_last_fm_weekly_chart', 'user_id', 'last_fm_weekly_chart_id')
-            ->withPivot(['last_fm_track_id', 'playcount']);
-    }
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -56,6 +44,18 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function weeklyChartTracks(): BelongsToMany
+    {
+        return $this->belongsToMany(Track::class, 'last_fm_track_last_fm_weekly_chart', 'user_id', 'last_fm_track_id')
+            ->withPivot(['last_fm_weekly_chart_id', 'playcount']);
+    }
+
+    public function weeklyCharts(): BelongsToMany
+    {
+        return $this->belongsToMany(Chart::class, 'last_fm_track_last_fm_weekly_chart', 'user_id', 'last_fm_weekly_chart_id')
+            ->withPivot(['last_fm_track_id', 'playcount']);
+    }
 
     public function lastFmUser(): HasOne
     {

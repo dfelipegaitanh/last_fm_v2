@@ -12,11 +12,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class WeeklyChart extends Model
+class Chart extends Model
 {
     use HasFactory;
 
-    protected $table = 'last_fm_weekly_charts';
+    protected $table = 'last_fm_charts';
 
     public function fromFormatted(): Attribute
     {
@@ -34,7 +34,7 @@ class WeeklyChart extends Model
 
     public function tracks(): BelongsToMany
     {
-        return $this->belongsToMany(Track::class, 'last_fm_track_last_fm_weekly_chart', 'last_fm_weekly_chart_id', 'last_fm_track_id')
+        return $this->belongsToMany(Track::class, 'last_fm_track_chart', 'last_fm_chart_id', 'last_fm_track_id')
             ->withPivot(['user_id', 'playcount']);
     }
 
@@ -42,6 +42,11 @@ class WeeklyChart extends Model
     public function tracksForUser(User $user): BelongsToMany
     {
         return $this->tracks()->wherePivot('user_id', $user->id);
+    }
+
+    public function chartTracks()
+    {
+        return $this->hasMany(ChartTrack::class, 'last_fm_chart_id');
     }
 
     protected function casts(): array

@@ -50,10 +50,8 @@ class Track extends Model
 
     public function weeklyCharts(): BelongsToMany
     {
-        return $this->belongsToMany(WeeklyChart::class, 'last_fm_track_last_fm_weekly_chart', 'last_fm_track_id', 'last_fm_weekly_chart_id')
+        return $this->belongsToMany(Chart::class, 'last_fm_track_chart', 'last_fm_track_id', 'last_fm_chart_id')
             ->withPivot(['user_id', 'playcount']);
-
-        //        return $this->belongsToMany(WeeklyChart::class, 'last_fm_track_last_fm_weekly_chart', 'last_fm_track_id', 'last_fm_weekly_chart_id');
     }
 
     public function weeklyChartsForUser(User $user): BelongsToMany
