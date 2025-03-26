@@ -17,4 +17,9 @@ return RectorConfig::configure()
         strictBooleans: true,
     )->withRules([
         NewlineAfterStatementRector::class,
+    ])->withPaths([
+        __DIR__ . '/app',
+        __DIR__ . '/tests',
+        __DIR__ . '/routes',
+        __DIR__ . '/config',
     ]);
