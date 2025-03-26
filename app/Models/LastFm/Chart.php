@@ -18,6 +18,18 @@ class Chart extends Model
 
     protected $table = 'last_fm_charts';
 
+    /**
+     * Los atributos que son asignables masivamente.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'from_timestamp',
+        'to_timestamp',
+        'type',
+        'processed',
+    ];
+
     public function fromFormatted(): Attribute
     {
         return Attribute::make(
