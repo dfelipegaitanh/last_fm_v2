@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Console\Commands\LastFm\ImportWeeklyChartsCommand;
 use App\Http\Middleware\LastFmRateLimitMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -14,8 +15,11 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+    ->withCommands([
+        ImportWeeklyChartsCommand::class,
+    ])
     ->withMiddleware(function (Middleware $middleware): void {
-//        $middleware->append(LastFmRateLimitMiddleware::class);
+        //        $middleware->append(LastFmRateLimitMiddleware::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
