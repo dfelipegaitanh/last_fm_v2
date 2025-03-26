@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Traits;
 
 /**
@@ -35,7 +37,7 @@ trait ExcludedWordsTrait
         $text = $this->removeExcludedPatterns($text);
         $text = $this->removeEmptyParentheses($text);
 
-        return trim($text);
+        return mb_trim($text);
     }
 
     private function removeExcludedPatterns(string $text): string

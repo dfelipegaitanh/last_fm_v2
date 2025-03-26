@@ -19,7 +19,7 @@ class LastFmRateLimiter
     public function __construct(RateLimiter $limiter)
     {
         $this->limiter = $limiter;
-        $this->limiter->for(self::KEY, fn () => null);
+        $this->limiter->for(self::KEY, fn (): null => null);
     }
 
     public function tooManyAttempts(): bool

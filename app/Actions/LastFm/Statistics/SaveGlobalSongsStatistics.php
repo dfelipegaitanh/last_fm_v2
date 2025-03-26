@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Actions\LastFm\Statistics;
 
-use App\Models\User;
 use App\DTOs\LastFm\UserInfoDTO;
 use App\Models\LastFm\GlobalSongsStatistics;
+use App\Models\User;
 use Illuminate\Support\Arr;
 
 readonly class SaveGlobalSongsStatistics

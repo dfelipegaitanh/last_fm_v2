@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models\LastFm;
 
-use App\Casts\NumberCast;
-use App\Models\LastFm\Track;
-use App\Models\LastFm\User;
 use App\Services\DateService;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,7 +19,7 @@ class GlobalSongsStatistics extends Model
         'id',
         'track_id',
         'user_id',
-//        'created_at',
+        //        'created_at',
         'updated_at',
     ];
 

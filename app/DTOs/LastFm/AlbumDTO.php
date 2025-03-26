@@ -18,7 +18,7 @@ class AlbumDTO extends Data
     public static function fromApiResponse(array $data): self
     {
         $artistData = $data['artist'] ?? [];
-        
+
         // Handle string artist
         if (is_string($artistData)) {
             $artistData = [
@@ -26,7 +26,7 @@ class AlbumDTO extends Data
                 'url' => '',
             ];
         }
-        
+
         return new self(
             title: $data['title'] ?? '',
             artist: ArtistDTO::fromApiResponse($artistData),

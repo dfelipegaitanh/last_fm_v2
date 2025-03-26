@@ -6,9 +6,9 @@ namespace App\Actions\LastFm\Tracks;
 
 use App\Actions\LastFm\Albums\SaveAlbum;
 use App\Actions\LastFm\Artists\SaveArtist;
-use App\Models\LastFm\Track;
 use App\DTOs\LastFm\AlbumDTO;
 use App\DTOs\LastFm\TrackInfoDTO;
+use App\Models\LastFm\Track;
 
 readonly class SaveTrack
 {
@@ -21,7 +21,6 @@ readonly class SaveTrack
     {
 
         $artist = $this->saveArtist->handle($trackInfo->artist);
-
 
         $album = null;
         if ($trackInfo->album instanceof AlbumDTO) {

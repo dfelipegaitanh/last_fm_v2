@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Actions\LastFm\Tracks;
 
-use App\Actions\LastFm\Tracks\SaveTrack;
-use App\Models\User;
 use App\Models\LastFm\GlobalSongsStatistics;
+use App\Models\User;
 use App\Services\LastFm\Api\LastFmApi;
 
 readonly class SaveRecentTrack

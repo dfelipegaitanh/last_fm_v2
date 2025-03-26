@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use App\Enums\ChartType;
-use App\Models\LastFm\Track;
 use App\Models\LastFm\Chart;
+use App\Models\LastFm\Track;
 use App\Models\User;
 use App\Services\DateService;
 

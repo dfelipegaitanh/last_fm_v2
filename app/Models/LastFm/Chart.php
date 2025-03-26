@@ -33,14 +33,14 @@ class Chart extends Model
     public function fromFormatted(): Attribute
     {
         return Attribute::make(
-            get: fn () => DateService::timestampToDateTime($this->from_timestamp)
+            get: fn (): string => DateService::timestampToDateTime($this->from_timestamp)
         );
     }
 
     public function toFormatted(): Attribute
     {
         return Attribute::make(
-            get: fn () => DateService::timestampToDateTime($this->to_timestamp)
+            get: fn (): string => DateService::timestampToDateTime($this->to_timestamp)
         );
     }
 

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Actions\LastFm\Albums;
 
 use App\Actions\LastFm\Artists\SaveArtist;
-use App\Models\LastFm\Album;
 use App\DTOs\LastFm\AlbumDTO;
 use App\DTOs\LastFm\ArtistDTO;
+use App\Models\LastFm\Album;
 
 readonly class SaveAlbum
 {

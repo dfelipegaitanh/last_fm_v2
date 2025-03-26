@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Actions\LastFm\Artists;
 
-use App\Models\LastFm\Artist;
 use App\DTOs\LastFm\ArtistDTO;
+use App\Models\LastFm\Artist;
 
 readonly class SaveArtist
 {
