@@ -113,6 +113,19 @@
         </div>
         
         <div class="text-center mt-8 text-sm text-[#00FF00] dark:text-[#00FF00]">
+            <pre class="font-['VT323'] text-[#FFFF00] text-xs sm:text-sm md:text-base mt-4 mx-auto inline-block text-left overflow-x-auto dark:text-[#FFFF00]">
+       .-------------.             _____  _____ _     __  ____  _______ 
+      /\_\_\_\_\_\_\_\_\_\_\       |  ___|| ____| |   | | |  _ \| ____|
+     /\_\_\_\_\_\_\_\_\_\_\_\      | |_   |  _| | |   | | | |_) |  _|  
+    |\_\_\----. .----\_\_\|        |  _|  | |___| |___| | |  __/| |___ 
+    |  (  o o )(  o o )  |         |_|    |_____|_____|_| |_|   |_____|
+    |   \    /  \    /   |     
+    |    \--/    \--/    |     
+     \     ______      /      
+      \    \____/     /       
+       \    ^^      /        
+        \_________/         
+            </pre>
             <p>© {{ date('Y') }} {{ config('app.name', 'Laravel') }} - ALL RIGHTS RESERVED</p>
             <p>MEMORY AVAILABLE: 640K - DOS VERSION 6.22</p>
         </div>
