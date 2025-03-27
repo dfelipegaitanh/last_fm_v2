@@ -28,7 +28,7 @@ class GlobalSongsStatistics extends Model
         'track_id',
         'playcount',
         'artist_count',
-        'track_count',
+        //        'track_count',
         'album_count',
     ];
 

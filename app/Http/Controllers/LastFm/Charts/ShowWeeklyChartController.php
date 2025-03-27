@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\LastFm\Charts;
 
-use App\Actions\LastFm\ProcessWeeklyTrackChart;
+use App\Actions\LastFm\Charts\ProcessWeeklyTrackChart;
 use App\Http\Requests\LastFm\Charts\ShowWeeklyChartRequest;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -20,7 +20,7 @@ readonly class ShowWeeklyChartController
         $user = auth()->user();
 
         try {
-            $weeklyChart = $this->processWeeklyTrackChart->handle($user, $from, $to);
+            $weeklyChart = $this->processWeeklyTrackChart->handle($from, $to);
             $tracks = $weeklyChart->tracksForUser($user)->get();
 
             return response()->json([

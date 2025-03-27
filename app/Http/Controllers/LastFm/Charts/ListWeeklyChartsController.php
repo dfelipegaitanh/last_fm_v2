@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\LastFm\Charts;
 
-use App\Actions\LastFm\FetchWeeklyChartList;
+use App\Actions\LastFm\Charts\FetchWeeklyChartList;
 use App\Http\Requests\LastFm\Charts\ListWeeklyChartsRequest;
 use Exception;
 use Illuminate\Http\JsonResponse;

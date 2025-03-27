@@ -13,6 +13,7 @@ readonly class SaveGlobalSongsStatistics
 {
     public function handle(User $user, UserInfoDTO $userInfoDTO): GlobalSongsStatistics
     {
+
         return GlobalSongsStatistics::firstOrCreate(
             $this->buildSearchAttributes($user, $userInfoDTO),
             $userInfoDTO->toArray()

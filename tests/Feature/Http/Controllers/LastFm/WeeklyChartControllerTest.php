@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Actions\LastFm\FetchWeeklyChartList;
-use App\Actions\LastFm\ProcessWeeklyTrackChart;
+use App\Actions\LastFm\Charts\FetchWeeklyChartList;
+use App\Actions\LastFm\Charts\ProcessWeeklyTrackChart;
 use App\DTOs\LastFm\WeeklyChartDTO;
 use App\Enums\ChartType;
 use App\Http\Requests\LastFm\Charts\ListWeeklyChartsRequest;

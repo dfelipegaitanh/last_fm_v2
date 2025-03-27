@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Actions\LastFm\FetchWeeklyTrackChart;
+use App\Actions\LastFm\Charts\FetchWeeklyTrackChart;
 use App\DTOs\LastFm\ArtistDTO;
 use App\DTOs\LastFm\TrackInfoDTO;
 use App\DTOs\LastFm\WeeklyTrackChartDTO;
