@@ -45,7 +45,7 @@
                 "method_private_static",
                 "method_private"
             ],
-            "sort_algorithm": "none"
+            "sort_algorithm": "alpha"
         },
         "ordered_interfaces": true,
         "ordered_traits": true,

@@ -9,6 +9,7 @@ use App\Models\LastFm\Track;
 use App\Models\LastFm\User as LastFmUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -45,10 +46,14 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function weeklyChartTracks(): BelongsToMany
+    public function charts(): HasMany
     {
-        return $this->belongsToMany(Track::class, 'last_fm_track_last_fm_weekly_chart', 'user_id', 'last_fm_track_id')
-            ->withPivot(['last_fm_weekly_chart_id', 'playcount']);
+        return $this->hasMany(Chart::class, 'user_id');
+    }
+
+    public function lastFmUser(): HasOne
+    {
+        return $this->hasOne(LastFmUser::class, 'user_id');
     }
 
     public function weeklyCharts(): BelongsToMany
@@ -57,9 +62,10 @@ class User extends Authenticatable
             ->withPivot(['last_fm_track_id', 'playcount']);
     }
 
-    public function lastFmUser(): HasOne
+    public function weeklyChartTracks(): BelongsToMany
     {
-        return $this->hasOne(LastFmUser::class, 'user_id');
+        return $this->belongsToMany(Track::class, 'last_fm_track_last_fm_weekly_chart', 'user_id', 'last_fm_track_id')
+            ->withPivot(['last_fm_weekly_chart_id', 'playcount']);
     }
 
     /**

@@ -10,13 +10,12 @@ use App\Services\DateService;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Chart extends Model
 {
     use HasFactory;
-
-    protected $table = 'last_fm_charts';
 
     /**
      * Los atributos que son asignables masivamente.
@@ -28,8 +27,11 @@ class Chart extends Model
         'to_timestamp',
         'type',
         'processed',
-        'completed'
+        'completed',
+        'user_id',
     ];
+
+    protected $table = 'last_fm_charts';
 
     public function fromFormatted(): Attribute
     {
@@ -51,15 +53,21 @@ class Chart extends Model
             ->withPivot(['user_id', 'playcount']);
     }
 
-    // Para acceder a la relación con usuario específico
     public function tracksForUser(User $user): BelongsToMany
     {
         return $this->tracks()->wherePivot('user_id', $user->id);
     }
 
-    public function chartTracks()
+    // Para acceder a la relación con usuario específico
+
+    //    public function chartTracks()
+    //    {
+    //        return $this->hasMany(ChartTrack::class, 'last_fm_chart_id');
+    //    }
+
+    public function user(): BelongsTo
     {
-        return $this->hasMany(ChartTrack::class, 'last_fm_chart_id');
+        return $this->belongsTo(User::class);
     }
 
     protected function casts(): array
