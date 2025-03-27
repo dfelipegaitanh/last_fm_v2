@@ -28,6 +28,7 @@ class Chart extends Model
         'to_timestamp',
         'type',
         'processed',
+        'completed'
     ];
 
     public function fromFormatted(): Attribute

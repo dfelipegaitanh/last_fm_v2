@@ -15,7 +15,9 @@ return new class extends Migration
             Chart::truncate();
             Schema::table('last_fm_charts', function (Blueprint $table) {
 
-                $table->boolean('completed')->default(false)->after('created_at');
+                $table->boolean('completed')
+                    ->default(false)
+                    ->after('processed');
 
             });
         });
