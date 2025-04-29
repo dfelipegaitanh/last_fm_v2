@@ -43,7 +43,7 @@ class Chart extends Model
     public function fromFormattedDate(): Attribute
     {
         return Attribute::make(
-            get: fn (): string => '' // DateService::timestampToFormattedDate($this->from_timestamp)
+            get: fn (): string => DateService::timestampToFormattedDate($this->from_timestamp)
         );
     }
 
@@ -57,7 +57,7 @@ class Chart extends Model
     public function toFormattedDate(): Attribute
     {
         return Attribute::make(
-            get: fn (): string => '' // DateService::timestampToFormattedDate($this->to_timestamp)
+            get: fn (): string => DateService::timestampToFormattedDate($this->to_timestamp)
         );
     }
 

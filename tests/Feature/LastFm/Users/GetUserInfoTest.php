@@ -30,7 +30,6 @@ beforeEach(function (): void {
         artist: 'Test Artist',
         url: 'https://last.fm/track/1',
         mbid: null,
-        image: [],
         date: ['uts' => now()->timestamp],
         nowPlaying: false,
         playcount: 0

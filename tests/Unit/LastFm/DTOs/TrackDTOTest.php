@@ -22,7 +22,6 @@ test('creates track dto from api response with minimum data', function (): void 
         ->artist->toBe('Artist Name')
         ->url->toBe('https://last.fm/track/1')
         ->mbid->toBeNull()
-        ->image->toBe([])
         ->date->toBeNull()
         ->nowPlaying->toBeFalse();
 });
@@ -34,10 +33,6 @@ test('creates track dto from api response with full data', function (): void {
         'artist' => ['#text' => 'Artist Name'],
         'url' => 'https://last.fm/track/1',
         'mbid' => '123-456',
-        'image' => [
-            ['#text' => 'image1.jpg', 'size' => 'small'],
-            ['#text' => 'image2.jpg', 'size' => 'medium'],
-        ],
         'date' => [
             'uts' => '1234567890',
             '#text' => '01 Jan 2020',
@@ -57,10 +52,6 @@ test('creates track dto from api response with full data', function (): void {
         ->artist->toBe('Artist Name')
         ->url->toBe('https://last.fm/track/1')
         ->mbid->toBe('123-456')
-        ->image->toBe([
-            ['#text' => 'image1.jpg', 'size' => 'small'],
-            ['#text' => 'image2.jpg', 'size' => 'medium'],
-        ])
         ->date->toBe([
             'uts' => '1234567890',
             '#text' => '01 Jan 2020',

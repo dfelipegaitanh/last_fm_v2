@@ -22,18 +22,6 @@ class FetchWeeklyChartList
         $charts = $this->lastFmApi
             ->getWeeklyChartList(username: $user->lastfm_user);
 
-        /*
-                $charts->each(function(array $chart) : void {
-                     Chart::firstOrCreate(
-                        [
-                            'from_timestamp' => $chart['from'],
-                            'to_timestamp'   => $chart['from'],
-                            'type' => ChartType::WEEKLY,
-                        ] ,
-                         ['processed' => false]
-                    );
-                });
-        */
         return $charts->map(fn (array $chart): WeeklyChartDTO => WeeklyChartDTO::fromApiResponse($chart));
     }
 }
