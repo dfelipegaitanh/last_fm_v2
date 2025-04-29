@@ -54,19 +54,19 @@ class ImportWeeklyChartsCommand extends Command
         FetchWeeklyTrackChart $fetchWeeklyTrackChart,
     ): int {
 
-//        $username = text(
-//            label: 'Last.fm username',
-//            default: 'svigle',
-//            required: true,
-//        );
-//        $reprocess = (bool) select(
-//            label: 'Reprocess charts?',
-//            options: [
-//                1 => 'Yes',
-//                0 => 'No',
-//            ],
-//            default: 1
-//        );
+        //        $username = text(
+        //            label: 'Last.fm username',
+        //            default: 'svigle',
+        //            required: true,
+        //        );
+        //        $reprocess = (bool) select(
+        //            label: 'Reprocess charts?',
+        //            options: [
+        //                1 => 'Yes',
+        //                0 => 'No',
+        //            ],
+        //            default: 1
+        //        );
         $username = 'svigle';
         $reprocess = true;
 
@@ -74,10 +74,10 @@ class ImportWeeklyChartsCommand extends Command
             $user = User::where('lastfm_user', $username)
                 ->firstOrFail();
 
-//            info("Importing weekly charts for Last.fm user: {$user->lastfm_user}");
+            //            info("Importing weekly charts for Last.fm user: {$user->lastfm_user}");
 
             $charts = $fetchWeeklyChartList->handle($user);
-//            info("Found {$charts->count()} weekly charts");
+            //            info("Found {$charts->count()} weekly charts");
 
             if ($charts->isEmpty()) {
                 alert('No weekly charts found for this user.');
@@ -99,14 +99,14 @@ class ImportWeeklyChartsCommand extends Command
                 );
 
                 if ($weeklyChart->completed === true) {
-//                    $this->info('Period From '.$weeklyChart->from_formatted_date.' To '.$weeklyChart->to_formatted_date.' has already been processed');
+                    //                    $this->info('Period From '.$weeklyChart->from_formatted_date.' To '.$weeklyChart->to_formatted_date.' has already been processed');
 
                     continue;
                 }
 
-//                if ($reprocess) {
-//                    $weeklyChart->update(['completed' => true, 'processed' => true]);
-//                }
+                //                if ($reprocess) {
+                //                    $weeklyChart->update(['completed' => true, 'processed' => true]);
+                //                }
 
                 info(message: "Period From {$weeklyChart->from_formatted_date} To {$weeklyChart->to_formatted_date} has been processed");
                 $tracks = $fetchWeeklyTrackChart->handle(username: $user->lastfm_user, from: $chart->from, to: $chart->to);

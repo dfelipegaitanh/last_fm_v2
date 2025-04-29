@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Actions\LastFm\Charts;
 
 use App\DTOs\LastFm\WeeklyChartDTO;
-use App\Enums\ChartType;
-use App\Models\LastFm\Chart;
 use App\Models\User;
 use App\Services\LastFm\Api\LastFmApi;
 use Illuminate\Support\Collection;

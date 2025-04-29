@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Actions\LastFm\Charts;
 
 use App\DTOs\LastFm\TrackDTO;
-use App\DTOs\LastFm\WeeklyTrackChartDTO;
 use App\Services\LastFm\Api\LastFmApi;
 use Illuminate\Support\Collection;
 
