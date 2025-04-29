@@ -75,6 +75,11 @@
         ],
         "pint-dirty": [
             "vendor/bin/pint"
+        ],
+        "lint" : [
+            "vendor/bin/pint",
+            "vendor/bin/rector",
+            "npm run format"
         ]
     },
     "extra": {
