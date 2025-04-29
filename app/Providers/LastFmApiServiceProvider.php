@@ -15,6 +15,8 @@ use Illuminate\Support\ServiceProvider;
 
 class LastFmApiServiceProvider extends ServiceProvider
 {
+    public function boot(): void {}
+
     public function register(): void
     {
         $this->app->singleton(LastFmApi::class, function (): LastFmApi {
@@ -29,6 +31,4 @@ class LastFmApiServiceProvider extends ServiceProvider
         $this->app->singleton(RateLimiter::class);
         $this->app->singleton(LastFmRateLimiter::class);
     }
-
-    public function boot(): void {}
 }

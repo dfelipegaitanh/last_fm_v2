@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    public function down(): void
+    {
+        Schema::dropIfExists('last_fm_track_chart');
+    }
+
     public function up(): void
     {
         Schema::create('last_fm_track_chart', function (Blueprint $table) {
@@ -29,10 +34,5 @@ return new class extends Migration
                 ->on('users');
 
         });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('last_fm_track_chart');
     }
 };

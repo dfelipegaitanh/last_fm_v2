@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    public function down(): void
+    {
+        Schema::dropIfExists('last_fm_global_songs_statistics');
+    }
+
     public function up(): void
     {
         Schema::create('last_fm_global_songs_statistics', function (Blueprint $table): void {
@@ -20,10 +25,5 @@ return new class extends Migration
             $table->string('album_count');
             $table->timestamps();
         });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('last_fm_global_songs_statistics');
     }
 };

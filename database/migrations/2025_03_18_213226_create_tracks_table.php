@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    public function down(): void
+    {
+        Schema::dropIfExists('last_fm_tracks');
+    }
+
     public function up(): void
     {
         Schema::create('last_fm_tracks', function (Blueprint $table) {
@@ -20,10 +25,5 @@ return new class extends Migration
 
             $table->index(['name', 'artist']);
         });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('last_fm_tracks');
     }
 };

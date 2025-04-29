@@ -192,5 +192,4 @@ test('it returns existing chart without processing if tracks already exist for u
     expect($result->tracksForUser($user)->get())->toHaveCount(1);
     expect($result->tracksForUser($user)->first()->name)->toBe('Existing Track');
 });
-
 */

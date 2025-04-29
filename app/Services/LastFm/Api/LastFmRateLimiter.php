@@ -8,11 +8,11 @@ use Illuminate\Cache\RateLimiter;
 
 class LastFmRateLimiter
 {
+    private const int DECAY_MINUTES = 1;
+
     private const string KEY = 'lastfm-api';
 
     private const int MAX_ATTEMPTS = 5;
-
-    private const int DECAY_MINUTES = 1;
 
     private RateLimiter $limiter;
 
@@ -22,12 +22,9 @@ class LastFmRateLimiter
         $this->limiter->for(self::KEY, fn (): null => null);
     }
 
-    public function tooManyAttempts(): bool
+    public function availableIn(): int
     {
-        return $this->limiter->tooManyAttempts(
-            $this->key(),
-            self::MAX_ATTEMPTS
-        );
+        return $this->limiter->availableIn($this->key());
     }
 
     public function hit(): int
@@ -46,9 +43,12 @@ class LastFmRateLimiter
         );
     }
 
-    public function availableIn(): int
+    public function tooManyAttempts(): bool
     {
-        return $this->limiter->availableIn($this->key());
+        return $this->limiter->tooManyAttempts(
+            $this->key(),
+            self::MAX_ATTEMPTS
+        );
     }
 
     private function key(): string

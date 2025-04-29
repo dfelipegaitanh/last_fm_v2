@@ -34,14 +34,6 @@ class GetUserInfo implements GetUserInfoInterface
         $this->saveRecentTrack->handle($user, $statistics);
     }
 
-    private function syncLastFmUser(User $user, UserInfoDTO $userInfoDTO): void
-    {
-        LastFmUser::updateOrCreate(
-            ['user_id' => $user->id],
-            $this->mapUserInfoToArray($userInfoDTO)
-        );
-    }
-
     private function mapUserInfoToArray(UserInfoDTO $userInfoDTO): array
     {
         return [
@@ -51,5 +43,13 @@ class GetUserInfo implements GetUserInfoInterface
             'url' => $userInfoDTO->url,
             'registered' => $userInfoDTO->registered,
         ];
+    }
+
+    private function syncLastFmUser(User $user, UserInfoDTO $userInfoDTO): void
+    {
+        LastFmUser::updateOrCreate(
+            ['user_id' => $user->id],
+            $this->mapUserInfoToArray($userInfoDTO)
+        );
     }
 }

@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    public function down(): void
+    {
+        Schema::table('last_fm_tracks', function (Blueprint $table) {
+            $table->dropForeign(['album_id']);
+            $table->dropColumn('album_id');
+        });
+
+        Schema::dropIfExists('last_fm_albums');
+    }
+
     public function up(): void
     {
         Schema::create('last_fm_albums', function (Blueprint $table) {
@@ -29,15 +39,5 @@ return new class extends Migration
                 ->constrained('last_fm_albums')
                 ->nullOnDelete();
         });
-    }
-
-    public function down(): void
-    {
-        Schema::table('last_fm_tracks', function (Blueprint $table) {
-            $table->dropForeign(['album_id']);
-            $table->dropColumn('album_id');
-        });
-
-        Schema::dropIfExists('last_fm_albums');
     }
 };

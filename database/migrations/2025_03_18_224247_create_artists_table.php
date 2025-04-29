@@ -8,6 +8,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    public function down(): void
+    {
+        // Primero restauramos la columna artist en tracks
+        Schema::table('last_fm_tracks', function (Blueprint $table) {
+            $table->dropForeign(['artist_id']);
+            $table->dropColumn('artist_id');
+            $table->string('artist')->after('name');
+        });
+
+        Schema::dropIfExists('last_fm_artists');
+    }
+
     public function up(): void
     {
         Schema::create('last_fm_artists', function (Blueprint $table) {
@@ -31,17 +43,5 @@ return new class extends Migration
                 ->constrained('last_fm_artists')
                 ->cascadeOnDelete();
         });
-    }
-
-    public function down(): void
-    {
-        // Primero restauramos la columna artist en tracks
-        Schema::table('last_fm_tracks', function (Blueprint $table) {
-            $table->dropForeign(['artist_id']);
-            $table->dropColumn('artist_id');
-            $table->string('artist')->after('name');
-        });
-
-        Schema::dropIfExists('last_fm_artists');
     }
 };

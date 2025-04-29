@@ -9,6 +9,18 @@ use Illuminate\Http\Response;
 
 trait ApiResponseTrait
 {
+    protected function error($message, $code): JsonResponse
+    {
+        return response()->json([
+            'message' => $message,
+        ], $code);
+    }
+
+    protected function notContent(): Response
+    {
+        return response()->noContent();
+    }
+
     protected function ok($message, $data = []): JsonResponse
     {
         return $this->success($message, 200, $data);
@@ -25,17 +37,5 @@ trait ApiResponseTrait
         }
 
         return response()->json($response, $code);
-    }
-
-    protected function error($message, $code): JsonResponse
-    {
-        return response()->json([
-            'message' => $message,
-        ], $code);
-    }
-
-    protected function notContent(): Response
-    {
-        return response()->noContent();
     }
 }

@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    public function down(): void
+    {
+        Schema::dropIfExists('last_fm_users');
+    }
+
     public function up(): void
     {
         Schema::create('last_fm_users', function (Blueprint $table) {
@@ -21,10 +26,5 @@ return new class extends Migration
             $table->json('registered');
             $table->timestamps();
         });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('last_fm_users');
     }
 };

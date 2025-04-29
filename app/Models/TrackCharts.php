@@ -18,14 +18,14 @@ class TrackCharts extends Model
 
     protected $table = 'last_fm_track_chart';
 
-    public function lastFmTrack(): BelongsTo
-    {
-        return $this->belongsTo(Track::class, 'last_fm_track_id');
-    }
-
     public function lastFmChart(): BelongsTo
     {
         return $this->belongsTo(Chart::class, 'last_fm_chart_id');
+    }
+
+    public function lastFmTrack(): BelongsTo
+    {
+        return $this->belongsTo(Track::class, 'last_fm_track_id');
     }
 
     public function user(): BelongsTo

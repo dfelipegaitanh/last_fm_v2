@@ -40,6 +40,11 @@ trait ExcludedWordsTrait
         return mb_trim($text);
     }
 
+    private function removeEmptyParentheses(string $text): string
+    {
+        return preg_replace('/\(\s*\)/', '', $text);
+    }
+
     private function removeExcludedPatterns(string $text): string
     {
         $escapedWords = array_map(fn ($word): string => preg_quote($word, '/'), $this->excludedWords);
@@ -50,10 +55,5 @@ trait ExcludedWordsTrait
         );
 
         return preg_replace($pattern, '', $text);
-    }
-
-    private function removeEmptyParentheses(string $text): string
-    {
-        return preg_replace('/\(\s*\)/', '', $text);
     }
 }

@@ -15,7 +15,6 @@ use RuntimeException;
 
 class LastFmApi extends LastFmApiClient
 {
-
     public function getLovedTracks(
         string $username,
         int $limit = 50,

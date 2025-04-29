@@ -13,7 +13,12 @@ class Album extends Model
 {
     use HasFactory;
 
-    protected $table = 'last_fm_albums';
+    protected $fillable = [
+        'title',
+        'artist_id',
+        'mbid',
+        'url',
+    ];
 
     protected $hidden = [
         'id',
@@ -22,12 +27,7 @@ class Album extends Model
         'updated_at',
     ];
 
-    protected $fillable = [
-        'title',
-        'artist_id',
-        'mbid',
-        'url',
-    ];
+    protected $table = 'last_fm_albums';
 
     public function artist(): BelongsTo
     {

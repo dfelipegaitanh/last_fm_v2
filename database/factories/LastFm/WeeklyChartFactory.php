@@ -24,13 +24,6 @@ class WeeklyChartFactory extends Factory
         ];
     }
 
-    public function weekly(): self
-    {
-        return $this->state(fn (array $attributes): array => [
-            'type' => ChartType::WEEKLY,
-        ]);
-    }
-
     public function processed(): self
     {
         return $this->state(fn (array $attributes): array => [
@@ -42,6 +35,13 @@ class WeeklyChartFactory extends Factory
     {
         return $this->state(fn (array $attributes): array => [
             'processed' => false,
+        ]);
+    }
+
+    public function weekly(): self
+    {
+        return $this->state(fn (array $attributes): array => [
+            'type' => ChartType::WEEKLY,
         ]);
     }
 }

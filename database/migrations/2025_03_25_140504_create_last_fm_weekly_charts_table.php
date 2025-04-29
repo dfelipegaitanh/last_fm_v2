@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    public function down(): void
+    {
+        Schema::dropIfExists('last_fm_charts');
+    }
+
     public function up(): void
     {
         Schema::create('last_fm_charts', function (Blueprint $table): void {
@@ -22,10 +27,5 @@ return new class extends Migration
             $table->boolean('completed')->default(false);
             $table->timestamps();
         });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('last_fm_charts');
     }
 };

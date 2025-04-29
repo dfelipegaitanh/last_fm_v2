@@ -53,7 +53,7 @@ class ImportWeeklyChartsCommand extends Command
         ProcessWeeklyTrackChart $processWeeklyTrackChart,
         FetchWeeklyTrackChart $fetchWeeklyTrackChart,
     ): int {
-/*
+
         $username = text(
             label: 'Last.fm username',
             default: 'svigle'
@@ -66,12 +66,8 @@ class ImportWeeklyChartsCommand extends Command
             ],
             default: 1
         );
-*/
 
-        $username = 'svigle';
-        $reprocess= true;
-
-        if (empty($username)) {
+        if ($username === '0') {
             $this->error('The Last.fm username option is required.');
 
             return Command::FAILURE;
@@ -121,6 +117,7 @@ class ImportWeeklyChartsCommand extends Command
 
                 //                $progressBar->advance();
             }
+
             //            $progressBar->finish();
 
             foreach ($charts as $chartDTO) {
@@ -145,10 +142,10 @@ class ImportWeeklyChartsCommand extends Command
                 //                    );
                 //                }
 
-//                $progressBar->advance();
+                //                $progressBar->advance();
             }
 
-//            $progressBar->finish();
+            //            $progressBar->finish();
             $this->newLine(2);
 
             $this->info('Weekly charts import completed successfully');

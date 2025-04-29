@@ -29,9 +29,9 @@ class User extends Model
 
     protected $table = 'last_fm_users';
 
-    public function user(): BelongsTo
+    public function latestStatistic(): HasOne
     {
-        return $this->belongsTo(\App\Models\User::class);
+        return $this->hasOne(GlobalSongsStatistics::class, 'user_id')->latestOfMany();
     }
 
     public function statistics(): HasMany
@@ -39,9 +39,9 @@ class User extends Model
         return $this->hasMany(GlobalSongsStatistics::class, 'user_id');
     }
 
-    public function latestStatistic(): HasOne
+    public function user(): BelongsTo
     {
-        return $this->hasOne(GlobalSongsStatistics::class, 'user_id')->latestOfMany();
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     protected static function newFactory()

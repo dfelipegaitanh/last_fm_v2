@@ -13,18 +13,23 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        
+
         <style>
             @keyframes blink {
-                0%, 100% { opacity: 1; }
-                50% { opacity: 0; }
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0;
+                }
             }
             .cursor-blink::after {
-                content: "_";
+                content: '_';
                 animation: blink 1s step-end infinite;
             }
             .checkbox-dos:checked::after {
-                content: "X";
+                content: 'X';
                 position: absolute;
                 color: #ff00ff; /* magenta */
                 font-size: 1rem;
@@ -33,28 +38,36 @@
             }
         </style>
     </head>
-    <body class="font-['VT323'] tracking-wider text-[#00FF00] bg-[#000080] p-8 antialiased dark:text-[#00FF00] dark:bg-[#000080]">
-        <div class="max-w-2xl mx-auto border-4 border-[#00FFFF] p-6 shadow-[8px_8px_0_rgba(0,0,0,0.5)] dark:border-[#00FFFF] dark:shadow-gray-950/50">
-            <div class="text-center mb-8 border-b-2 border-[#00FFFF] pb-4 dark:border-[#00FFFF]">
-                <h1 class="text-4xl text-[#FF00FF] uppercase mb-2 dark:text-[#FF00FF]">C:\> LOGIN.EXE</h1>
-                <p class="text-xl text-[#00FFFF] dark:text-[#00FFFF]">{{ config('app.name', 'Laravel') }} Authentication System v1.0</p>
+    <body
+        class="bg-[#000080] p-8 font-['VT323'] tracking-wider text-[#00FF00] antialiased dark:bg-[#000080] dark:text-[#00FF00]"
+    >
+        <div
+            class="mx-auto max-w-2xl border-4 border-[#00FFFF] p-6 shadow-[8px_8px_0_rgba(0,0,0,0.5)] dark:border-[#00FFFF] dark:shadow-gray-950/50"
+        >
+            <div class="mb-8 border-b-2 border-[#00FFFF] pb-4 text-center dark:border-[#00FFFF]">
+                <h1 class="mb-2 text-4xl uppercase text-[#FF00FF] dark:text-[#FF00FF]">C:\> LOGIN.EXE</h1>
+                <p class="text-xl text-[#00FFFF] dark:text-[#00FFFF]">
+                    {{ config('app.name', 'Laravel') }} Authentication System v1.0
+                </p>
             </div>
-            
+
             <!-- Session Status -->
             @if (session('status'))
                 <div class="mb-6">
                     <p class="text-[#FF00FF] dark:text-[#FF00FF]">{{ session('status') }}</p>
                 </div>
             @endif
-            
+
             <form method="POST" action="{{ route('login') }}">
                 @csrf
-                
+
                 <div class="mb-6">
-                    <label class="block text-xl text-[#00FFFF] mb-1 dark:text-[#00FFFF]" for="email">C:\> ENTER EMAIL:</label>
-                    <input 
+                    <label class="mb-1 block text-xl text-[#00FFFF] dark:text-[#00FFFF]" for="email">
+                        C:\> ENTER EMAIL:
+                    </label>
+                    <input
                         id="email"
-                        class="w-full bg-black border-2 border-[#00FF00] text-[#00FF00] font-['VT323'] text-xl p-2 mt-2 focus:outline-none focus:border-[#FF00FF] focus:shadow-[0_0_0_2px_#FF00FF] cursor-blink dark:bg-black dark:border-[#00FF00] dark:text-[#00FF00] dark:focus:border-[#FF00FF] dark:focus:shadow-[0_0_0_2px_#FF00FF]"
+                        class="cursor-blink mt-2 w-full border-2 border-[#00FF00] bg-black p-2 font-['VT323'] text-xl text-[#00FF00] focus:border-[#FF00FF] focus:shadow-[0_0_0_2px_#FF00FF] focus:outline-none dark:border-[#00FF00] dark:bg-black dark:text-[#00FF00] dark:focus:border-[#FF00FF] dark:focus:shadow-[0_0_0_2px_#FF00FF]"
                         type="email"
                         name="email"
                         value="{{ old('email') }}"
@@ -66,12 +79,14 @@
                         <p class="mt-2 text-lg text-red-600 dark:text-red-500">ERROR: {{ $message }}</p>
                     @enderror
                 </div>
-                
+
                 <div class="mb-6">
-                    <label class="block text-xl text-[#00FFFF] mb-1 dark:text-[#00FFFF]" for="password">C:\> ENTER PASSWORD:</label>
-                    <input 
+                    <label class="mb-1 block text-xl text-[#00FFFF] dark:text-[#00FFFF]" for="password">
+                        C:\> ENTER PASSWORD:
+                    </label>
+                    <input
                         id="password"
-                        class="w-full bg-black border-2 border-[#00FF00] text-[#00FF00] font-['VT323'] text-xl p-2 mt-2 focus:outline-none focus:border-[#FF00FF] focus:shadow-[0_0_0_2px_#FF00FF] dark:bg-black dark:border-[#00FF00] dark:text-[#00FF00] dark:focus:border-[#FF00FF] dark:focus:shadow-[0_0_0_2px_#FF00FF]"
+                        class="mt-2 w-full border-2 border-[#00FF00] bg-black p-2 font-['VT323'] text-xl text-[#00FF00] focus:border-[#FF00FF] focus:shadow-[0_0_0_2px_#FF00FF] focus:outline-none dark:border-[#00FF00] dark:bg-black dark:text-[#00FF00] dark:focus:border-[#FF00FF] dark:focus:shadow-[0_0_0_2px_#FF00FF]"
                         type="password"
                         name="password"
                         required
@@ -81,50 +96,58 @@
                         <p class="mt-2 text-lg text-red-600 dark:text-red-500">ERROR: {{ $message }}</p>
                     @enderror
                 </div>
-                
+
                 <div class="mb-6">
                     <label class="flex items-center" for="remember_me">
                         <input
                             id="remember_me"
                             type="checkbox"
-                            class="appearance-none w-5 h-5 bg-black border-2 border-[#00FF00] relative align-middle cursor-pointer checkbox-dos dark:bg-black dark:border-[#00FF00]"
+                            class="checkbox-dos relative h-5 w-5 cursor-pointer appearance-none border-2 border-[#00FF00] bg-black align-middle dark:border-[#00FF00] dark:bg-black"
                             name="remember"
                         />
                         <span class="ml-2">REMEMBER SESSION [Y/N]</span>
                     </label>
                 </div>
-                
-                <div class="flex justify-between items-center mt-8">
+
+                <div class="mt-8 flex items-center justify-between">
                     @if (Route::has('password.request'))
-                        <a class="text-lg text-[#FFFF00] no-underline hover:underline hover:text-[#FF00FF] dark:text-[#FFFF00] dark:hover:text-[#FF00FF]" href="{{ route('password.request') }}">
+                        <a
+                            class="text-lg text-[#FFFF00] no-underline hover:text-[#FF00FF] hover:underline dark:text-[#FFFF00] dark:hover:text-[#FF00FF]"
+                            href="{{ route('password.request') }}"
+                        >
                             FORGOT PASSWORD? [F1]
                         </a>
                     @endif
-                    
-                    <button type="submit" class="bg-[#FFA500] text-black font-['VT323'] text-xl font-bold py-2 px-6 border-2 border-[#00FF00] uppercase shadow-[4px_4px_0_rgba(0,0,0,0.5)] transition-all duration-100 hover:bg-[#FF00FF] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0_rgba(0,0,0,0.5)] dark:bg-[#FFA500] dark:text-black dark:border-[#00FF00] dark:hover:bg-[#FF00FF]">
+
+                    <button
+                        type="submit"
+                        class="border-2 border-[#00FF00] bg-[#FFA500] px-6 py-2 font-['VT323'] text-xl font-bold uppercase text-black shadow-[4px_4px_0_rgba(0,0,0,0.5)] transition-all duration-100 hover:translate-x-0.5 hover:translate-y-0.5 hover:bg-[#FF00FF] hover:shadow-[2px_2px_0_rgba(0,0,0,0.5)] dark:border-[#00FF00] dark:bg-[#FFA500] dark:text-black dark:hover:bg-[#FF00FF]"
+                    >
                         EXECUTE LOGIN
                     </button>
                 </div>
-                
+
                 <div class="mt-8 text-center text-[#00FFFF] dark:text-[#00FFFF]">
                     <p>PRESS [ESC] TO ABORT OR [ENTER] TO CONTINUE</p>
                 </div>
             </form>
         </div>
-        
-        <div class="text-center mt-8 text-sm text-[#00FF00] dark:text-[#00FF00]">
-            <pre class="font-['VT323'] text-[#FFFF00] text-xs sm:text-sm md:text-base mt-4 mx-auto inline-block text-left overflow-x-auto dark:text-[#FFFF00]">
-       .-------------.             _____  _____ _     __  ____  _______ 
+
+        <div class="mt-8 text-center text-sm text-[#00FF00] dark:text-[#00FF00]">
+            <pre
+                class="mx-auto mt-4 inline-block overflow-x-auto text-left font-['VT323'] text-xs text-[#FFFF00] dark:text-[#FFFF00] sm:text-sm md:text-base"
+            >
+       .-------------.             _____  _____ _     __  ____  _______
       /\_\_\_\_\_\_\_\_\_\_\       |  ___|| ____| |   | | |  _ \| ____|
-     /\_\_\_\_\_\_\_\_\_\_\_\      | |_   |  _| | |   | | | |_) |  _|  
-    |\_\_\----. .----\_\_\|        |  _|  | |___| |___| | |  __/| |___ 
+     /\_\_\_\_\_\_\_\_\_\_\_\      | |_   |  _| | |   | | | |_) |  _|
+    |\_\_\----. .----\_\_\|        |  _|  | |___| |___| | |  __/| |___
     |  (  o o )(  o o )  |         |_|    |_____|_____|_| |_|   |_____|
-    |   \    /  \    /   |     
-    |    \--/    \--/    |     
-     \     ______      /      
-      \    \____/     /       
-       \    ^^      /        
-        \_________/         
+    |   \    /  \    /   |
+    |    \--/    \--/    |
+     \     ______      /
+      \    \____/     /
+       \    ^^      /
+        \_________/
             </pre>
             <p>© {{ date('Y') }} {{ config('app.name', 'Laravel') }} - ALL RIGHTS RESERVED</p>
             <p>MEMORY AVAILABLE: 640K - DOS VERSION 6.22</p>

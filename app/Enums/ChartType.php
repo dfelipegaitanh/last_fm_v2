@@ -8,8 +8,8 @@ enum ChartType: string
 {
     case CUSTOM = 'custom';
     case DAILY = 'daily';
-    case WEEKLY = 'weekly';
     case MONTHLY = 'monthly';
+    case WEEKLY = 'weekly';
     case YEARLY = 'yearly';
 
     public static function random(): self

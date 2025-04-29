@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    public function down()
+    {
+        Schema::dropIfExists('deleted_models');
+    }
+
     public function up()
     {
         Schema::create('deleted_models', function (Blueprint $table) {
@@ -21,10 +26,5 @@ return new class extends Migration
 
             $table->unique(['model', 'key']);
         });
-    }
-
-    public function down()
-    {
-        Schema::dropIfExists('deleted_models');
     }
 };

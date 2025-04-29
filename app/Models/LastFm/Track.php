@@ -15,7 +15,13 @@ class Track extends Model
 {
     use HasFactory;
 
-    protected $table = 'last_fm_tracks';
+    protected $fillable = [
+        'name',
+        'artist_id',
+        'album_id',
+        'mbid',
+        'url',
+    ];
 
     protected $hidden = [
         'id',
@@ -25,22 +31,16 @@ class Track extends Model
         'updated_at',
     ];
 
-    protected $fillable = [
-        'name',
-        'artist_id',
-        'album_id',
-        'mbid',
-        'url',
-    ];
-
-    public function artist(): BelongsTo
-    {
-        return $this->belongsTo(Artist::class);
-    }
+    protected $table = 'last_fm_tracks';
 
     public function album(): BelongsTo
     {
         return $this->belongsTo(Album::class);
+    }
+
+    public function artist(): BelongsTo
+    {
+        return $this->belongsTo(Artist::class);
     }
 
     public function globalSongsStatistics(): HasMany

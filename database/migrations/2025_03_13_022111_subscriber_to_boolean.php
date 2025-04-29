@@ -8,19 +8,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    public function down(): void
+    {
+        Schema::table('last_fm_users', function (Blueprint $table) {
+            $table->string('subscriber')->change();
+        });
+    }
+
     public function up(): void
     {
         Schema::table('last_fm_users', function (Blueprint $table) {
             $table->boolean('subscriber')
                 ->default(false)
                 ->change();
-        });
-    }
-
-    public function down(): void
-    {
-        Schema::table('last_fm_users', function (Blueprint $table) {
-            $table->string('subscriber')->change();
         });
     }
 };

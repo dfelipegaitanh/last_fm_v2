@@ -8,18 +8,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->renameColumn('lastfm_user', 'lastfmUser');
+        });
+    }
+
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
             $table->renameColumn('lastfmUser', 'lastfm_user');
 
-        });
-    }
-
-    public function down(): void
-    {
-        Schema::table('users', function (Blueprint $table) {
-            $table->renameColumn('lastfm_user', 'lastfmUser');
         });
     }
 };

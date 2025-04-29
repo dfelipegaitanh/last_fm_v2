@@ -12,7 +12,11 @@ class Artist extends Model
 {
     use HasFactory;
 
-    protected $table = 'last_fm_artists';
+    protected $fillable = [
+        'name',
+        'mbid',
+        'url',
+    ];
 
     protected $hidden = [
         'id',
@@ -20,11 +24,7 @@ class Artist extends Model
         'updated_at',
     ];
 
-    protected $fillable = [
-        'name',
-        'mbid',
-        'url',
-    ];
+    protected $table = 'last_fm_artists';
 
     public function tracks(): HasMany
     {

@@ -15,6 +15,11 @@ trait DTO
 
     }
 
+    private function convertArrayItemsToArray(array $items): array
+    {
+        return array_map(fn ($item) => $this->convertValueToArray($item), $items);
+    }
+
     private function convertValueToArray(mixed $value): mixed
     {
         if ($value instanceof Arrayable) {
@@ -26,10 +31,5 @@ trait DTO
         }
 
         return $value;
-    }
-
-    private function convertArrayItemsToArray(array $items): array
-    {
-        return array_map(fn ($item) => $this->convertValueToArray($item), $items);
     }
 }
