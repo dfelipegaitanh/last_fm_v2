@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models\LastFm;
 
 use App\Services\DateService;
+use Database\Factories\LastFm\GlobalSongsStatisticsFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +16,15 @@ class GlobalSongsStatistics extends Model
 {
     use HasFactory, KeepsDeletedModels;
 
+    protected $fillable = [
+        'user_id',
+        'track_id',
+        'playcount',
+        'artist_count',
+        'track_count',
+        'album_count',
+    ];
+
     protected $hidden = [
         'id',
         'track_id',
@@ -23,25 +33,11 @@ class GlobalSongsStatistics extends Model
         'updated_at',
     ];
 
-    protected $fillable = [
-        'user_id',
-        'track_id',
-        'playcount',
-        'artist_count',
-        //        'track_count',
-        'album_count',
-    ];
-
     protected $table = 'last_fm_global_songs_statistics';
 
     public function lastFmUser(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function track(): BelongsTo
-    {
-        return $this->belongsTo(Track::class);
     }
 
     public function scopeBasicData($query)
@@ -57,9 +53,14 @@ class GlobalSongsStatistics extends Model
         ]);
     }
 
+    public function track(): BelongsTo
+    {
+        return $this->belongsTo(Track::class);
+    }
+
     protected static function newFactory()
     {
-        return \Database\Factories\LastFm\GlobalSongsStatisticsFactory::new();
+        return GlobalSongsStatisticsFactory::new();
     }
 
     protected function createdAt(): Attribute

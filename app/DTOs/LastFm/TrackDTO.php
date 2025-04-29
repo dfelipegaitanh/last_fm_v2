@@ -15,7 +15,8 @@ class TrackDTO extends Data
         public readonly ?string $mbid,
         public readonly array $image,
         public readonly ?array $date,
-        public readonly ?bool $nowPlaying = false,
+        public readonly ?bool $nowPlaying,
+        public readonly ?int $playcount,
     ) {}
 
     public static function fromApiResponse(array $data): self
@@ -28,6 +29,7 @@ class TrackDTO extends Data
             image: $data['image'] ?? [],
             date: $data['date'] ?? null,
             nowPlaying: isset($data['@attr']['nowplaying']) && $data['@attr']['nowplaying'] === 'true',
+            playcount: (int) ($data['playcount'] ?? 0),
         );
     }
 }

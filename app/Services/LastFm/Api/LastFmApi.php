@@ -15,13 +15,39 @@ use RuntimeException;
 
 class LastFmApi extends LastFmApiClient
 {
-    public function getUserInfo(string $username): UserInfoDTO
-    {
-        $response = $this->get('user.getInfo', [
+
+    public function getLovedTracks(
+        string $username,
+        int $limit = 50,
+        int $page = 1,
+    ): Collection {
+        $response = $this->get('user.getLovedTracks', [
             'user' => $username,
+            'limit' => $limit,
+            'page' => $page,
         ]);
 
-        return UserInfoDTO::fromArray($response->json('user'));
+        $tracks = $response->json('lovedtracks.track');
+
+        return collect($tracks)->map(fn (array $track): TrackDTO => TrackDTO::fromApiResponse($track));
+    }
+
+    public function getPersonalTags(
+        string $username,
+        string $tag,
+        string $taggingType,
+        int $limit = 50,
+        int $page = 1,
+    ): array {
+        $response = $this->get('user.getPersonalTags', [
+            'user' => $username,
+            'tag' => $tag,
+            'taggingtype' => $taggingType,
+            'limit' => $limit,
+            'page' => $page,
+        ]);
+
+        return $response->json('taggings');
     }
 
     public function getRecentTracks(
@@ -56,24 +82,6 @@ class LastFmApi extends LastFmApiClient
         return collect($tracks)->map(fn (array $track): TrackDTO => TrackDTO::fromApiResponse($track));
     }
 
-    public function getTopArtists(
-        string $username,
-        string $period = 'overall',
-        int $limit = 50,
-        int $page = 1,
-    ): Collection {
-        $response = $this->get('user.getTopArtists', [
-            'user' => $username,
-            'period' => $period,
-            'limit' => $limit,
-            'page' => $page,
-        ]);
-
-        $artists = $response->json('topartists.artist');
-
-        return collect($artists)->map(fn (array $artist): ArtistDTO => ArtistDTO::fromApiResponse($artist));
-    }
-
     public function getTopAlbums(
         string $username,
         string $period = 'overall',
@@ -90,6 +98,24 @@ class LastFmApi extends LastFmApiClient
         $albums = $response->json('topalbums.album');
 
         return collect($albums)->map(fn (array $album): AlbumDTO => AlbumDTO::fromApiResponse($album));
+    }
+
+    public function getTopArtists(
+        string $username,
+        string $period = 'overall',
+        int $limit = 50,
+        int $page = 1,
+    ): Collection {
+        $response = $this->get('user.getTopArtists', [
+            'user' => $username,
+            'period' => $period,
+            'limit' => $limit,
+            'page' => $page,
+        ]);
+
+        $artists = $response->json('topartists.artist');
+
+        return collect($artists)->map(fn (array $artist): ArtistDTO => ArtistDTO::fromApiResponse($artist));
     }
 
     public function getTopTracks(
@@ -141,25 +167,29 @@ class LastFmApi extends LastFmApiClient
         return TrackInfoDTO::fromApiResponse($trackData);
     }
 
-    public function getWeeklyArtistChart(
+    public function getUserInfo(string $username): UserInfoDTO
+    {
+        $response = $this->get('user.getInfo', [
+            'user' => $username,
+        ]);
+
+        return UserInfoDTO::fromArray($response->json('user'));
+    }
+
+    public function getUserTags(
         string $username,
-        ?int $from = null,
-        ?int $to = null,
+        int $limit = 50,
+        int $page = 1,
     ): Collection {
-        $params = ['user' => $username];
+        $response = $this->get('user.getTags', [
+            'user' => $username,
+            'limit' => $limit,
+            'page' => $page,
+        ]);
 
-        if ($from !== null) {
-            $params['from'] = $from;
-        }
+        $tags = $response->json('tags.tag');
 
-        if ($to !== null) {
-            $params['to'] = $to;
-        }
-
-        $response = $this->get('user.getWeeklyArtistChart', $params);
-        $artists = $response->json('weeklyartistchart.artist');
-
-        return collect($artists)->map(fn (array $artist): ArtistDTO => ArtistDTO::fromApiResponse($artist));
+        return collect($tags)->map(fn (array $tag): TagDTO => TagDTO::fromApiResponse($tag));
     }
 
     public function getWeeklyAlbumChart(
@@ -183,6 +213,36 @@ class LastFmApi extends LastFmApiClient
         return collect($albums)->map(fn (array $album): AlbumDTO => AlbumDTO::fromApiResponse($album));
     }
 
+    public function getWeeklyArtistChart(
+        string $username,
+        ?int $from = null,
+        ?int $to = null,
+    ): Collection {
+        $params = ['user' => $username];
+
+        if ($from !== null) {
+            $params['from'] = $from;
+        }
+
+        if ($to !== null) {
+            $params['to'] = $to;
+        }
+
+        $response = $this->get('user.getWeeklyArtistChart', $params);
+        $artists = $response->json('weeklyartistchart.artist');
+
+        return collect($artists)->map(fn (array $artist): ArtistDTO => ArtistDTO::fromApiResponse($artist));
+    }
+
+    public function getWeeklyChartList(string $username): Collection
+    {
+        $response = $this->get('user.getWeeklyChartList', [
+            'user' => $username,
+        ]);
+
+        return collect($response->json('weeklychartlist.chart'));
+    }
+
     public function getWeeklyTrackChart(
         string $username,
         ?int $from = null,
@@ -202,86 +262,5 @@ class LastFmApi extends LastFmApiClient
         $tracks = $response->json('weeklytrackchart.track');
 
         return collect($tracks)->map(fn (array $track): TrackDTO => TrackDTO::fromApiResponse($track));
-    }
-
-    public function getWeeklyChartList(string $username): Collection
-    {
-        $response = $this->get('user.getWeeklyChartList', [
-            'user' => $username,
-        ]);
-
-        return collect($response->json('weeklychartlist.chart'));
-    }
-
-    public function getUserTags(
-        string $username,
-        int $limit = 50,
-        int $page = 1,
-    ): Collection {
-        $response = $this->get('user.getTags', [
-            'user' => $username,
-            'limit' => $limit,
-            'page' => $page,
-        ]);
-
-        $tags = $response->json('tags.tag');
-
-        return collect($tags)->map(fn (array $tag): TagDTO => TagDTO::fromApiResponse($tag));
-    }
-
-    public function getPersonalTags(
-        string $username,
-        string $tag,
-        string $taggingType,
-        int $limit = 50,
-        int $page = 1,
-    ): array {
-        $response = $this->get('user.getPersonalTags', [
-            'user' => $username,
-            'tag' => $tag,
-            'taggingtype' => $taggingType,
-            'limit' => $limit,
-            'page' => $page,
-        ]);
-
-        return $response->json('taggings');
-    }
-
-    public function getLovedTracks(
-        string $username,
-        int $limit = 50,
-        int $page = 1,
-    ): Collection {
-        $response = $this->get('user.getLovedTracks', [
-            'user' => $username,
-            'limit' => $limit,
-            'page' => $page,
-        ]);
-
-        $tracks = $response->json('lovedtracks.track');
-
-        return collect($tracks)->map(fn (array $track): TrackDTO => TrackDTO::fromApiResponse($track));
-    }
-
-    public function getFriends(
-        string $username,
-        int $limit = 50,
-        int $page = 1,
-        bool $recenttracks = false,
-    ): Collection {
-        $params = [
-            'user' => $username,
-            'limit' => $limit,
-            'page' => $page,
-        ];
-
-        if ($recenttracks) {
-            $params['recenttracks'] = 1;
-        }
-
-        $response = $this->get('user.getFriends', $params);
-
-        return collect($response->json('friends.user'))
-            ->map(fn (array $user): UserInfoDTO => UserInfoDTO::fromApiResponse($user));
     }
 }

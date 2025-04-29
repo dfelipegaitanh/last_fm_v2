@@ -40,10 +40,24 @@ class Chart extends Model
         );
     }
 
+    public function fromFormattedDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): string => '' // DateService::timestampToFormattedDate($this->from_timestamp)
+        );
+    }
+
     public function toFormatted(): Attribute
     {
         return Attribute::make(
             get: fn (): string => DateService::timestampToDateTime($this->to_timestamp)
+        );
+    }
+
+    public function toFormattedDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): string => '' // DateService::timestampToFormattedDate($this->to_timestamp)
         );
     }
 
@@ -74,6 +88,7 @@ class Chart extends Model
     {
         return [
             'processed' => 'boolean',
+            'completed' => 'boolean',
             'type' => ChartType::class,
         ];
     }

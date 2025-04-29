@@ -6,6 +6,7 @@ namespace Database\Factories\LastFm;
 
 use App\Enums\ChartType;
 use App\Models\LastFm\Chart;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ChartFactory extends Factory
@@ -21,14 +22,8 @@ class ChartFactory extends Factory
             'to_timestamp' => $from + 604800, // Una semana en segundos
             'type' => ChartType::random(),
             'processed' => $this->faker->boolean(),
+            'user_id' => User::factory(),
         ];
-    }
-
-    public function weekly(): self
-    {
-        return $this->state(fn (array $attributes): array => [
-            'type' => ChartType::WEEKLY,
-        ]);
     }
 
     public function processed(): self
@@ -42,6 +37,13 @@ class ChartFactory extends Factory
     {
         return $this->state(fn (array $attributes): array => [
             'processed' => false,
+        ]);
+    }
+
+    public function weekly(): self
+    {
+        return $this->state(fn (array $attributes): array => [
+            'type' => ChartType::WEEKLY,
         ]);
     }
 }

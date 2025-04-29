@@ -4,24 +4,23 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\LastFm;
 
-use App\Actions\LastFm\FetchWeeklyChartList;
-use App\Actions\LastFm\ProcessWeeklyTrackChart;
+use App\Actions\LastFm\Charts\FetchWeeklyChartList;
+use App\Actions\LastFm\Charts\FetchWeeklyTrackChart;
+use App\Actions\LastFm\Charts\ProcessWeeklyTrackChart;
+use App\DTOs\LastFm\WeeklyChartDTO;
+use App\Models\LastFm\Chart;
 use App\Models\User;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
+use function Laravel\Prompts\alert;
+use function Laravel\Prompts\info;
+use function Laravel\Prompts\select;
+use function Laravel\Prompts\text;
+
 class ImportWeeklyChartsCommand extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'lastfm:import-weekly-charts
-                            {--username= : The Last.fm username to import charts for}
-                            {--reprocess : Reprocess charts that have already been processed}';
-
     /**
      * The console command description.
      *
@@ -30,15 +29,47 @@ class ImportWeeklyChartsCommand extends Command
     protected $description = 'Import weekly charts from Last.fm for a specific user';
 
     /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'lastfm:import-weekly-charts ';
+
+    public function getWeaklyChart(ProcessWeeklyTrackChart $processWeeklyTrackChart, WeeklyChartDTO $chartDTO, bool $reprocess, User $user): Chart
+    {
+        return $processWeeklyTrackChart->handle(
+            from: $chartDTO->from,
+            to: $chartDTO->to,
+            reprocess: $reprocess,
+            user: $user
+        );
+    }
+
+    /**
      * Execute the console command.
      */
     public function handle(
         FetchWeeklyChartList $fetchWeeklyChartList,
-        ProcessWeeklyTrackChart $processWeeklyTrackChart
+        ProcessWeeklyTrackChart $processWeeklyTrackChart,
+        FetchWeeklyTrackChart $fetchWeeklyTrackChart,
     ): int {
+/*
+        $username = text(
+            label: 'Last.fm username',
+            default: 'svigle'
+        );
+        $reprocess = (bool) select(
+            label: 'Reprocess charts?',
+            options: [
+                1 => 'Yes',
+                0 => 'No',
+            ],
+            default: 1
+        );
+*/
 
-        $reprocess = $this->option('reprocess');
-        $username = $this->option('username');
+        $username = 'svigle';
+        $reprocess= true;
 
         if (empty($username)) {
             $this->error('The Last.fm username option is required.');
@@ -50,56 +81,92 @@ class ImportWeeklyChartsCommand extends Command
             $user = User::where('lastfm_user', $username)
                 ->firstOrFail();
 
-            $this->info("Importing weekly charts for Last.fm user: {$user->lastfm_user}");
+            info("Importing weekly charts for Last.fm user: {$user->lastfm_user}");
 
-            // Fetch all weekly charts
-            $charts = $fetchWeeklyChartList->handle($user->lastfm_user);
-            $this->info("Found {$charts->count()} weekly charts");
+            $charts = $fetchWeeklyChartList->handle($user);
+            info("Found {$charts->count()} weekly charts");
 
-            // Process each chart
-            $progressBar = $this->output->createProgressBar($charts->count());
-            $progressBar->start();
+            if ($charts->isEmpty()) {
+                alert('No weekly charts found for this user.');
 
-            foreach ($charts as $chartDTO) {
-                // Process the chart directly using the ProcessWeeklyTrackChart action
-                // which will handle checking if it's already processed
-                $weeklyChart = $processWeeklyTrackChart->handle(
-                    user: $user,
-                    from: $chartDTO->from,
-                    to: $chartDTO->to
-                );
-
-                // If reprocessing is enabled and the chart was already processed,
-                // we need to process it again
-                if ($reprocess && $weeklyChart->processed) {
-                    // First, remove existing tracks for this user and chart
-                    $weeklyChart->tracksForUser($user)->detach();
-
-                    // Then process it again
-                    $weeklyChart->processed = false;
-                    $weeklyChart->save();
-
-                    $weeklyChart = $processWeeklyTrackChart->handle(
-                        user: $user,
-                        from: $chartDTO->from,
-                        to: $chartDTO->to
-                    );
-                }
-
-                $progressBar->advance();
+                return Command::SUCCESS;
             }
 
-            $progressBar->finish();
+            // Process each chart
+            //            $progressBar = $this->output->createProgressBar($charts->count());
+            //            $progressBar->start();
+
+            foreach ($charts as $chart) {
+                /** @var WeeklyChartDTO $chart */
+                $weeklyChart = $this->getWeaklyChart(
+                    $processWeeklyTrackChart,
+                    $chart,
+                    $reprocess,
+                    $user
+                );
+
+                if ($weeklyChart->completed === true) {
+                    $this->info('Period From '.$weeklyChart->from_formatted_date.' To '.$weeklyChart->to_formatted_date.' has already been processed');
+
+                    continue;
+                }
+
+                if ($reprocess) {
+                    $weeklyChart->update(['completed' => true, 'processed' => true]);
+                }
+
+                info(message: "Period From {$weeklyChart->from_formatted_date} To {$weeklyChart->to_formatted_date} has been processed");
+                $tracks = $fetchWeeklyTrackChart->handle(username: $user->lastfm_user, from: $chart->from, to: $chart->to);
+                info("Found {$tracks->count()} tracks for this chart");
+
+                //                $progressBar->advance();
+            }
+            //            $progressBar->finish();
+
+            foreach ($charts as $chartDTO) {
+
+                //                $weeklyChart = $this->getWeaklyChart($processWeeklyTrackChart, $chartDTO, $reprocess, $user);
+                //
+                //                if (true or $weeklyChart->completed === true && ! $reprocess) {
+                //                    $this->info('Period From '.$weeklyChart->from_formatted.' To '.$weeklyChart->to_formatted.' has already been processed');
+                //                }
+                //
+                //                dd($weeklyChart);
+                //
+                //                if ($weeklyChart->processed && $reprocess) {
+                //                    // First, remove existing tracks for this user and chart
+                //                    $weeklyChart->tracksForUser($user)->detach();
+                //                    // Then process it again
+                //                    $weeklyChart->processed = false;
+                //                    $weeklyChart->save();
+                //                    $weeklyChart = $processWeeklyTrackChart->handle(
+                //                        from: $chartDTO->from,
+                //                        to: $chartDTO->to
+                //                    );
+                //                }
+
+//                $progressBar->advance();
+            }
+
+//            $progressBar->finish();
             $this->newLine(2);
+
             $this->info('Weekly charts import completed successfully');
 
             return Command::SUCCESS;
         } catch (Exception $e) {
             $this->error("Error importing weekly charts: {$e->getMessage()}");
-            Log::error('Weekly charts import failed', [
-                'exception' => $e,
-                'user_id' => $user->id, // $userId was not defined, I assume it should be $user->id
-            ]);
+
+            // Only log user ID if the user was found
+            $logContext = ['exception' => $e];
+            if (isset($user) && $user) {
+                $logContext['user_id'] = $user->id;
+                $logContext['lastfm_user'] = $user->lastfm_user;
+            } else {
+                $logContext['username_provided'] = $username;
+            }
+
+            Log::error('Weekly charts import failed', $logContext);
 
             return Command::FAILURE;
         }

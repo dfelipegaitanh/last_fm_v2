@@ -32,7 +32,8 @@ beforeEach(function (): void {
         mbid: null,
         image: [],
         date: ['uts' => now()->timestamp],
-        nowPlaying: false
+        nowPlaying: false,
+        playcount: 0
     );
 
     $this->lastFmApi->expects('getRecentTracks')

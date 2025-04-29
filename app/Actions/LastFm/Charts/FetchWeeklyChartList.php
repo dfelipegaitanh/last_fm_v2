@@ -20,7 +20,7 @@ class FetchWeeklyChartList
     public function handle(User $user): Collection
     {
         $charts = $this->lastFmApi
-            ->getWeeklyChartList($user->username);
+            ->getWeeklyChartList(username: $user->lastfm_user);
 
         /*
                 $charts->each(function(array $chart) : void {

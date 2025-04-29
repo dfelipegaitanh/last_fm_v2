@@ -17,6 +17,7 @@ class FetchWeeklyTrackChart
     public function handle(string $username, int $from, int $to): Collection
     {
         $tracks = $this->lastFmApi->getWeeklyTrackChart($username, $from, $to);
+        dd($tracks);
 
         return $tracks->map(fn (array $track): WeeklyTrackChartDTO => WeeklyTrackChartDTO::fromApiResponse($track));
     }
