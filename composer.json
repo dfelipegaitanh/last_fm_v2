@@ -76,10 +76,17 @@
         "pint-dirty": [
             "vendor/bin/pint"
         ],
+        "php-lint" : [
+            "vendor/bin/pint",
+            "vendor/bin/rector"
+        ],
         "lint" : [
             "vendor/bin/pint",
             "vendor/bin/rector",
             "npm run format"
+        ],
+        "import-weekly" : [
+            "php artisan lastfm:import-weekly-charts"
         ]
     },
     "extra": {

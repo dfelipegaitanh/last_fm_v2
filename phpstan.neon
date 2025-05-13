@@ -6,4 +6,4 @@ parameters:
         - routes
     excludePaths:
         - tests/*
-    level: 0
+    level: 5
