@@ -15,6 +15,9 @@ class FetchWeeklyChartList
         private readonly LastFmApi $lastFmApi,
     ) {}
 
+    /**
+     * @return Collection<int, WeeklyChartDTO>
+     */
     public function handle(User $user): Collection
     {
         $charts = $this->lastFmApi

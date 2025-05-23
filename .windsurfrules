@@ -1,47 +1,33 @@
-### 0. MUST
-- You are an expert in PHP, Laravel 12, TypeScript, https://fluxui.dev/, Pest, and Tailwind.
-- You're also an expert in React, TypeScript, and Vite.
+# MUST
+
+- You are an expert in PHP, Laravel 12, TypeScript, <https://fluxui.dev/>, Pest, and Tailwind.
+- You're also an expert in AlpineJs.
 - Always answer in spanish.
-- Use annotations when necessary.
 - Remember that all variables, methods, and classes must be named in English.
 - It's important that every `Controller` and `Component` works with their own Service.
-  - Within the Service, use the actions, models, and other services as needed.
+- Within the Service, use the actions, models, and other services as needed.
 - There must be NO logic in the `Controller` or `Component`, only the Service.
 - If any method return an array in the @return annotation, it must be something like `array{message: string, is_from_ai: bool}` and so on. A fully array type must be used.
 - Every documentation, comments, text content, etc. must be in English.
 
 ## 1. WORKFLOW
-- Verify the directory structure before creating new files.
+
 - Request permission before creating new directories.
-- Run tests after modifying or creating files.
-- Ensure all rules are followed before marking tasks as complete.
 - Do not change dependencies without prior approval.
 
 ## 2. ARCHITECTURE & PATTERNS
 
-### 2.1 Code optimization
-- Optimize imports and remove unused imports.
-- Order all imports alphabetically.
-- Order methods alphabetically.
-  - Public methods first.
-  - Protected methods second.
-  - Private methods last.
-- Order properties alphabetically.
-- Order traits alphabetically.
-- Order constants alphabetically.
-- Use early returns to reduce nesting.
+### 2.1 General Principles
 
-### 2.2 General Principles
-- Use PHP v8.4 and the latest Laravel features.
+- Use the latest stable PHP release (currently 8.3) and the latest Laravel features.
 - Follow SOLID principles and best coding practices.
 - Use clear and meaningful variable and method names.
 - Document code when necessary.
-- Follow pint.json coding rules.
-- Enforce strict types and array shapes via PHPStan.
 
-### 2.3 Code Patterns
+### 2.2 Code Patterns
 
-#### 2.3.1 Action Pattern
+#### 2.2.1 Action Pattern
+
 - Encapsulate business logic in single-purpose Action classes.
 - Use the Action pattern when appropriate.
 - Use `handle` method to execute the action.
@@ -49,6 +35,7 @@
 - Place actions in the `App\Actions\*` directory.
 - Name actions with verbs that describe the operation (e.g., `CreateTodoAction`).
 - Example:
+
 ```php
 class CreateTodoAction
 {
@@ -61,13 +48,16 @@ class CreateTodoAction
         return $this->repository->create($request->validated());
     }
 }
+```
 
 #### 2.3.2 DTOs (Data Transfer Objects)
+
 - Use DTOs to transfer structured data between components.
 - Define them using constructor property promotion and, if possible, readonly properties.
 - Store them in the `App\DTOs\*` directory.
 - Name DTOs with nouns that describe the operation (e.g., `TodoDto`).
 - Example:
+
 ```php
 class TodoDto
 {
@@ -95,14 +85,17 @@ class TodoDto
         );
     }
 }
+```
 
 #### 2.3.3 Enums
+
 - Use PHP Enums for predefined sets of values.
 - Prefer backed enums when database storage is needed.
 - Organize them in the `App\Enums\*` directory.
 - No default values.
 - Name enums with nouns that describe the operation (e.g., `RecommendationType`).
 - Example:
+
 ```php
 enum RecommendationType: string
 {
@@ -122,11 +115,13 @@ enum RecommendationType: string
 ```
 
 #### 2.3.4 Services
+
 - Use Services to handle all business logic.
 - Use dependency injection when appropriate.
 - Store them in the `App\Services\*` directory.
 - Name services with nouns that describe the operation (e.g., `UserService`).
 - Example:
+
 ```php
 class UserService
 {
@@ -142,34 +137,41 @@ class UserService
 ```
 
 #### 2.3.5 Code Formatting
+
 - For method chaining, use multi-line formatting:
   - Example:
   // Correct:
-    ```php
-  $query->where('id', $id)
+
+```php
+$query->where('id', $id)
     ->where('name', $name)
     ->where('email', $email);
+```
 
  // Incorrect:
-  ```php
-  // Incorrect:
-  $query->where('id', $id)->where('name', $name)->where('email', $email);
-  ```
+
+```php
+$query->where('id', $id)->where('name', $name)->where('email', $email);
+```
 
 ## 3. PROJECT STRUCTURE
+
 - Follow Laravel's conventional directory structure without creating new folders without approval.
 - Remove .gitkeep files when adding a new file.
 
 ### 3.1 Controllers
+
 - Use Laravel's RESTful controllers, keeping each method small and focused.
 - Do not implement business logic in controllers; delegate it to Actions or other dedicated services.
 - Avoid abstract or base controllers.
 
 ### 3.2 HTTP Requests
+
 - Use FormRequest for all validations.
 - Name FormRequests according to their purpose (e.g., Create, Update, Delete).
 
 ### 3.3 Models
+
 - Follow Laravel naming conventions (singular, PascalCase).
 - Clearly define relationships using Eloquent methods.
 - Don't use `$fillable`; assign attributes explicitly.
@@ -180,6 +182,7 @@ class UserService
   - Name the property with the same name as the attribute and the `$` symbol.
   - In the relationships, use the name of the relationship method `@property-read Collection|Model[] $relationshipName`.
   - Example:
+
   ```php
   /**
    * @property-read int $id
@@ -195,12 +198,14 @@ class UserService
   ```
 
 ### 3.3.1 Repositories
+
 - Use Eloquent repositories for all database interactions.
 - Use interfaces for repository contracts.
 - Use dependency injection when appropriate.
 - Place repositories in the `App\Repositories\*` directory.
 - Name repositories with nouns that describe the operation (e.g., `ConversationRepository`).
 - Example:
+
 ```php
 interface ConversationRepository
 {
@@ -209,15 +214,18 @@ interface ConversationRepository
 ```
 
 ### 3.3.2 Factories
+
 - Use factories to generate test data.
 - Use the `factory()` method to generate test data.
 
 ### 3.3.3 Resources and Collections
+
 - Use resources and collections for API responses.
 - Use the `resource()` method to create resources.
 - Use the `collection()` method to create collections.
 - Use the `toArray()` method to convert resources to arrays.
 - Example:
+
 ```php
 class TodoResource extends JsonResource
 {
@@ -232,15 +240,19 @@ class TodoResource extends JsonResource
     }
 }
 ```
+
 - use the `toResourceCollection()` method to convert collections to resource collections.
 - Example:
     // Correct:
+
     ```php
         return Todo->where('user_id', $request->user()->id)
             ->toResourceCollection();
         }
     ```
+
     // Incorrect:
+
     ```php
         return TodoResourceCollection::make(
             Todo::where('user_id', $request->user()->id)->get()
@@ -248,17 +260,20 @@ class TodoResource extends JsonResource
     ```
 
 ### 3.4 Views
+
 - Use Blade and Blade Components to standardize the UI.
 - Use kebab-case for file and directory names (e.g., `user-info.blade.php`).
 - Keep the UI minimal and consistent, using Tailwind CSS.
 - Do not implement business logic in views.
 
 ### 3.5 Routes
+
 - Group and name routes appropriately.
 - Use route model binding and secure routes with middleware.
 - Consider API resources for building RESTful APIs.
 
 ### 3.6 Migrations
+
 - Design efficient and normalized database schemas.
 - Use descriptive names for tables and columns.
 - Don't use `cascadeOnDelete` in the migrations files
@@ -267,22 +282,27 @@ class TodoResource extends JsonResource
 - Do not remove migrations without approval.
 
 ### 3.7 React Components
+
 - Use Tailwind CSS for styling.
 
 ### 4. TESTING
+
 - Use Pest PHP for all tests.
 - Run `composer test` before finalizing.
 - Do not remove tests without approval.
 - All code must be tested.
 - Generate a {Model}Factory with each model.
 - When multiple chain methods are used, use the `and` method to chain them.
-    - Example:
+  - Example:
+
     ```php
     expect($response)->toBeOk()
         ->and($response->json('data'))->toBeArray()
         ->and($response->json('data.0'))->toBeArray()
     ```
+
     Incorrect:
+
     ```php
         expect($response)->toBeOk();
         expect($response)->and($response->json('data'));
@@ -294,6 +314,7 @@ class TodoResource extends JsonResource
 - Always create a test `to json` for every models
 
 ### 4.1 Test Directory Structure
+
 - Console: tests/Feature/Console
 - Controllers: tests/Feature/Http
 - Actions: tests/Unit/Actions
@@ -303,6 +324,7 @@ class TodoResource extends JsonResource
 - Repositories: tests/Unit/Repositories
 
 ### 4.2 Test Documentation
+
 - Use PHPDoc annotations to document tests.
 - Include test descriptions and expected outcomes.
 - Document test dependencies and setup requirements.
@@ -310,21 +332,25 @@ class TodoResource extends JsonResource
 - Don't add @return @test and so on in the annotations unless is necessary.
 
 ### 4.3 Test Naming
+
 - The test name must be descriptive and in English.
 - The test name must be a verb.
 
 ### 5. Code Refactoring
+
 - Refactor code when necessary.
 - Write clean, readable, and maintainable code.
 - Follow best practices and coding standards.
 - Document code when necessary.
 
 ### 6. PERFORMANCE
+
 - Use eager loading to avoid N+1 query issues.
 - Implement caching strategies where appropriate.
 - Use pagination for large datasets.
 
 ### 7. COMMUNICATION & RESPONSES
+
 - Explain not only how a solution works but also why it works.
 - Suggest the use of Actions, DTOs, and Enums where applicable.
 - Provide code examples and detailed explanations when necessary.

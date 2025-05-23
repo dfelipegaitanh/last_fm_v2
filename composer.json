@@ -77,8 +77,8 @@
             "vendor/bin/pint"
         ],
         "php-lint" : [
-            "vendor/bin/pint",
-            "vendor/bin/rector"
+            "vendor/bin/pint $(git diff --name-only --diff-filter=ACM)",
+            "vendor/bin/rector $(git diff --name-only --diff-filter=ACM)"
         ],
         "lint" : [
             "vendor/bin/pint",

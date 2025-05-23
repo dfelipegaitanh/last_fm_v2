@@ -4,10 +4,18 @@ declare(strict_types=1);
 
 namespace App\Models\LastFm;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $mbid
+ * @property string $url
+ * @property-read Collection|Track[] $tracks
+ */
 class Artist extends Model
 {
     use HasFactory;
@@ -19,7 +27,6 @@ class Artist extends Model
     ];
 
     protected $hidden = [
-        'id',
         'created_at',
         'updated_at',
     ];
@@ -31,7 +38,7 @@ class Artist extends Model
         return $this->hasMany(Track::class);
     }
 
-    protected static function newFactory()
+    protected static function newFactory(): ArtistFactory
     {
         return \Database\Factories\LastFm\ArtistFactory::new();
     }

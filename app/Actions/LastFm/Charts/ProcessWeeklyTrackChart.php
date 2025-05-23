@@ -23,7 +23,7 @@ class ProcessWeeklyTrackChart
                 'type' => ChartType::WEEKLY,
                 'user_id' => $user->id,
             ],
-            ['processed' => false]
+            ['processed' => $reprocess]
         );
 
         /*

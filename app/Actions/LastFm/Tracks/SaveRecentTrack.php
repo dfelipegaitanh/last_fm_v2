@@ -29,7 +29,7 @@ readonly class SaveRecentTrack
         $recentTrack = $recentTracks->first();
 
         $trackInfo = $this->lastFmApi->getTrackInfo(
-            artist: $recentTrack->artist,
+            artist: $recentTrack->artist->name,
             track: $recentTrack->name,
             username: $user->lastfm_user
         );

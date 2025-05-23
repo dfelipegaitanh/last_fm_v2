@@ -14,6 +14,7 @@ readonly class FetchWeeklyTrackChart
         private LastFmApi $lastFmApi,
     ) {}
 
+    /** @return Collection<int, TrackDTO> */
     public function handle(string $username, int $from, int $to): Collection
     {
         return $this->lastFmApi->getWeeklyTrackChart($username, $from, $to)
