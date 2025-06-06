@@ -20,22 +20,8 @@ class WeeklyChartFactory extends Factory
             'from_timestamp' => $from,
             'to_timestamp' => $from + 604800, // Una semana en segundos
             'type' => ChartType::random(),
-            'processed' => $this->faker->boolean(),
+            'completed' => $this->faker->boolean(),
         ];
-    }
-
-    public function processed(): self
-    {
-        return $this->state(fn (array $attributes): array => [
-            'processed' => true,
-        ]);
-    }
-
-    public function unprocessed(): self
-    {
-        return $this->state(fn (array $attributes): array => [
-            'processed' => false,
-        ]);
     }
 
     public function weekly(): self

@@ -12,6 +12,7 @@ class ArtistDTO extends Data
         public readonly string $name,
         public readonly string $url,
         public readonly string $mbid,
+        public readonly int $playcount,
     ) {}
 
     public static function fromApiResponse(array $data): self
@@ -20,6 +21,7 @@ class ArtistDTO extends Data
             name: $data['name'] ?? $data['#text'] ?? '',
             url: $data['url'] ?? '',
             mbid: $data['mbid'] ?? '',
+            playcount: (int) ($data['playcount'] ?? 0),
         );
     }
 
@@ -29,6 +31,7 @@ class ArtistDTO extends Data
             name: $data['#text'] ?? '',
             url: $data['url'] ?? '',
             mbid: $data['mbid'] ?? '',
+            playcount: (int) ($data['playcount'] ?? 0),
         );
     }
 }

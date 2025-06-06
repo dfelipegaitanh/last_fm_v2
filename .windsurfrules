@@ -33,6 +33,7 @@
 - Use `handle` method to execute the action.
 - Use dependency injection when appropriate.
 - Place actions in the `App\Actions\*` directory.
+- All actions must be `readonly`.
 - Name actions with verbs that describe the operation (e.g., `CreateTodoAction`).
 - Example:
 
@@ -55,6 +56,7 @@ class CreateTodoAction
 - Use DTOs to transfer structured data between components.
 - Define them using constructor property promotion and, if possible, readonly properties.
 - Store them in the `App\DTOs\*` directory.
+- All DTOs must be `readonly`.
 - Name DTOs with nouns that describe the operation (e.g., `TodoDto`).
 - Example:
 

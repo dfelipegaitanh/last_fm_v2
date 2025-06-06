@@ -6,7 +6,7 @@ namespace App\Actions\LastFm\Albums;
 
 use App\Actions\LastFm\Artists\SaveArtist;
 use App\DTOs\LastFm\AlbumDTO;
-use App\DTOs\LastFm\ArtistDTO;
+use App\DTOs\LastFm\ArtistInfoDTO;
 use App\Models\LastFm\Album;
 
 readonly class SaveAlbum
@@ -17,10 +17,11 @@ readonly class SaveAlbum
 
     public function handle(AlbumDTO $albumDTO): Album
     {
-        $artistDTO = new ArtistDTO(
+        $artistDTO = new ArtistInfoDTO(
             name: $albumDTO->artist->name,
             url: '',
             mbid: '',
+            playcount: 0,
         );
 
         $artist = $this->saveArtist->handle($artistDTO);

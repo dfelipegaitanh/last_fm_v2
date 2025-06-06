@@ -4,24 +4,27 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\LastFm;
 
-use App\Actions\LastFm\Artists\SaveArtist;
+use App\Actions\LastFm\Charts\DeleteWeeklyTrackCharts;
 use App\Actions\LastFm\Charts\FetchWeeklyChartList;
 use App\Actions\LastFm\Charts\FetchWeeklyTrackChart;
 use App\Actions\LastFm\Charts\ProcessWeeklyTrackChart;
-use App\DTOs\LastFm\ArtistDTO;
-use App\DTOs\LastFm\TrackDTO;
+use App\Actions\LastFm\Charts\ProcessWeeklyTrackChartItems;
+use App\Actions\LastFm\Charts\ShouldProcessWeeklyChart;
+use App\Actions\LastFm\Tracks\FetchTrackInfo;
+use App\Actions\LastFm\Tracks\SaveTrack;
 use App\DTOs\LastFm\WeeklyChartDTO;
-use App\Models\LastFm\Artist;
 use App\Models\LastFm\Chart;
+use App\Models\LastFm\Track;
 use App\Models\User;
+use App\Services\LastFm\ArtistCacheService;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
 use function Laravel\Prompts\alert;
 use function Laravel\Prompts\info;
-use function Laravel\Prompts\select;
-use function Laravel\Prompts\text;
+use function Laravel\Prompts\progress;
+use function Laravel\Prompts\table;
 
 class ImportWeeklyChartsCommand extends Command
 {
@@ -37,13 +40,18 @@ class ImportWeeklyChartsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'lastfm:import-weekly-charts ';
+    protected $signature = 'lastfm:import-weekly-charts';
+
+    private User $user;
 
     public function __construct(
-        private readonly ProcessWeeklyTrackChart $processWeeklyTrackChart,
+        private readonly ArtistCacheService $artistCacheService,
+        private readonly DeleteWeeklyTrackCharts $deleteWeeklyTrackCharts,
         private readonly FetchWeeklyChartList $fetchWeeklyChartList,
         private readonly FetchWeeklyTrackChart $fetchWeeklyTrackChart,
-        private readonly SaveArtist $saveArtist,
+        private readonly ProcessWeeklyTrackChart $processWeeklyTrackChart,
+        private readonly ProcessWeeklyTrackChartItems $processWeeklyTrackChartItems,
+        private readonly ShouldProcessWeeklyChart $shouldProcessWeeklyChart,
     ) {
         parent::__construct();
     }
@@ -51,9 +59,8 @@ class ImportWeeklyChartsCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle(
-
-    ): int {
+    public function handle(): int
+    {
 
         //        $username = text(
         //            label: 'Last.fm username',
@@ -69,15 +76,15 @@ class ImportWeeklyChartsCommand extends Command
         //            default: 1
         //        );
         $username = 'svigle';
-        $reprocess = true;
+        $reprocess = (bool) rand(0, 10);
 
         try {
-            $user = User::where('lastfm_user', $username)
+            $this->user = User::where('lastfm_user', $username)
                 ->firstOrFail();
 
-            info("Importing weekly charts for Last.fm user: $user->lastfm_user");
+            info("Importing weekly charts for Last.fm user: {$this->user->lastfm_user}");
 
-            $charts = $this->fetchWeeklyChartList->handle($user);
+            $charts = $this->fetchWeeklyChartList->handle($this->user);
             info("Found {$charts->count()} weekly charts");
 
             if ($charts->isEmpty()) {
@@ -88,74 +95,58 @@ class ImportWeeklyChartsCommand extends Command
 
             foreach ($charts as $chart) {
 
-                $weeklyChart = $this->getWeeklyChart(
-                    $chart,
-                    $reprocess,
-                    $user
+                $weeklyChart = $this->processWeeklyTrackChart->handle(
+                    from: $chart->from,
+                    to: $chart->to,
+                    user: $this->user
                 );
 
-                if ($weeklyChart->completed === true) {
-                    $this->info('Period From '.$weeklyChart->from_formatted_date.' To '.$weeklyChart->to_formatted_date.' has already been processed');
+                if ($reprocess) {
+                    $this->deleteWeeklyTrackCharts->handle($weeklyChart);
+                    $weeklyChart->markAsIncomplete();
+                }
+
+                if (! $this->shouldProcessWeeklyChart->handle($weeklyChart, $reprocess)) {
+                    info('Period From '.$weeklyChart->from_formatted_date.' To '.$weeklyChart->to_formatted_date.' has already been processed');
 
                     continue;
                 }
 
-                //                if ($reprocess) {
-                //                    $weeklyChart->update(['completed' => true, 'processed' => true]);
-                //                }
-
-                $tracks = $this->fetchWeeklyTrackChart->handle(username: $user->lastfm_user, from: $chart->from, to: $chart->to);
+                $tracks = $this->fetchWeeklyTrackChart->handle(username: $this->user->lastfm_user, chart: $weeklyChart);
                 info(message: "Period From {$weeklyChart->from_formatted_date} To {$weeklyChart->to_formatted_date} has {$tracks->count()} songs");
 
                 if ($tracks->isEmpty()) {
-                    $weeklyChart->update([
-                        'completed' => true,
-                        'processed' => true,
-                    ]);
+                    $weeklyChart->markAsComplete();
 
                     continue;
                 }
 
-                $tracks->each(function (TrackDTO $track): void {
+                $progress = progress(label: 'Processing tracks', steps: $tracks->count());
+                $progress->start();
 
-                    $lastFmArtist = $this->getLastFmArtist($track->artist);
+                $this->processWeeklyTrackChartItems->handle($weeklyChart, $tracks, $this->user);
 
+                $progress->finish();
 
-                });
+                table(['Song', 'Artist', 'Album', 'Playcount'], $weeklyChart->tracks->map(fn (Track $track): array => [
+                    $track->name,
+                    $track->artist->name,
+                    $track->album?->title,
+                    $track->pivot->playcount,
+                ])->toArray());
 
-                info("Found {$tracks->count()} tracks for this chart");
+                info("Found {$weeklyChart->tracks->count()} tracks for this chart");
 
-                //                $progressBar->advance();
+                $weeklyChart->markAsComplete();
+
+                $this->newLine(2);
+
+                info('Weekly charts import completed successfully');
+
             }
 
-            //            $progressBar->finish();
+            $this->artistCacheService->clearCache();
 
-            foreach ($charts as $chartDTO) {
-
-                //                $weeklyChart = $this->getWeaklyChart($processWeeklyTrackChart, $chartDTO, $reprocess, $user);
-                //
-                //                if (true or $weeklyChart->completed === true && ! $reprocess) {
-                //                    $this->info('Period From '.$weeklyChart->from_formatted.' To '.$weeklyChart->to_formatted.' has already been processed');
-                //                }
-                //
-                //                dd($weeklyChart);
-                //
-                //                if ($weeklyChart->processed && $reprocess) {
-                //                    // First, remove existing tracks for this user and chart
-                //                    $weeklyChart->tracksForUser($user)->detach();
-                //                    // Then process it again
-                //                    $weeklyChart->processed = false;
-                //                    $weeklyChart->save();
-                //                    $weeklyChart = $processWeeklyTrackChart->handle(
-                //                        from: $chartDTO->from,
-                //                        to: $chartDTO->to
-                //                    );
-                //                }
-
-                //                $progressBar->advance();
-            }
-
-            //            $progressBar->finish();
             $this->newLine(2);
 
             $this->info('Weekly charts import completed successfully');
@@ -166,9 +157,9 @@ class ImportWeeklyChartsCommand extends Command
 
             // Only log user ID if the user was found
             $logContext = ['exception' => $e];
-            if (isset($user) && $user) {
-                $logContext['user_id'] = $user->id;
-                $logContext['lastfm_user'] = $user->lastfm_user;
+            if (isset($this->user) && $this->user) {
+                $logContext['user_id'] = $this->user->id;
+                $logContext['lastfm_user'] = $this->user->lastfm_user;
             } else {
                 $logContext['username_provided'] = $username;
             }
@@ -179,18 +170,12 @@ class ImportWeeklyChartsCommand extends Command
         }
     }
 
-    private function getLastFmArtist(ArtistDTO $artist): Artist
-    {
-        return $this->saveArtist->handle($artist);
-    }
-
-    private function getWeeklyChart(WeeklyChartDTO $chartDTO, bool $reprocess, User $user): Chart
+    private function getWeeklyChart(WeeklyChartDTO $chartDTO): Chart
     {
         return $this->processWeeklyTrackChart->handle(
             from: $chartDTO->from,
             to: $chartDTO->to,
-            reprocess: $reprocess,
-            user: $user
+            user: $this->user
         );
     }
 }

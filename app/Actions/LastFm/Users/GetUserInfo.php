@@ -15,7 +15,7 @@ use App\Services\LastFm\Api\LastFmApi;
 /**
  * Action to synchronize user information from LastFm API and update global statistics.
  */
-class GetUserInfo implements GetUserInfoInterface
+readonly class GetUserInfo implements GetUserInfoInterface
 {
     public function __construct(
         private LastFmApi $lastFmApi,

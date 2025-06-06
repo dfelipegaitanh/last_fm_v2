@@ -21,13 +21,8 @@ readonly class SaveTrack
     {
 
         $artist = $this->saveArtist->handle($trackInfo->artist);
+        $album = $trackInfo->album !== null ? $this->saveAlbum->handle($trackInfo->album) : null;
 
-        $album = null;
-        if ($trackInfo->album instanceof AlbumDTO) {
-            $album = $this->saveAlbum->handle($trackInfo->album);
-        }
-
-        // Guardamos el track
         return Track::firstOrCreate(
             [
                 'name' => $trackInfo->name,

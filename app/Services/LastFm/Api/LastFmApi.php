@@ -6,15 +6,35 @@ namespace App\Services\LastFm\Api;
 
 use App\DTOs\LastFm\AlbumDTO;
 use App\DTOs\LastFm\ArtistDTO;
+use App\DTOs\LastFm\ArtistInfoDTO;
 use App\DTOs\LastFm\TagDTO;
 use App\DTOs\LastFm\TrackDTO;
 use App\DTOs\LastFm\TrackInfoDTO;
 use App\DTOs\LastFm\UserInfoDTO;
+use App\Models\LastFm\Chart;
 use Illuminate\Support\Collection;
-use RuntimeException;
 
 class LastFmApi extends LastFmApiClient
 {
+    public function getArtistInfo(string $username, string $artist, ?string $mbid = null): ArtistInfoDTO
+    {
+
+        $params = [
+            'artist'      => $artist,
+            'user'        => $username,
+            'autocorrect' => 1,
+        ];
+        if ($mbid !== null) {
+            $params['mbid'] = $mbid;
+        }
+        $response = $this->get('artist.getInfo', $params);
+
+        $artistData = $response->json('artist');
+
+        return ArtistInfoDTO::fromApiResponse($artistData);
+
+    }
+
     public function getLovedTracks(
         string $username,
         int $limit = 50,
@@ -140,12 +160,11 @@ class LastFmApi extends LastFmApiClient
         string $track,
         ?string $username = null,
         ?string $mbid = null,
-        bool $autocorrect = true,
     ): TrackInfoDTO {
         $params = [
             'track' => $track,
             'artist' => $artist,
-            'autocorrect' => (int) $autocorrect,
+            'autocorrect' => 1,
         ];
 
         if ($username !== null) {
@@ -160,7 +179,7 @@ class LastFmApi extends LastFmApiClient
         $trackData = $response->json('track');
 
         if (! $trackData) {
-            throw new RuntimeException('Track not found or invalid response from Last.fm');
+            return TrackInfoDTO::fromParams($params);
         }
 
         return TrackInfoDTO::fromApiResponse($trackData);
@@ -214,20 +233,15 @@ class LastFmApi extends LastFmApiClient
 
     public function getWeeklyArtistChart(
         string $username,
-        ?int $from = null,
-        ?int $to = null,
+        Chart $chart,
     ): Collection {
-        $params = ['user' => $username];
 
-        if ($from !== null) {
-            $params['from'] = $from;
-        }
-
-        if ($to !== null) {
-            $params['to'] = $to;
-        }
-
-        $response = $this->get('user.getWeeklyArtistChart', $params);
+        $response = $this->get('user.getWeeklyArtistChart', [
+            'user' => $username,
+            'from' => $chart->from,
+            'to' => $chart->to,
+            'autocorrect' => 1,
+        ]);
         $artists = $response->json('weeklyartistchart.artist');
 
         return collect($artists)->map(fn (array $artist): ArtistDTO => ArtistDTO::fromApiResponse($artist));
@@ -260,6 +274,6 @@ class LastFmApi extends LastFmApiClient
         $response = $this->get('user.getWeeklyTrackChart', $params);
         $tracks = $response->json('weeklytrackchart.track');
 
-        return collect($tracks)->map(fn (array $track): TrackDTO => TrackDTO::fromApiResponse($track));
+        return collect($tracks)->map(fn (array $track): TrackInfoDTO => TrackInfoDTO::fromApiResponse($track));
     }
 }

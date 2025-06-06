@@ -74,8 +74,7 @@ test('it creates a new weekly chart when none exists', function (): void {
         ->toBeInstanceOf(Chart::class)
         ->from_timestamp->toBe($from)
         ->to_timestamp->toBe($to)
-        ->type->toBe(ChartType::WEEKLY)
-        ->processed->toBeTrue();
+        ->type->toBe(ChartType::WEEKLY);
 
     expect(Track::count())->toBe(2);
 
@@ -103,7 +102,6 @@ test('it reuses existing weekly chart', function (): void {
         'from_timestamp' => $from,
         'to_timestamp' => $to,
         'type' => ChartType::WEEKLY,
-        'processed' => false,
     ]);
 
     $mockFetchAction = mock(FetchWeeklyTrackChart::class);
@@ -138,7 +136,6 @@ test('it reuses existing weekly chart', function (): void {
 
     // Assert
     expect($result->id)->toBe($existingChart->id);
-    expect($result->processed)->toBeTrue();
     expect(Track::count())->toBe(1);
     expect($result->tracksForUser($user)->get())->toHaveCount(1);
 });
@@ -158,7 +155,6 @@ test('it returns existing chart without processing if tracks already exist for u
         'from_timestamp' => $from,
         'to_timestamp' => $to,
         'type' => ChartType::WEEKLY,
-        'processed' => true,
     ]);
 
     // Create existing track
@@ -188,7 +184,6 @@ test('it returns existing chart without processing if tracks already exist for u
 
     // Assert
     expect($result->id)->toBe($existingChart->id);
-    expect($result->processed)->toBeTrue();
     expect($result->tracksForUser($user)->get())->toHaveCount(1);
     expect($result->tracksForUser($user)->first()->name)->toBe('Existing Track');
 });
