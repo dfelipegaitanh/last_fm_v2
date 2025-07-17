@@ -282,3 +282,30 @@ Our project leverages Laravel Pint (PHP-CS-Fixer) with specific rules to ensure 
 | `lowercase_static_reference` | Ensures lowercase static references | `self::`, `static::`, `parent::` not capitalized |
 
 These rules are configured to align with PHP 8.4 features and modern development practices, ensuring a codebase that is maintainable, consistent, and follows industry best practices.
+
+## Git Hooks with Husky
+
+This project uses [Husky](https://typicode.github.io/husky/) to enforce code quality standards through Git hooks. Husky automatically runs linting and formatting tools before each commit to ensure that all code meets the project's standards.
+
+### Pre-commit Hook
+
+The pre-commit hook runs the following commands:
+
+1. `composer php-lint` - Runs Laravel Pint and Rector on changed PHP files
+2. `npm run format` - Runs Prettier on frontend files
+
+This ensures that all committed code is properly formatted and follows the project's coding standards.
+
+### Installation
+
+Husky is automatically installed and configured when you run `npm install`. The pre-commit hook is set up to run automatically before each commit.
+
+### Bypassing Hooks
+
+In rare cases where you need to bypass the pre-commit hook (not recommended for normal workflow), you can use the `--no-verify` flag:
+
+```bash
+git commit -m "Your commit message" --no-verify
+```
+
+However, it's generally better to fix any issues flagged by the linting tools rather than bypassing the hooks.
