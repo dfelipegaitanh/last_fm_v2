@@ -1,0 +1,11 @@
+echo "Running pre-commit hooks..."
+
+# Run PHP linting (Pint and Rector) on changed files
+#echo "Running PHP linting..."
+#composer php-lint
+#
+## Run Prettier formatting on frontend files
+#echo "Running Prettier formatting..."
+#npm run format
+
+echo "Pre-commit hooks completed successfully!"

@@ -1,0 +1,9 @@
+parameters:
+    paths:
+        - app
+        - config
+        - database
+        - routes
+    excludePaths:
+        - tests/*
+    level: 5

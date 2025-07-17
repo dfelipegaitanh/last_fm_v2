@@ -1,0 +1,28 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Actions\LastFm\Charts;
+
+use App\DTOs\LastFm\WeeklyChartDTO;
+use App\Models\User;
+use App\Services\LastFm\Api\LastFmApi;
+use Illuminate\Support\Collection;
+
+class FetchWeeklyChartList
+{
+    public function __construct(
+        private readonly LastFmApi $lastFmApi,
+    ) {}
+
+    /**
+     * @return Collection<int, WeeklyChartDTO>
+     */
+    public function handle(User $user): Collection
+    {
+        $charts = $this->lastFmApi
+            ->getWeeklyChartList(username: $user->lastfm_user);
+
+        return $charts->map(fn (array $chart): WeeklyChartDTO => WeeklyChartDTO::fromApiResponse($chart));
+    }
+}
