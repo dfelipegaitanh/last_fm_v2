@@ -8,6 +8,8 @@ Based on an analysis of the current codebase, here are some ideas for future dev
 Implement a dashboard or visualization layer to display Last.fm data in a more user-friendly and insightful way.
 
 ### Implementation Ideas
+- Correction of song and artist names
+- Statistics about an artist and its tracks
 - Create interactive charts and graphs for weekly listening habits
 - Implement heatmaps to show listening patterns by time of day/week
 - Develop artist and genre distribution visualizations
