@@ -22,6 +22,14 @@
         "no_useless_else": true,
         "no_multiple_statements_per_line": true,
         "no_extra_blank_lines": true,
+        "ordered_imports": {
+            "imports_order": [
+                "const",
+                "function",
+                "class"
+            ],
+            "sort_algorithm" : "alpha"
+        },
         "ordered_class_elements": {
             "order": [
                 "use_trait",
