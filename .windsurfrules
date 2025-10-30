@@ -1,0 +1,359 @@
+# MUST
+
+- You are an expert in PHP, Laravel 12, TypeScript, <https://fluxui.dev/>, Pest, and Tailwind.
+- You're also an expert in AlpineJs.
+- Always answer in spanish.
+- Remember that all variables, methods, and classes must be named in English.
+- It's important that every `Controller` and `Component` works with their own Service.
+- Within the Service, use the actions, models, and other services as needed.
+- There must be NO logic in the `Controller` or `Component`, only the Service.
+- If any method return an array in the @return annotation, it must be something like `array{message: string, is_from_ai: bool}` and so on. A fully array type must be used.
+- Every documentation, comments, text content, etc. must be in English.
+
+## 1. WORKFLOW
+
+- Request permission before creating new directories.
+- Do not change dependencies without prior approval.
+
+## 2. ARCHITECTURE & PATTERNS
+
+### 2.1 General Principles
+
+- Use the latest stable PHP release (currently 8.3) and the latest Laravel features.
+- Follow SOLID principles and best coding practices.
+- Use clear and meaningful variable and method names.
+- Document code when necessary.
+
+### 2.2 Code Patterns
+
+#### 2.2.1 Action Pattern
+
+- Encapsulate business logic in single-purpose Action classes.
+- Use the Action pattern when appropriate.
+- Use `handle` method to execute the action.
+- Use dependency injection when appropriate.
+- Place actions in the `App\Actions\*` directory.
+- All actions must be `readonly`.
+- Name actions with verbs that describe the operation (e.g., `CreateTodoAction`).
+- Example:
+
+```php
+class CreateTodoAction
+{
+    public function __construct(
+        private TodoRepository $repository,
+    ) {}
+
+    public function handle(CreateTodoRequest $request): Todo
+    {
+        return $this->repository->create($request->validated());
+    }
+}
+```
+
+#### 2.3.2 DTOs (Data Transfer Objects)
+
+- Use DTOs to transfer structured data between components.
+- Define them using constructor property promotion and, if possible, readonly properties.
+- Store them in the `App\DTOs\*` directory.
+- All DTOs must be `readonly`.
+- Name DTOs with nouns that describe the operation (e.g., `TodoDto`).
+- Example:
+
+```php
+class TodoDto
+{
+    public function __construct(
+        public string $title,
+        public string $description,
+        public bool $completed,
+    ) {}
+
+    public static function fromModel(Todo $todo)
+    {
+        return new self(
+            title: $todo->title,
+            description: $todo->description,
+            completed: $todo->completed,
+        );
+    }
+
+    public function fromArray(array $data): self
+    {
+        return new self(
+            title: $data['title'] ?? '',
+            description: $data['description'] ?? '',
+            completed: $data['completed'] ?? false,
+        );
+    }
+}
+```
+
+#### 2.3.3 Enums
+
+- Use PHP Enums for predefined sets of values.
+- Prefer backed enums when database storage is needed.
+- Organize them in the `App\Enums\*` directory.
+- No default values.
+- Name enums with nouns that describe the operation (e.g., `RecommendationType`).
+- Example:
+
+```php
+enum RecommendationType: string
+{
+    case LIKE = 'like';
+    case DISLIKE = 'dislike';
+    case NONE = 'none';
+
+    public static function values(): array
+    {
+        return [
+            self::LIKE->value,
+            self::DISLIKE->value,
+            self::NONE->value,
+        ];
+    }
+}
+```
+
+#### 2.3.4 Services
+
+- Use Services to handle all business logic.
+- Use dependency injection when appropriate.
+- Store them in the `App\Services\*` directory.
+- Name services with nouns that describe the operation (e.g., `UserService`).
+- Example:
+
+```php
+class UserService
+{
+    public function __construct(
+        private UserRepository $repository,
+    ) {}
+
+    public function create(CreateUserRequest $request): User
+    {
+        return $this->repository->create($request->validated());
+    }
+}
+```
+
+#### 2.3.5 Code Formatting
+
+- For method chaining, use multi-line formatting:
+  - Example:
+  // Correct:
+
+```php
+$query->where('id', $id)
+    ->where('name', $name)
+    ->where('email', $email);
+```
+
+ // Incorrect:
+
+```php
+$query->where('id', $id)->where('name', $name)->where('email', $email);
+```
+
+## 3. PROJECT STRUCTURE
+
+- Follow Laravel's conventional directory structure without creating new folders without approval.
+- Remove .gitkeep files when adding a new file.
+
+### 3.1 Controllers
+
+- Use Laravel's RESTful controllers, keeping each method small and focused.
+- Do not implement business logic in controllers; delegate it to Actions or other dedicated services.
+- Avoid abstract or base controllers.
+
+### 3.2 HTTP Requests
+
+- Use FormRequest for all validations.
+- Name FormRequests according to their purpose (e.g., Create, Update, Delete).
+
+### 3.3 Models
+
+- Follow Laravel naming conventions (singular, PascalCase).
+- Clearly define relationships using Eloquent methods.
+- Don't use `$fillable`; assign attributes explicitly.
+- Avoid using `DB::` directly; use `Model::query()` instead.
+- Add annotations PHPDoc `@property-read` for each relationship and attribute.
+  - Data type (int, string, etc.)
+  - If an attribute is nullable, add `@property-read ?string $attribute`
+  - Name the property with the same name as the attribute and the `$` symbol.
+  - In the relationships, use the name of the relationship method `@property-read Collection|Model[] $relationshipName`.
+  - Example:
+
+  ```php
+  /**
+   * @property-read int $id
+   * @property-read string $name
+   * @property-read string $email
+   * @property-read ?string $email_verified_at
+   * @property-read string $password
+   * @property-read string $remember_token
+   * @property-read CarbonImmutable $created_at
+   * @property-read CarbonImmutable $updated_at
+   * @property-read Collection|Conversation[] $conversations
+   */
+  ```
+
+### 3.3.1 Repositories
+
+- Use Eloquent repositories for all database interactions.
+- Use interfaces for repository contracts.
+- Use dependency injection when appropriate.
+- Place repositories in the `App\Repositories\*` directory.
+- Name repositories with nouns that describe the operation (e.g., `ConversationRepository`).
+- Example:
+
+```php
+interface ConversationRepository
+{
+    public function create(array $data): Conversation;
+}
+```
+
+### 3.3.2 Factories
+
+- Use factories to generate test data.
+- Use the `factory()` method to generate test data.
+
+### 3.3.3 Resources and Collections
+
+- Use resources and collections for API responses.
+- Use the `resource()` method to create resources.
+- Use the `collection()` method to create collections.
+- Use the `toArray()` method to convert resources to arrays.
+- Example:
+
+```php
+class TodoResource extends JsonResource
+{
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'completed' => $this->completed,
+        ];
+    }
+}
+```
+
+- use the `toResourceCollection()` method to convert collections to resource collections.
+- Example:
+    // Correct:
+
+    ```php
+        return Todo->where('user_id', $request->user()->id)
+            ->toResourceCollection();
+        }
+    ```
+
+    // Incorrect:
+
+    ```php
+        return TodoResourceCollection::make(
+            Todo::where('user_id', $request->user()->id)->get()
+        )
+    ```
+
+### 3.4 Views
+
+- Use Blade and Blade Components to standardize the UI.
+- Use kebab-case for file and directory names (e.g., `user-info.blade.php`).
+- Keep the UI minimal and consistent, using Tailwind CSS.
+- Do not implement business logic in views.
+
+### 3.5 Routes
+
+- Group and name routes appropriately.
+- Use route model binding and secure routes with middleware.
+- Consider API resources for building RESTful APIs.
+
+### 3.6 Migrations
+
+- Design efficient and normalized database schemas.
+- Use descriptive names for tables and columns.
+- Don't use `cascadeOnDelete` in the migrations files
+- Use nullable columns when appropriate.
+- Use timestamps for created_at and updated_at columns.
+- Do not remove migrations without approval.
+
+### 3.7 React Components
+
+- Use Tailwind CSS for styling.
+
+### 4. TESTING
+
+- Use Pest PHP for all tests.
+- Run `composer test` before finalizing.
+- Do not remove tests without approval.
+- All code must be tested.
+- Generate a {Model}Factory with each model.
+- When multiple chain methods are used, use the `and` method to chain them.
+  - Example:
+
+    ```php
+    expect($response)->toBeOk()
+        ->and($response->json('data'))->toBeArray()
+        ->and($response->json('data.0'))->toBeArray()
+    ```
+
+    Incorrect:
+
+    ```php
+        expect($response)->toBeOk();
+        expect($response)->and($response->json('data'));
+        expect($response)->and($response->json('data.0'));
+    ```
+
+- Create test for all files you create.
+- Always create a test `to array` for every models
+- Always create a test `to json` for every models
+
+### 4.1 Test Directory Structure
+
+- Console: tests/Feature/Console
+- Controllers: tests/Feature/Http
+- Actions: tests/Unit/Actions
+- Models: tests/Unit/Models
+- Jobs: tests/Unit/Jobs
+- Services: tests/Unit/Services
+- Repositories: tests/Unit/Repositories
+
+### 4.2 Test Documentation
+
+- Use PHPDoc annotations to document tests.
+- Include test descriptions and expected outcomes.
+- Document test dependencies and setup requirements.
+- The Documentation MUST be in English.
+- Don't add @return @test and so on in the annotations unless is necessary.
+
+### 4.3 Test Naming
+
+- The test name must be descriptive and in English.
+- The test name must be a verb.
+
+### 5. Code Refactoring
+
+- Refactor code when necessary.
+- Write clean, readable, and maintainable code.
+- Follow best practices and coding standards.
+- Document code when necessary.
+
+### 6. PERFORMANCE
+
+- Use eager loading to avoid N+1 query issues.
+- Implement caching strategies where appropriate.
+- Use pagination for large datasets.
+
+### 7. COMMUNICATION & RESPONSES
+
+- Explain not only how a solution works but also why it works.
+- Suggest the use of Actions, DTOs, and Enums where applicable.
+- Provide code examples and detailed explanations when necessary.
+- Justify recommendations based on best practices and official Laravel/PHP documentation.

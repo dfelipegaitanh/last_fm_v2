@@ -1,0 +1,28 @@
+<?php
+
+declare(strict_types=1);
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function down(): void
+    {
+        Schema::table('last_fm_global_songs_statistics', function (Blueprint $table) {
+            $table->dropForeign(['track_id']);
+            $table->dropColumn('track_id');
+        });
+    }
+
+    public function up(): void
+    {
+        Schema::table('last_fm_global_songs_statistics', function (Blueprint $table) {
+            $table->foreignId('track_id')
+                ->nullable()
+                ->after('user_id')
+                ->constrained('last_fm_tracks');
+        });
+    }
+};
